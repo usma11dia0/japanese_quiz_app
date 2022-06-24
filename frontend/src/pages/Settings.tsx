@@ -9,7 +9,7 @@ import { CATEGORY, DIFFICULTY, TYPE } from "../features/types";
 
 export const Settings = () => {
   const { response, error, loading } = useAxios({ url: "/api_category.php" });
-  console.log(response);
+  // console.log(response);
 
   if (loading) {
     return (

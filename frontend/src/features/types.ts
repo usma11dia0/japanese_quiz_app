@@ -34,8 +34,17 @@ export interface QUIZ {
       type: string;
       difficulty: string;
       question: string;
-      incorrect_answer: string;
+      incorrect_answer: string[];
       correct_answer: string;
     }
   ];
+}
+
+/* reducer.ts */
+export interface TState {
+  question_category: string;
+  question_difficulty: string;
+  question_type: string;
+  amount_of_question: number;
+  score: number;
 }

@@ -6,15 +6,19 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { TSelectField } from "../features/types";
+import { useDispatch } from "react-redux";
 
-export const SelectField = (props: TSelectField) => {
+export const SelectField = memo((props: TSelectField) => {
   const { label, options } = props;
+  const dispatch = useDispatch();
   const [value, setValue] = useState("");
 
   const handleChange = (e: SelectChangeEvent<string>) => {
     setValue(e.target.value);
+    switch (label) {
+    }
   };
 
   return (
@@ -33,4 +37,4 @@ export const SelectField = (props: TSelectField) => {
       </FormControl>
     </Box>
   );
-};
+});

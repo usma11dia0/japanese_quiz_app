@@ -1,12 +1,18 @@
 import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { useSelector } from "react-redux";
+import { TState } from "../features/types";
 import { useAxios } from "../hooks/useAxios";
+import { selectAmoutOfQuestion } from "../redux/reducer";
 
 export const Questions = () => {
+  const amount_of_question = useSelector(selectAmoutOfQuestion);
+  console.log(amount_of_question);
+
   let apiUrl = `/api.php?amount=10`;
 
   const { response, loading } = useAxios({ url: apiUrl });
-  console.log(response);
+  // console.log(response);
 
   return (
     <Box>
