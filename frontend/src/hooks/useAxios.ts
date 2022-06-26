@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { CATEGORY, URL } from "../features/types";
+import { CATEGORY, QUIZ, URL } from "../features/types";
 
 axios.defaults.baseURL = "https://opentdb.com/";
 
 export const useAxios = (props: URL) => {
   const { url } = props;
-  const [response, setResponse] = useState<CATEGORY | undefined>(undefined);
+  const [response, setResponse] = useState<CATEGORY | QUIZ | undefined>(
+    undefined
+  );
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 

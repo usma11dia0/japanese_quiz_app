@@ -6,10 +6,13 @@ import { SelectField } from "../components/SelectField";
 import { TextFieldComp } from "../components/TextFieldComp";
 import { useAxios } from "../hooks/useAxios";
 import { CATEGORY, DIFFICULTY, TYPE } from "../features/types";
+import { useNavigate } from "react-router-dom";
 
 export const Settings = () => {
-  const { response, error, loading } = useAxios({ url: "/api_category.php" });
-  // console.log(response);
+  const { response, error, loading } = useAxios({
+    url: "/api_category.php",
+  }) as { response: CATEGORY; error: string; loading: boolean };
+  const navigate = useNavigate();
 
   if (loading) {
     return (
@@ -40,6 +43,7 @@ export const Settings = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    navigate("/questions");
   };
 
   return (

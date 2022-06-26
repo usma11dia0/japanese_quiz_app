@@ -28,13 +28,13 @@ export interface TYPE {
 }
 export interface QUIZ {
   response_code: number;
-  result: [
+  results: [
     {
       category: string;
       type: string;
       difficulty: string;
       question: string;
-      incorrect_answer: string[];
+      incorrect_answers: string[];
       correct_answer: string;
     }
   ];

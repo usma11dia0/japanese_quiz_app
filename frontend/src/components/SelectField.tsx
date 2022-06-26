@@ -1,3 +1,4 @@
+import { memo, useState } from "react";
 import { Box } from "@mui/system";
 import {
   FormControl,
@@ -6,18 +7,35 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { memo, useState } from "react";
-import { TSelectField } from "../features/types";
 import { useDispatch } from "react-redux";
+
+import { AppDispatch } from "../app/store";
+import { TSelectField } from "../features/types";
+import {
+  handleCategoryChange,
+  handleDifficultyChange,
+  handleTypeChange,
+} from "../redux/actions";
 
 export const SelectField = memo((props: TSelectField) => {
   const { label, options } = props;
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const [value, setValue] = useState("");
 
   const handleChange = (e: SelectChangeEvent<string>) => {
     setValue(e.target.value);
     switch (label) {
+      case "Category":
+        dispatch(handleCategoryChange(e.target.value));
+        break;
+      case "Difficulty":
+        dispatch(handleDifficultyChange(e.target.value));
+        break;
+      case "Type":
+        dispatch(handleTypeChange(e.target.value));
+        break;
+      default:
+        return;
     }
   };
 
