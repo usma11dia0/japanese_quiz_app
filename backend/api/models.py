@@ -1,4 +1,3 @@
-from abc import update_abstractmethods
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
@@ -59,7 +58,7 @@ class Quizzes(Updated):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["id"]
+        ordering = ["created_at"]
 
     def __str__(self):
         return self.question_title
@@ -92,7 +91,7 @@ class Choises(Updated):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["id"]
+        ordering = ["created_at"]
 
     def __str__(self):
         return self.choice_text
