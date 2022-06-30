@@ -16,6 +16,11 @@ def upload_audio_choice_path(instance, filename):
     )
 
 
+def upload_image_question_path(instance, filename):
+    ext = filename.split(".")[-1]  # ファイル拡張子を取得
+    return "/".join(["images/questions", str(instance.id) + str(".") + str(ext)])
+
+
 # 抽象基底クラス
 class Updated(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
@@ -39,7 +44,7 @@ class Quizzes(Updated):
     question_title = models.CharField(max_length=100)  # 問題管理/解答確認用
     question_text = models.CharField(max_length=100)
     image_src = models.ImageField(
-        blank=True, null=True, upload_to=upload_audio_question_path
+        blank=True, null=True, upload_to=upload_image_question_path
     )
     audio_src_question = models.FileField(
         blank=True,  # 開発時のみ確認のためTrue
