@@ -80,8 +80,8 @@ TEMPLATES = [
 WSGI_APPLICATION = "japanese_quiz_api.wsgi.application"
 
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSSES": [
-        "rest_framework.permissions.IsAUthenticated",
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
