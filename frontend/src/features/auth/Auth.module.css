@@ -2,22 +2,13 @@
   font-family: serif;
   color: dimgray;
   min-height: 80vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-pack: centerl;
-      -ms-flex-pack: centerl;
-          justify-content: centerl;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-content: centerl;
   padding: 50px;
 }
-/*# sourceMappingURL=Auth.module.css.map */
+.auth__root > span {
+  cursor: pointer;
+}/*# sourceMappingURL=Auth.module.css.map */

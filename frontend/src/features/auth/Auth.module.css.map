@@ -1,9 +1,1 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,WAAW,CAAC;EACV,WAAW,EAAE,KAAK;EAClB,KAAK,EAAE,OAAO;EACd,UAAU,EAAE,IAAI;EAChB,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,WAAW,EAAE,MAAM;EACnB,eAAe,EAAE,MAAM;EACvB,eAAe,EAAE,OAAO;EACxB,OAAO,EAAE,IAAI;CACd",
-    "sources": [
-        "Auth.module.scss"
-    ],
-    "names": [],
-    "file": "Auth.module.css"
-}
+{"version":3,"sources":["Auth.module.scss","../_variables.scss","Auth.module.css"],"names":[],"mappings":"AAEA;EACE,kBAAA;EACA,cCJM;EDKN,gBAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,wBAAA;EACA,aAAA;AEDF;AFGE;EACE,eAAA;AEDJ","file":"Auth.module.css"}

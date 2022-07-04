@@ -89,7 +89,7 @@ export const authSlice = createSlice({
 
 export const { toggleMode } = authSlice.actions;
 
-export const selectLoginView = (state: RootState) => state.auth.isLoginView;
+export const selectIsLoginView = (state: RootState) => state.auth.isLoginView;
 export const selectLoginUser = (state: RootState) => state.auth.loginUser;
 export const selectProfiles = (state: RootState) => state.auth.profiles;
 

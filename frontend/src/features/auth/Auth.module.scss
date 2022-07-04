@@ -1,6 +1,8 @@
+@use "../variables" as var;
+
 .auth__root {
   font-family: serif;
-  color: dimgray;
+  color: var.$cGlay;
   min-height: 80vh;
   display: flex;
   flex-direction: column;
@@ -8,4 +10,8 @@
   justify-content: center;
   justify-content: centerl;
   padding: 50px;
+
+  & > span {
+    cursor: pointer;
+  }
 }
