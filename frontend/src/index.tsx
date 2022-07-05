@@ -1,17 +1,27 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
-import App from "./App";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import reportWebVitals from "./reportWebVitals";
+
+import App from "./App";
+import { Auth } from "./features/auth/Auth";
+import { store } from "./app/store";
+import { CssBaseline } from "@mui/material";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
+    <CssBaseline />
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Auth />} />
+          <Route path="/quizzes/*" element={<App />} />
+        </Routes>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );

@@ -9,19 +9,17 @@ import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   return (
-    <BrowserRouter>
-      <ErrorBoundary>
-        <Container maxWidth="sm">
-          <Box textAlign="center" mt={5}>
-            <Routes>
-              <Route path="/" element={<Settings />} />
-              <Route path="/questions" element={<Questions />} />
-              <Route path="/score" element={<FinalScreen />} />
-            </Routes>
-          </Box>
-        </Container>
-      </ErrorBoundary>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <Container maxWidth="sm">
+        <Box textAlign="center" mt={5}>
+          <Routes>
+            <Route path="/" element={<Settings />} />
+            <Route path="/questions" element={<Questions />} />
+            <Route path="/score" element={<FinalScreen />} />
+          </Routes>
+        </Box>
+      </Container>
+    </ErrorBoundary>
   );
 }
 
