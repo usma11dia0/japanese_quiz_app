@@ -4,10 +4,10 @@ from .serializers import (
     UserSerializer,
     ProfileSerializer,
     QuizzesSerializer,
-    ChoisesSerializer,
+    ChoicesSerializer,
 )
 from rest_framework.response import Response
-from .models import Profile, Quizzes, Choises
+from .models import Profile, Quizzes, Choices
 from django.contrib.auth.models import User
 
 
@@ -64,10 +64,10 @@ class QuizzesViewSet(viewsets.ModelViewSet):
         return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
 
-# ChoisesView: GET/POST/PUT/DELETE　Choise取得 (作成・更新・削除)
-class ChoisesViewSet(viewsets.ModelViewSet):
-    queryset = Choises.objects.all()
-    serializer_class = ChoisesSerializer
+# ChoicesView: GET/POST/PUT/DELETE　Choice取得 (作成・更新・削除)
+class ChoicesViewSet(viewsets.ModelViewSet):
+    queryset = Choices.objects.all()
+    serializer_class = ChoicesSerializer
 
     def partial_update(self, request, *args, **kwargs):
         response = {"message": "PATCH method is not allowed"}

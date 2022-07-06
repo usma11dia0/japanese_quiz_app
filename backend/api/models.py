@@ -11,17 +11,17 @@ def upload_audio_choice_path(instance, filename):
     return "/".join(
         [
             "audios/choices",
-            str(instance.choise_alphabet) + str(".") + str(ext),
+            str(instance.choice_alphabet) + str(".") + str(ext),
         ]
     )
 
 
-def upload_image_choise_path(instance, filename):
+def upload_image_choice_path(instance, filename):
     ext = filename.split(".")[-1]
     return "/".join(
         [
             "images/choices",
-            str(instance.choise_alphabet) + str(".") + str(ext),
+            str(instance.choice_alphabet) + str(".") + str(ext),
         ]
     )
 
@@ -57,23 +57,23 @@ class Quizzes(Updated):
         return self.question_text
 
 
-class Choises(Updated):
+class Choices(Updated):
     quiz = models.ForeignKey(
         Quizzes,
         to_field="question_id",
-        related_name="choises",
+        related_name="choices",
         on_delete=models.CASCADE,
     )
-    choise_text = models.CharField(max_length=100)
-    choise_alphabet = models.CharField(max_length=100)  # 保存file名用
+    choice_text = models.CharField(max_length=100)
+    choice_alphabet = models.CharField(max_length=100)  # 保存file名用
     answer_explanation = models.CharField(blank=True, max_length=255)
-    image_choise_src = models.ImageField(
+    image_choice_src = models.ImageField(
         blank=False,
         null=True,
-        upload_to=upload_image_choise_path,
+        upload_to=upload_image_choice_path,
         verbose_name="選択肢画像ファイル",
     )
-    audio_choise_src = models.FileField(
+    audio_choice_src = models.FileField(
         blank=False,
         null=True,
         upload_to=upload_audio_choice_path,
@@ -89,8 +89,8 @@ class Choises(Updated):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = "Choises"
+        verbose_name = "Choices"
         ordering = ["created_at"]
 
     def __str__(self):
-        return self.choise_text
+        return self.choice_text

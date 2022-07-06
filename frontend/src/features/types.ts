@@ -37,18 +37,31 @@ export interface ValidationErrors {
 }
 
 /* quizSlice.tsx */
-export interface READ_CHOISE {
+export interface READ_CHOICE {
   quiz: string; //question_id (foreign_key)
   quiz_question_text: string;
-  choise_text: string;
-  choise_alphabet: string;
+  choice_text: string;
+  choice_alphabet: string;
   answer_explanation: string;
-  image_choise_src: string;
-  audio_choise_src: string;
+  image_choice_src: string;
+  audio_choice_src: string;
   created_at: string;
   updated_at: string;
 }
+export interface QUIZ_TMP {
+  question_id: string;
+  question_text: string;
+  created_at: string;
+  updated_at: string;
+}
+export interface QUIZ_STATE {
+  quizzes: QUIZ_TMP[];
+  selectedQuiz: QUIZ_TMP;
+  choices: READ_CHOICE[];
+  selectedChoice: READ_CHOICE;
+}
 
+/* 以下 Youtube_Quiz動画内容 */
 /* SelectField.ts */
 export interface TSelectField {
   label: string;

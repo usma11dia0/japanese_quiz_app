@@ -5,14 +5,14 @@ from .views import (
     LoginUserView,
     ProfileViewSet,
     QuizzesViewSet,
-    ChoisesViewSet,
+    ChoicesViewSet,
 )
 
 
 router = routers.DefaultRouter()
 router.register("profile", ProfileViewSet)
 router.register("quizs", QuizzesViewSet)
-router.register("choises", ChoisesViewSet)
+router.register("choices", ChoicesViewSet)
 
 urlpatterns = [
     path("create/", CreateUserView.as_view(), name="create"),

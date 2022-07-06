@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, Quizzes, Choises
+from .models import Profile, Quizzes, Choices
 from django.contrib.auth.models import User
 
 
@@ -32,7 +32,7 @@ class QuizzesSerializer(serializers.ModelSerializer):
         fields = ["question_id", "question_text", "created_at", "updated_at"]
 
 
-class ChoisesSerializer(serializers.ModelSerializer):
+class ChoicesSerializer(serializers.ModelSerializer):
     quiz_question_text = serializers.ReadOnlyField(
         source="quiz.question_text", read_only=True
     )
@@ -40,15 +40,15 @@ class ChoisesSerializer(serializers.ModelSerializer):
     updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M", read_only=True)
 
     class Meta:
-        model = Choises
+        model = Choices
         fields = [
             "quiz",
             "quiz_question_text",
-            "choise_text",
-            "choise_alphabet",
+            "choice_text",
+            "choice_alphabet",
             "answer_explanation",
-            "image_choise_src",
-            "audio_choise_src",
+            "image_choice_src",
+            "audio_choice_src",
             "created_at",
             "updated_at",
         ]
