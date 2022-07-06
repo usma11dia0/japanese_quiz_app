@@ -1,7 +1,14 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import axios from "axios";
-import { AUTH_STATE, CRED, LOGIN_USER, PROFILE, JWT, USER } from "../types";
+import axios, { AxiosError } from "axios";
+import {
+  AUTH_STATE,
+  CRED,
+  LOGIN_USER,
+  JWT,
+  USER,
+  ValidationErrors,
+} from "../types";
 
 const initialState: AUTH_STATE = {
   isLoginView: true,
@@ -9,12 +16,15 @@ const initialState: AUTH_STATE = {
     id: 0,
     username: "",
   },
-  profiles: [{ id: 0, user_profile: 0 }],
+  error: null,
 };
 
-export const fetchAsyncLogin = createAsyncThunk(
-  "auth/login",
-  async (auth: CRED) => {
+export const fetchAsyncLogin = createAsyncThunk<
+  JWT,
+  CRED,
+  { rejectValue: ValidationErrors }
+>("auth/login", async (auth: CRED, { rejectWithValue }) => {
+  try {
     const res = await axios.post<JWT>(
       `${process.env.REACT_APP_API_URL}/authen/jwt/create/`,
       auth,
@@ -25,8 +35,14 @@ export const fetchAsyncLogin = createAsyncThunk(
       }
     );
     return res.data;
+  } catch (err: any) {
+    let error: AxiosError<ValidationErrors> = err;
+    if (!error.response) {
+      throw err;
+    }
+    return rejectWithValue(error.response.data);
   }
-);
+});
 
 export const fetchAsyncRegister = createAsyncThunk(
   "auth/register",
@@ -75,6 +91,13 @@ export const authSlice = createSlice({
         action.payload.access && (window.location.href = "/quizzes");
       }
     );
+    builder.addCase(fetchAsyncLogin.rejected, (state, action) => {
+      if (action.payload) {
+        state.error = action.payload.detail;
+      } else {
+        state.error = action.error.message;
+      }
+    });
     builder.addCase(
       fetchAsyncGetMyProf.fulfilled,
       (state, action: PayloadAction<LOGIN_USER>) => {
@@ -91,6 +114,6 @@ export const { toggleMode } = authSlice.actions;
 
 export const selectIsLoginView = (state: RootState) => state.auth.isLoginView;
 export const selectLoginUser = (state: RootState) => state.auth.loginUser;
-export const selectProfiles = (state: RootState) => state.auth.profiles;
+export const selectError = (state: RootState) => state.auth.error;
 
 export default authSlice.reducer;

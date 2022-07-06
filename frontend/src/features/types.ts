@@ -1,6 +1,6 @@
 import { BooleanLiteral, StringLiteralLike } from "typescript";
 
-/* AuthSlice.ts */
+/* AuthSlice.tsx */
 export interface LOGIN_USER {
   id: number;
   username: string;
@@ -30,7 +30,23 @@ export interface USER {
 export interface AUTH_STATE {
   isLoginView: boolean;
   loginUser: LOGIN_USER;
-  profiles: PROFILE[];
+  error: string | null | undefined;
+}
+export interface ValidationErrors {
+  detail: string;
+}
+
+/* quizSlice.tsx */
+export interface READ_CHOISE {
+  quiz: string; //question_id (foreign_key)
+  quiz_question_text: string;
+  choise_text: string;
+  choise_alphabet: string;
+  answer_explanation: string;
+  image_choise_src: string;
+  audio_choise_src: string;
+  created_at: string;
+  updated_at: string;
 }
 
 /* SelectField.ts */

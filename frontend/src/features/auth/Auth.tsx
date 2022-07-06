@@ -1,6 +1,8 @@
-import React, { FormEvent, ChangeEvent, FC, useState, useRef } from "react";
-import { TextField, Button, Box, Grid } from "@mui/material";
+import { FormEvent, FC, useState, useRef } from "react";
+import { TextField, Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import styles from "./Auth.module.css";
 import { AppDispatch } from "../../app/store";
@@ -10,17 +12,12 @@ import {
   fetchAsyncRegister,
   selectIsLoginView,
 } from "./authSlice";
-import { CRED } from "../types";
 
 export const Auth: FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const isLoginView = useSelector(selectIsLoginView);
   const [isInputError, setIsInputError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  const [credential, setCredential] = useState<CRED>({
-    username: "",
-    password: "",
-  });
+  const [isUserNameError, setIsUserNameError] = useState(false);
   const username = useRef<HTMLInputElement>(null);
   const password1 = useRef<HTMLInputElement>(null);
   const password2 = useRef<HTMLInputElement>(null);
@@ -32,11 +29,39 @@ export const Auth: FC = () => {
         username: username.current!.value,
         password: password1.current!.value,
       };
-      await dispatch(fetchAsyncLogin(credential));
+      const resultAction = await dispatch(fetchAsyncLogin(credential));
+      if (!fetchAsyncLogin.fulfilled.match(resultAction)) {
+        setIsInputError(!isInputError);
+        setIsUserNameError(!isUserNameError);
+        toast.error("username/passwordに誤りがあるか、登録されていません", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+        //AxiosErrorのメッセージを直接取得する場合
+        // if (resultAction.payload) {
+        //   setErrorMessage(`${resultAction.payload.detail}`);
+        // } else {
+        //   setErrorMessage(`${resultAction.error}`);
+        // }
+      }
     } else {
       if (password1.current!.value !== password2.current!.value) {
         setIsInputError(!isInputError);
-        password2.current!.setCustomValidity("パスワードが違います。");
+        toast.error("passwordが一致しません", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       } else {
         const credential = {
           username: username.current!.value,
@@ -56,6 +81,7 @@ export const Auth: FC = () => {
       <br />
       <form className="textFieldWrapper" onSubmit={(e) => handleSubmit(e)}>
         <TextField
+          error={isUserNameError}
           InputLabelProps={{
             shrink: true,
           }}
@@ -67,7 +93,7 @@ export const Auth: FC = () => {
           autoComplete="username"
           required
           fullWidth
-          ref={username}
+          inputRef={username}
         />
         <br />
         <TextField
@@ -84,7 +110,6 @@ export const Auth: FC = () => {
           required
           fullWidth
           inputRef={password1}
-          // helperText="test"
           sx={{
             mt: 3,
           }}
@@ -107,7 +132,6 @@ export const Auth: FC = () => {
             required
             fullWidth
             inputRef={password2}
-            // helperText={`${errorMessage}`}
             sx={{
               mt: 3,
             }}
@@ -125,7 +149,6 @@ export const Auth: FC = () => {
             y: 3,
             m: "auto",
             mt: 3,
-            //(theme) => theme.spacing(3)と同じ
           }}
         >
           {isLoginView ? "Login" : "Register"}
@@ -135,6 +158,17 @@ export const Auth: FC = () => {
       <span onClick={() => dispatch(toggleMode())}>
         {isLoginView ? "Create new account ?" : "Back to Login"}
       </span>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
