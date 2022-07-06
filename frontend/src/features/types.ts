@@ -48,15 +48,15 @@ export interface READ_CHOICE {
   created_at: string;
   updated_at: string;
 }
-export interface QUIZ_TMP {
+export interface READ_QUIZ {
   question_id: string;
   question_text: string;
   created_at: string;
   updated_at: string;
 }
 export interface QUIZ_STATE {
-  quizzes: QUIZ_TMP[];
-  selectedQuiz: QUIZ_TMP;
+  quizzes: READ_QUIZ[];
+  selectedQuiz: READ_QUIZ;
   choices: READ_CHOICE[];
   selectedChoice: READ_CHOICE;
 }

@@ -11,7 +11,7 @@ from .views import (
 
 router = routers.DefaultRouter()
 router.register("profile", ProfileViewSet)
-router.register("quizs", QuizzesViewSet)
+router.register("quizzes", QuizzesViewSet)
 router.register("choices", ChoicesViewSet)
 
 urlpatterns = [
