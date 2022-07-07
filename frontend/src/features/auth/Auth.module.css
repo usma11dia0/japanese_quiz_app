@@ -10,4 +10,8 @@
 }
 .auth__root > span {
   cursor: pointer;
-}/*# sourceMappingURL=Auth.module.css.map */
+}
+
+:root {
+  --toastify-toast-width: 420px;
+} /*# sourceMappingURL=Auth.module.css.map */

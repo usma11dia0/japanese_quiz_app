@@ -7,22 +7,45 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
 import { Auth } from "./features/auth/Auth";
 import { store } from "./app/store";
-import { CssBaseline } from "@mui/material";
+import {
+  createTheme,
+  CssBaseline,
+  responsiveFontSizes,
+  ThemeProvider,
+} from "@mui/material";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
+let theme = createTheme({
+  typography: {
+    fontFamily: ["Kameron", "serif", "Noto Sans JP", "sans-serif"].join(","),
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        @font-face {
+          font-family: "Kameron", "serif";
+          font-family: 'Noto Sans JP', sans-serif;
+      `,
+    },
+  },
+});
+theme = responsiveFontSizes(theme);
+
 root.render(
   <React.StrictMode>
-    <CssBaseline />
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Auth />} />
-          <Route path="/quizzes/*" element={<App />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Auth />} />
+            <Route path="/quizzes/*" element={<App />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

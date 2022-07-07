@@ -33,15 +33,18 @@ export const Auth: FC = () => {
       if (!fetchAsyncLogin.fulfilled.match(resultAction)) {
         setIsInputError(!isInputError);
         setIsUserNameError(!isUserNameError);
-        toast.error("username/passwordに誤りがあるか、登録されていません", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.error(
+          `usernameまたはpasswordに誤りがあるか、登録されていません`,
+          {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
 
         //AxiosErrorのメッセージを直接取得する場合
         // if (resultAction.payload) {

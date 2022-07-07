@@ -49,7 +49,10 @@ export const Settings = () => {
   return (
     <>
       <Typography variant="h2" fontWeight="bold" mt={5}>
-        Quiz App
+        日本語
+      </Typography>
+      <Typography variant="h2" fontWeight="bold" mt={5}>
+        同音異義語クイズ
       </Typography>
       <form onSubmit={handleSubmit}>
         <SelectField

@@ -11,7 +11,7 @@ import { QuizMenu } from "./features/quiz/menu/QuizMenu";
 import { QuizQuestion } from "./features/quiz/question/QuizQuestion";
 import { QuizResult } from "./features/quiz/result/QuizResult";
 import { Auth } from "./features/auth/Auth";
-import { styled } from "@mui/material";
+import { createTheme, styled } from "@mui/material";
 import { url } from "inspector";
 import { CorporateFareRounded } from "@mui/icons-material";
 
