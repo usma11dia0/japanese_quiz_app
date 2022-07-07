@@ -48,7 +48,7 @@ export const Settings = () => {
 
   return (
     <>
-      <Typography variant="h2" fontWeight="bold">
+      <Typography variant="h2" fontWeight="bold" mt={5}>
         Quiz App
       </Typography>
       <form onSubmit={handleSubmit}>
