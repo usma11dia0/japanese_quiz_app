@@ -2,36 +2,17 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { brown, grey, purple } from "@mui/material/colors";
 // import reportWebVitals from "./reportWebVitals";
 
 import App from "./App";
+import theme from "./theme/theme";
 import { Auth } from "./features/auth/Auth";
 import { store } from "./app/store";
-import {
-  createTheme,
-  CssBaseline,
-  responsiveFontSizes,
-  ThemeProvider,
-} from "@mui/material";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
-
-let theme = createTheme({
-  typography: {
-    fontFamily: ["Kameron", "serif", "Noto Sans JP", "sans-serif"].join(","),
-  },
-  components: {
-    MuiCssBaseline: {
-      styleOverrides: `
-        @font-face {
-          font-family: "Kameron", "serif";
-          font-family: 'Noto Sans JP', sans-serif;
-      `,
-    },
-  },
-});
-theme = responsiveFontSizes(theme);
 
 root.render(
   <React.StrictMode>

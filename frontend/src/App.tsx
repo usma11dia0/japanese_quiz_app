@@ -16,7 +16,7 @@ import { Appbar } from "./components/appbar/Appbar";
 const App: FC = () => {
   const jwt = localStorage.getItem("localJWT");
 
-  const CustomContainer = styled("div")({
+  const BackgroundContainer = styled("div")({
     width: "auto",
     minHeight: "100vh",
     backgroundImage: `url(
@@ -29,7 +29,7 @@ const App: FC = () => {
   return (
     <ErrorBoundary>
       <Appbar />
-      <CustomContainer>
+      <BackgroundContainer>
         <Box
           sx={{
             display: "flex",
@@ -52,7 +52,7 @@ const App: FC = () => {
             /> */}
           </Routes>
         </Box>
-      </CustomContainer>
+      </BackgroundContainer>
     </ErrorBoundary>
   );
 };

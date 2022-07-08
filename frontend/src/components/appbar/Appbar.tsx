@@ -4,14 +4,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 
 export const Appbar = () => {
-  const Logout = () => {
+  const onClickLogout = () => {
     localStorage.removeItem("localJWT");
     window.location.href = "/";
   };
   return (
     <>
       <Box sx={{ flexGlow: 1 }}>
-        <AppBar position="fixed" sx={{ width: "100%" }}>
+        <AppBar position="fixed" sx={{ width: "100%", opacity: "0.95" }}>
           <Toolbar>
             <IconButton
               size="large"
@@ -25,7 +25,9 @@ export const Appbar = () => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               日本語同音異義語クイズ
             </Typography>
-            <Button color="inherit">Login</Button>
+            <Button color="inherit" onClick={onClickLogout}>
+              Logout
+            </Button>
           </Toolbar>
         </AppBar>
       </Box>
