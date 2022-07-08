@@ -1,6 +1,6 @@
 .auth__root {
   font-family: serif;
-  color: dimgray;
+  color: #3f312b;
   min-height: 80vh;
   display: flex;
   flex-direction: column;
@@ -12,6 +12,11 @@
   cursor: pointer;
 }
 
+@media only screen and (max-width: 480px) {
+  .Toastify__toast-container {
+    padding: 12px;
+  }
+}
 :root {
   --toastify-toast-width: 420px;
-} /*# sourceMappingURL=Auth.module.css.map */
+}/*# sourceMappingURL=Auth.module.css.map */
