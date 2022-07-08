@@ -1,5 +1,5 @@
 import { RootState } from "../app/store";
-import { TState } from "../features/types";
+import { TState } from "../types/types";
 import {
   CHANGE_AMOUNT,
   CHANGE_CATEGORY,

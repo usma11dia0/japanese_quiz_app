@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { RootState } from "../../app/store";
 import axios from "axios";
-import { READ_CHOICE, READ_QUIZ, QUIZ_STATE } from "../types";
+import { READ_CHOICE, READ_QUIZ, QUIZ_STATE } from "../../types/features";
 
 export const fetchAsyncGetQuizzes = createAsyncThunk(
   "quiz/getQuizzes",

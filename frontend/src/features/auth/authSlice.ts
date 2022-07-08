@@ -8,7 +8,7 @@ import {
   JWT,
   USER,
   ValidationErrors,
-} from "../types";
+} from "../../types/features";
 
 const initialState: AUTH_STATE = {
   isLoginView: true,

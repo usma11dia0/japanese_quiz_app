@@ -10,7 +10,7 @@ import {
 import { useDispatch } from "react-redux";
 
 import { AppDispatch } from "../app/store";
-import { TSelectField } from "../features/types";
+import { TSelectField } from "../types/types";
 import {
   handleCategoryChange,
   handleDifficultyChange,

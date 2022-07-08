@@ -5,7 +5,7 @@ import { Box } from "@mui/system";
 import { SelectField } from "../components/SelectField";
 import { TextFieldComp } from "../components/TextFieldComp";
 import { useAxios } from "../hooks/useAxios";
-import { CATEGORY, DIFFICULTY, TYPE } from "../features/types";
+import { CATEGORY, DIFFICULTY, TYPE } from "../types/types";
 import { useNavigate } from "react-router-dom";
 
 export const Settings = () => {
@@ -48,10 +48,10 @@ export const Settings = () => {
 
   return (
     <>
-      <Typography variant="h2" fontWeight="bold" mt={5}>
+      <Typography variant="h2" fontWeight="bold" mt={15}>
         日本語
       </Typography>
-      <Typography variant="h2" fontWeight="bold" mt={5}>
+      <Typography variant="h2" fontWeight="bold" mt={2}>
         同音異義語クイズ
       </Typography>
       <form onSubmit={handleSubmit}>

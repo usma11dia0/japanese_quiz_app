@@ -5,7 +5,7 @@ import { Box } from "@mui/system";
 import { decode } from "html-entities";
 import { useNavigate } from "react-router-dom";
 
-import { QUIZ } from "../features/types";
+import { QUIZ } from "../types/types";
 import { useAxios } from "../hooks/useAxios";
 import {
   selectAmoutOfQuestion,

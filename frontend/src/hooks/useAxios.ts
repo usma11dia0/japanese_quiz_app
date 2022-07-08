@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { CATEGORY, QUIZ, URL } from "../features/types";
+import { CATEGORY, QUIZ, URL } from "../types/types";
 
 axios.defaults.baseURL = "https://opentdb.com/";
 
