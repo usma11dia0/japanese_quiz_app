@@ -11,7 +11,7 @@ export const Appbar = () => {
   return (
     <>
       <Box sx={{ flexGlow: 1 }}>
-        <AppBar position="fixed" sx={{ width: "100%", opacity: "0.95" }}>
+        <AppBar position="fixed" sx={{ width: "100%", opacity: "0.9" }}>
           <Toolbar>
             <IconButton
               size="large"

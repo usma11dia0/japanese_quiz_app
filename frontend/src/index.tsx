@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { brown, grey, purple } from "@mui/material/colors";
 // import reportWebVitals from "./reportWebVitals";
 
 import App from "./App";
