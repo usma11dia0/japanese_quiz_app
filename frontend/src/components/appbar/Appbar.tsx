@@ -2,6 +2,7 @@ import React from "react";
 import { AppBar, Box, Button, IconButton, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 export const Appbar = () => {
   const onClickLogout = () => {
@@ -22,12 +23,36 @@ export const Appbar = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1 }}
+              mt={0.5}
+            >
               日本語同音異義語クイズ
             </Typography>
-            <Button color="inherit" onClick={onClickLogout}>
-              Logout
-            </Button>
+            <Box
+              onClick={onClickLogout}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                "&:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.04)",
+                },
+              }}
+            >
+              <LogoutIcon />
+              <Button
+                color="inherit"
+                sx={{ paddingLeft: "3px", justifyContent: "flex-start" }}
+              >
+                <Typography variant="h6" component="div" mt={0.5}>
+                  退出
+                </Typography>
+              </Button>
+            </Box>
           </Toolbar>
         </AppBar>
       </Box>

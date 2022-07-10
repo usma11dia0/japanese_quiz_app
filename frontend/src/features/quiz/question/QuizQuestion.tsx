@@ -1,6 +1,8 @@
 import { Typography, Grid } from "@mui/material";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
 import { ChoiceCard } from "../../../components/card/ChoiceCard";
+import styles from "./QuizQuestion.module.css";
 
 // import {
 //   fetchAsyncGetQuizzes,
@@ -15,12 +17,17 @@ export const QuizQuestion = () => {
       <Typography variant="h5" fontWeight="bold" mt={4}>
         問.1 ダイゴさん(人名)を選択してください。
       </Typography>
-      <Grid container spacing={6}>
+      <VolumeUpIcon
+        color="primary"
+        className={styles.volumeUpIcon}
+        sx={{ fontSize: "70px" }}
+      />
+      <Grid container spacing={10}>
         <Grid item xs={6}>
           <ChoiceCard customSx={{ mt: 5 }}> ダイゴさん(人名) </ChoiceCard>
         </Grid>
         <Grid item xs={6}>
-          <ChoiceCard customSx={{ mt: 5 }}>サンプル</ChoiceCard>
+          <ChoiceCard customSx={{ mt: 5 }}>大誤解</ChoiceCard>
         </Grid>
       </Grid>
     </>
