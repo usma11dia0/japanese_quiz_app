@@ -10,6 +10,7 @@ export interface CARDPROPS {
   children: ReactNode;
   onClick?: () => void;
   customSx?: STYLEPROPATY;
+  imgSrc?: string;
 }
 
 export interface STYLEPROPATY {

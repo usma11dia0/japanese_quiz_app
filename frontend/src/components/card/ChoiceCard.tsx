@@ -9,14 +9,19 @@ import { brown } from "@mui/material/colors";
 import { CARDPROPS } from "../../types/components";
 
 export const ChoiceCard: FC<CARDPROPS> = (props) => {
-  const { children, customSx } = props;
+  const { children, customSx, imgSrc } = props;
   return (
-    <Card sx={customSx}>
+    <Card sx={customSx} elevation={12}>
       <CardActionArea>
         <CardMedia
           component="img"
-          image="/assets/background/vecteezy_asanoha-japanese-traditional-seamless-pattern-with-modern_7169479.jpg"
+          image={imgSrc}
           alt="choice image"
+          sx={{
+            padding: "30px",
+            outline: "3px dashed #a1887f",
+            outlineOffset: "-30px",
+          }}
         />
         <CardContent sx={{ color: "white", backgroundColor: brown[400] }}>
           <Typography

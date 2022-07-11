@@ -20,23 +20,35 @@ export const QuizQuestion = () => {
   }, [dispatch]);
 
   console.log(choices);
-
+  const onClickAudio = () => {};
   return (
     <>
-      <Typography variant="h4" fontWeight="bold" mt={4}>
-        問.1 ダイゴさん(人名)を選択してください。
+      <Typography variant="h5" fontWeight="bold" mt={1}>
+        問.1 正しい{choices[0] ? choices[0].quiz_question_text : ""}
+        を選択してください。
       </Typography>
       <VolumeUpIcon
         color="primary"
         className={styles.volumeUpIcon}
-        sx={{ fontSize: "70px" }}
+        onClick={onClickAudio}
+        sx={{ fontSize: "50px" }}
       />
-      <Grid container spacing={10}>
+      <Grid container spacing={15}>
         <Grid item xs={6}>
-          <ChoiceCard customSx={{ mt: 5 }}> ダイゴさん(人名) </ChoiceCard>
+          <ChoiceCard
+            customSx={{ mt: 2 }}
+            imgSrc={choices[0] ? choices[0].image_choice_src : ""}
+          >
+            {choices[0] ? choices[0].choice_text : ""}
+          </ChoiceCard>
         </Grid>
         <Grid item xs={6}>
-          <ChoiceCard customSx={{ mt: 5 }}>大誤解</ChoiceCard>
+          <ChoiceCard
+            customSx={{ mt: 2 }}
+            imgSrc={choices[1] ? choices[1].image_choice_src : ""}
+          >
+            {choices[1] ? choices[1].choice_text : ""}
+          </ChoiceCard>
         </Grid>
       </Grid>
     </>
