@@ -8,7 +8,7 @@ export const fetchAsyncGetQuizzes = createAsyncThunk(
   "quiz/getQuizzes",
   async () => {
     const res = await axios.get<READ_QUIZ[]>(
-      `${process.env.REACT_APP_API_URL}/api/quizzes`,
+      `${process.env.REACT_APP_API_URL}/api/quizzes/`,
       {
         headers: {
           Authorization: `JWT ${localStorage.localJWT}`,
