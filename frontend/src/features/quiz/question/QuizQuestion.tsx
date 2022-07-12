@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Typography, Grid } from "@mui/material";
+import { Typography, Grid, IconButton } from "@mui/material";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import { Howl, Howler } from "howler";
+import DummySound from "./correct_audio.mp3";
 
 import { ChoiceCard } from "../../../components/card/ChoiceCard";
 import styles from "./QuizQuestion.module.css";
@@ -20,19 +22,30 @@ export const QuizQuestion = () => {
   }, [dispatch]);
 
   console.log(choices);
-  const onClickAudio = () => {};
+
+  const onClickAudio = (e: MouseEvent<HTMLButtonElement>) => {
+    const sound = new Howl({
+      src: [choices[0].audio_choice_src],
+    });
+    sound.play();
+  };
   return (
     <>
       <Typography variant="h5" fontWeight="bold" mt={1}>
         問.1 正しい{choices[0] ? choices[0].quiz_question_text : ""}
         を選択してください。
       </Typography>
-      <VolumeUpIcon
-        color="primary"
-        className={styles.volumeUpIcon}
-        onClick={onClickAudio}
-        sx={{ fontSize: "50px" }}
-      />
+      <IconButton
+        aria-label="add to volumeup"
+        disableRipple={true}
+        onClick={(e) => onClickAudio(e)}
+      >
+        <VolumeUpIcon
+          color="primary"
+          className={styles.volumeUpIcon}
+          sx={{ fontSize: "45px" }}
+        />
+      </IconButton>
       <Grid container spacing={15}>
         <Grid item xs={6}>
           <ChoiceCard

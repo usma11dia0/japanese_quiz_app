@@ -19,7 +19,7 @@ export const ChoiceCard: FC<CARDPROPS> = (props) => {
           alt="choice image"
           sx={{
             padding: "30px",
-            outline: "3px dashed #a1887f",
+            outline: "2px dashed #a1887f",
             outlineOffset: "-30px",
           }}
         />
