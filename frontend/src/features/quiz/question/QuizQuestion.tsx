@@ -19,26 +19,25 @@ import {
   selectIsLoading,
 } from "../quizSlice";
 import { AppDispatch } from "../../../app/store";
+import { useAudio } from "../../../hooks/useAudio";
 
 export const QuizQuestion = () => {
   const dispatch: AppDispatch = useDispatch();
   const choices = useSelector(selectChoices);
   const isloading = useSelector(selectIsLoading);
+  const { playAudio } = useAudio();
 
   useEffect(() => {
     const fetchBootLoader = async () => {
       await dispatch(fetchAsyncGetChoices());
     };
     fetchBootLoader();
-  }, [dispatch]);
+  }, []);
 
   console.log(choices);
 
   const onClickAudio = (e: MouseEvent<HTMLButtonElement>) => {
-    const sound = new Howl({
-      src: [choices[0].audio_choice_src],
-    });
-    sound.play();
+    playAudio(choices[0].audio_choice_src);
   };
 
   if (isloading) {
