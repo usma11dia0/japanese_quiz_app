@@ -57,4 +57,5 @@ export interface QUIZ_STATE {
   selectedQuiz: READ_QUIZ;
   choices: READ_CHOICE[];
   selectedChoice: READ_CHOICE;
+  isloading: boolean;
 }

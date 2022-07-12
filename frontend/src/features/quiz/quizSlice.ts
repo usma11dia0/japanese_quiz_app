@@ -73,6 +73,7 @@ export const initialState: QUIZ_STATE = {
     created_at: "",
     updated_at: "",
   },
+  isloading: true,
 };
 
 export const quizSlice = createSlice({
@@ -93,6 +94,7 @@ export const quizSlice = createSlice({
         return {
           ...state,
           quizzes: action.payload,
+          isloading: false,
         };
       }
     );
@@ -105,6 +107,7 @@ export const quizSlice = createSlice({
         return {
           ...state,
           choices: action.payload,
+          isloading: false,
         };
       }
     );
@@ -120,4 +123,6 @@ export const selectSelectedChoice = (state: RootState) =>
   state.quiz.selectedChoice;
 export const selectQuizzes = (state: RootState) => state.quiz.quizzes;
 export const selectChoices = (state: RootState) => state.quiz.choices;
+export const selectIsLoading = (state: RootState) => state.quiz.isloading;
+
 export default quizSlice.reducer;
