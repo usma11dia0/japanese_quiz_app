@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 export const Appbar = () => {
-  const onClickLogout = () => {
+  const handleClickLogout = () => {
     localStorage.removeItem("localJWT");
     window.location.href = "/";
   };
@@ -32,7 +32,7 @@ export const Appbar = () => {
               日本語同音異義語クイズ
             </Typography>
             <Box
-              onClick={onClickLogout}
+              onClick={handleClickLogout}
               sx={{
                 display: "flex",
                 alignItems: "center",

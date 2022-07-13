@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Typography,
@@ -21,13 +20,17 @@ import {
 } from "../quizSlice";
 import { AppDispatch } from "../../../app/store";
 import { useAudio } from "../../../hooks/useAudio";
+import { READ_CHOICE } from "../../../types/features";
 
 export const QuizQuestion = () => {
   const dispatch: AppDispatch = useDispatch();
   const choices = useSelector(selectChoices);
+  const [choiceIndex, setChoiceIndex] = useState<number>(0);
+  const [choice, setChoice] = useState<READ_CHOICE>();
   const isloading = useSelector(selectIsLoading);
   const { playAudio } = useAudio();
 
+  // 外部APIよりChoiceデータ読込(初回のみ)
   useEffect(() => {
     const fetchBootLoader = async () => {
       await dispatch(fetchAsyncGetChoices());
@@ -35,9 +38,15 @@ export const QuizQuestion = () => {
     fetchBootLoader();
   }, []);
 
-  const onClickAudio = () => {
-    playAudio(choices[0].audio_choice_src);
-  };
+  console.log(choices);
+
+  // 読み込んだChoiceデータを一つずつ抽出(choiceIndexのstate変更時に都度実行)
+  useEffect(() => {
+    if (choices[0].quiz !== "") {
+      const selectChoice = choices[choiceIndex];
+      setChoice(selectChoice);
+    }
+  }, [choices, choiceIndex]);
 
   if (isloading) {
     return (
@@ -47,16 +56,27 @@ export const QuizQuestion = () => {
     );
   }
 
+  const handleClickAudio = () => {
+    playAudio(choice ? choice.audio_choice_src : "");
+  };
+
+  const handleClickAnswer = () => {
+    alert("クリックを検知しました");
+    setChoiceIndex(choiceIndex + 1);
+  };
+
+  console.log(choice);
+
   return (
     <>
       <Typography variant="h5" fontWeight="bold" mt={1}>
-        問.1 正しい{choices[0] ? choices[0].quiz_question_text : ""}
+        問.{choiceIndex + 1} 正しい{choice ? choice.quiz_question_text : ""}
         を選択してください。
       </Typography>
       <IconButton
-        aria-label="add to volumeup"
+        aria-label="play volume"
         disableRipple={true}
-        onClick={onClickAudio}
+        onClick={handleClickAudio}
       >
         <VolumeUpIcon
           color="primary"
@@ -68,17 +88,19 @@ export const QuizQuestion = () => {
         <Grid item xs={6}>
           <ChoiceCard
             customSx={{ mt: 2 }}
-            imgSrc={choices[0] ? choices[0].image_choice_src : ""}
+            imgSrc={choice ? choice.image_choice_src : ""}
+            onClick={handleClickAnswer}
           >
-            {choices[0] ? choices[0].choice_text : ""}
+            {choice ? choice.choice_text : ""}
           </ChoiceCard>
         </Grid>
         <Grid item xs={6}>
           <ChoiceCard
             customSx={{ mt: 2 }}
-            imgSrc={choices[1] ? choices[1].image_choice_src : ""}
+            imgSrc={choice ? choice.image_choice_src : ""}
+            onClick={handleClickAnswer}
           >
-            {choices[1] ? choices[1].choice_text : ""}
+            {choice ? choice.choice_text : ""}
           </ChoiceCard>
         </Grid>
       </Grid>

@@ -2,15 +2,15 @@ import { ReactNode } from "react";
 
 export interface BUTTONPROPS {
   children: ReactNode;
-  onClick?: () => void;
   customSx?: STYLEPROPATY;
+  onClick?: () => void;
 }
 
 export interface CARDPROPS {
   children: ReactNode;
-  onClick?: () => void;
   customSx?: STYLEPROPATY;
   imgSrc?: string;
+  onClick?: () => void;
 }
 
 export interface STYLEPROPATY {
