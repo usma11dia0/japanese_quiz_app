@@ -1,4 +1,6 @@
-import { MouseEvent, useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Typography,
@@ -8,8 +10,7 @@ import {
   Box,
 } from "@mui/material";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import { Howl, Howler } from "howler";
-import DummySound from "./correct_audio.mp3";
+// import DummySound from "./correct_audio.mp3";
 
 import { ChoiceCard } from "../../../components/card/ChoiceCard";
 import styles from "./QuizQuestion.module.css";
@@ -34,9 +35,7 @@ export const QuizQuestion = () => {
     fetchBootLoader();
   }, []);
 
-  console.log(choices);
-
-  const onClickAudio = (e: MouseEvent<HTMLButtonElement>) => {
+  const onClickAudio = () => {
     playAudio(choices[0].audio_choice_src);
   };
 
@@ -57,7 +56,7 @@ export const QuizQuestion = () => {
       <IconButton
         aria-label="add to volumeup"
         disableRipple={true}
-        onClick={(e) => onClickAudio(e)}
+        onClick={onClickAudio}
       >
         <VolumeUpIcon
           color="primary"

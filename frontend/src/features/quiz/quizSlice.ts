@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 import { RootState } from "../../app/store";
-import axios from "axios";
 import { READ_CHOICE, READ_QUIZ, QUIZ_STATE } from "../../types/features";
 
 export const fetchAsyncGetQuizzes = createAsyncThunk(
@@ -104,9 +104,16 @@ export const quizSlice = createSlice({
     builder.addCase(
       fetchAsyncGetChoices.fulfilled,
       (state, action: PayloadAction<READ_CHOICE[]>) => {
+        let copyActionPayload: READ_CHOICE[] = [...action.payload];
+        for (let i = copyActionPayload.length - 1; 0 < i; i--) {
+          let r = Math.floor(Math.random() * (i + 1));
+          var tmp = copyActionPayload[i];
+          copyActionPayload[i] = copyActionPayload[r];
+          copyActionPayload[r] = tmp;
+        }
         return {
           ...state,
-          choices: action.payload,
+          choices: copyActionPayload,
           isloading: false,
         };
       }

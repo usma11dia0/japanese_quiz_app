@@ -12,6 +12,7 @@ import { QuizQuestion } from "./features/quiz/question/QuizQuestion";
 // import { QuizResult } from "./features/quiz/result/QuizResult";
 import { Auth } from "./features/auth/Auth";
 import { Appbar } from "./components/appbar/Appbar";
+import { QuizResult } from "./features/quiz/result/QuizResult";
 
 const App: FC = () => {
   const jwt = localStorage.getItem("localJWT");
@@ -51,9 +52,13 @@ const App: FC = () => {
                   element={jwt ? <QuizQuestion /> : <Auth />}
                 />
                 <Route
+                  path="/result"
+                  element={jwt ? <QuizResult /> : <Auth />}
+                />
+                {/* <Route
                   path="/score"
                   element={jwt ? <FinalScreen /> : <Auth />}
-                />
+                /> */}
                 {/* <Route
               path="/pron_practice"
               element={jwt ? <Practice /> : <Auth />}
