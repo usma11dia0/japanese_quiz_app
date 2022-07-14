@@ -7,34 +7,36 @@ import { Button, CardActionArea } from "@mui/material";
 import { brown } from "@mui/material/colors";
 
 import { CARDPROPS } from "../../types/components";
+import { Container } from "@mui/system";
 
 export const ChoiceCard: FC<CARDPROPS> = (props) => {
   const { children, customSx, imgSrc, onClick } = props;
   return (
-    <Card sx={customSx} elevation={12}>
-      <CardActionArea onClick={onClick}>
-        <CardMedia
-          component="img"
-          image={imgSrc}
-          alt="choice image"
-          sx={{
-            padding: "30px",
-            outline: "2px dashed #a1887f",
-            outlineOffset: "-30px",
-          }}
-        />
-        <CardContent sx={{ color: "white", backgroundColor: brown[400] }}>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            textAlign="center"
-            fontWeight="bold"
-          >
-            {children}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <Container maxWidth="sm">
+      <Card sx={customSx} elevation={4}>
+        <CardActionArea onClick={onClick}>
+          <CardMedia
+            component="img"
+            image={imgSrc}
+            alt="choice image"
+            sx={{
+              padding: "2em",
+              // outline: "2px dashed #a1887f",
+              // outlineOffset: "-30px",
+            }}
+          />
+          <CardContent sx={{ color: "white", backgroundColor: brown[400] }}>
+            <Typography
+              variant="h5"
+              component="div"
+              textAlign="center"
+              fontWeight="bold"
+            >
+              {children}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Container>
   );
 };

@@ -1,0 +1,30 @@
+.wrapper {
+  padding: 1em;
+  background-color: #f5edde;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.box17 {
+  position: relative;
+  padding: 0.5em 1.5em;
+  border-top: solid 2px black;
+  border-bottom: solid 2px black;
+}
+
+.box17:before,
+.box17:after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  width: 2px;
+  height: calc(100% + 20px);
+  background-color: black;
+}
+
+.box17:before {
+  left: 10px;
+}
+
+.box17:after {
+  right: 10px;
+}/*# sourceMappingURL=ScoreBoard.module.css.map */

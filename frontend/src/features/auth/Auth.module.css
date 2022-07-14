@@ -11,6 +11,9 @@
 .auth__root > span {
   cursor: pointer;
 }
+.auth__root > span:hover {
+  background: linear-gradient(transparent 60%, #8d6e63 99%);
+}
 
 @media only screen and (max-width: 480px) {
   .Toastify__toast-container {

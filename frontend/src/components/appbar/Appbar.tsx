@@ -1,14 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { AppBar, Box, Button, IconButton, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 export const Appbar = () => {
+  const navigate = useNavigate();
+
   const handleClickLogout = () => {
     localStorage.removeItem("localJWT");
     window.location.href = "/";
   };
+
+  const handleClickToMenu = () => {
+    navigate("/quizzes");
+  };
+
   return (
     <>
       <Box sx={{ flexGlow: 1 }}>
@@ -26,8 +34,9 @@ export const Appbar = () => {
             <Typography
               variant="h6"
               component="div"
-              sx={{ flexGrow: 1 }}
+              sx={{ flexGrow: 1, cursor: "pointer" }}
               mt={0.5}
+              onClick={handleClickToMenu}
             >
               日本語同音異義語クイズ
             </Typography>

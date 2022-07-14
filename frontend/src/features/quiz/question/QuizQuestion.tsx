@@ -21,9 +21,13 @@ import {
 import { AppDispatch } from "../../../app/store";
 import { useAudio } from "../../../hooks/useAudio";
 import { READ_CHOICE } from "../../../types/features";
+import { useNavigate } from "react-router-dom";
+import { ScoreBoard } from "../../../components/scoreboard/ScoreBoard";
+import { Container } from "@mui/system";
 
 export const QuizQuestion = () => {
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
   const choices = useSelector(selectChoices);
   const [choiceIndex, setChoiceIndex] = useState<number>(0);
   const [choice, setChoice] = useState<READ_CHOICE>();
@@ -60,9 +64,20 @@ export const QuizQuestion = () => {
     playAudio(choice ? choice.audio_choice_src : "");
   };
 
-  const handleClickAnswer = () => {
+  const handleClickAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     alert("クリックを検知しました");
-    setChoiceIndex(choiceIndex + 1);
+    const answer = choice!.choice_alphabet;
+    if (e.target instanceof HTMLElement) {
+      if (e.target.innerText.toUpperCase() === answer.toUpperCase()) {
+        // dispatch(handleScoreChange(score+1));
+      }
+    }
+
+    if (choiceIndex + 1 < choices.length) {
+      setChoiceIndex(choiceIndex + 1);
+    } else {
+      navigate("/quizzes/result");
+    }
   };
 
   console.log(choice);
@@ -81,7 +96,7 @@ export const QuizQuestion = () => {
         <VolumeUpIcon
           color="primary"
           className={styles.volumeUpIcon}
-          sx={{ fontSize: "45px" }}
+          sx={{ fontSize: "1.7rem", marginTop: "5" }}
         />
       </IconButton>
       <Grid container spacing={15}>
@@ -89,7 +104,7 @@ export const QuizQuestion = () => {
           <ChoiceCard
             customSx={{ mt: 2 }}
             imgSrc={choice ? choice.image_choice_src : ""}
-            onClick={handleClickAnswer}
+            onClick={(e) => handleClickAnswer(e)}
           >
             {choice ? choice.choice_text : ""}
           </ChoiceCard>
@@ -104,6 +119,9 @@ export const QuizQuestion = () => {
           </ChoiceCard>
         </Grid>
       </Grid>
+      {/* <Typography variant="h4" fontWeight="bold" mt={5}> */}
+      <ScoreBoard />
+      {/* </Typography> */}
     </>
   );
 };

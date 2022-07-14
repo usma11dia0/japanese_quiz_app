@@ -1,10 +1,9 @@
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Box } from "@mui/system";
-import { Grid, styled } from "@mui/material";
+import { Container, Grid, styled } from "@mui/material";
 
 import ErrorBoundary from "./components/ErrorBoundary";
-import { FinalScreen } from "./pages/FinalScreen";
 // import { Questions } from "./pages/Questions";
 // import { Settings } from "./pages/Settings";
 import { QuizMenu } from "./features/quiz/menu/QuizMenu";
@@ -18,13 +17,13 @@ const App: FC = () => {
   const jwt = localStorage.getItem("localJWT");
 
   const BackgroundContainer = styled("div")({
-    width: "auto",
-    height: "100vh",
-    backgroundImage: `url(
-      "../assets/background/New_Years_Card_254_D.jpg"
-    )`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
+    // width: "auto",
+    // minheight: "100vh",
+    // backgroundImage: `url(
+    //   "../assets/background/japanese-paper_00372.jpg"
+    // )`,
+    // backgroundSize: "cover",
+    // backgroundPosition: "center",
   });
 
   return (
@@ -42,6 +41,7 @@ const App: FC = () => {
                 alignItems: "center",
                 margin: "0 auto",
                 mt: 12,
+                minheight: "100vh",
               }}
             >
               <Routes>

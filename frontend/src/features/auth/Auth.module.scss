@@ -12,6 +12,9 @@
 
   & > span {
     cursor: pointer;
+    &:hover {
+      background: linear-gradient(transparent 60%, var.$cJPBrown 99%);
+    }
   }
 }
 

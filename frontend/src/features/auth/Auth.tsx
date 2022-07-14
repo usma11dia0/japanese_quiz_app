@@ -80,7 +80,7 @@ export const Auth: FC = () => {
 
   return (
     <div className={styles.auth__root}>
-      <h1>{isLoginView ? "Login" : "Register"}</h1>
+      <h1>{isLoginView ? "ろぐいん" : "しんきとうろく"}</h1>
       <br />
       <form className="textFieldWrapper" onSubmit={(e) => handleSubmit(e)}>
         <TextField
@@ -90,10 +90,19 @@ export const Auth: FC = () => {
           }}
           id="username"
           name="username"
-          label="Username"
+          label="おなまえ"
+          sx={{
+            "& .MuiInputLabel-root": {
+              color: "black",
+              fontWeight: "500",
+              fontSize: "1.2rem",
+            },
+          }}
           type="text"
           variant="standard"
           autoComplete="username"
+          size="medium"
+          color="primary"
           required
           fullWidth
           inputRef={username}
@@ -106,16 +115,22 @@ export const Auth: FC = () => {
           }}
           id="password1"
           name="password1"
-          label={isLoginView ? "Password" : "Password1"}
+          label={isLoginView ? "ぱすわーど" : "ぱすわーど1"}
+          sx={{
+            "& .MuiInputLabel-root": {
+              color: "black",
+              fontWeight: "500",
+              fontSize: "1.1rem",
+            },
+            mt: 3,
+          }}
           type="password"
           variant="standard"
           autoComplete="new-password"
+          size="medium"
           required
           fullWidth
           inputRef={password1}
-          sx={{
-            mt: 3,
-          }}
         />
         <br />
         {isLoginView ? (
@@ -128,16 +143,22 @@ export const Auth: FC = () => {
             }}
             id="password2"
             name="password2"
-            label="Password2"
+            label="ぱすわーど2"
+            sx={{
+              "& .MuiInputLabel-root": {
+                color: "black",
+                fontWeight: "500",
+                fontSize: "1.1rem",
+              },
+              mt: 3,
+              mb: 1,
+            }}
             type="password"
             variant="standard"
             autoComplete="new-password"
             required
             fullWidth
             inputRef={password2}
-            sx={{
-              mt: 3,
-            }}
           />
         )}
         <Button
@@ -151,15 +172,15 @@ export const Auth: FC = () => {
             justifyContent: "center",
             y: 3,
             m: "auto",
-            mt: 3,
+            mt: 5,
           }}
         >
-          {isLoginView ? "Login" : "Register"}
+          {isLoginView ? "ろぐいん" : "とうろく"}
         </Button>
       </form>
       <br />
       <span onClick={() => dispatch(toggleMode())}>
-        {isLoginView ? "Create new account ?" : "Back to Login"}
+        {isLoginView ? "はじめての方はこちら" : "ろぐいんはこちら"}
       </span>
       <ToastContainer
         position="top-center"

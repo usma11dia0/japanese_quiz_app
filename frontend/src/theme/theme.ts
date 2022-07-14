@@ -2,6 +2,12 @@ import { createTheme, responsiveFontSizes } from "@mui/material";
 import { brown } from "@mui/material/colors";
 
 let theme = createTheme({
+  // MuiFormLabel: {
+  //   root:{
+  //     MuiInputLabel-root:{
+  //       color: black;
+  //   },
+  // },
   typography: {
     fontFamily: ["Kameron", "serif", "Noto Sans JP", "sans-serif"].join(","),
   },
