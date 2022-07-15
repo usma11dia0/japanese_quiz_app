@@ -11,7 +11,7 @@ export const ScoreBoard = () => {
             fontWeight="bold"
             sx={{ margin: "0", padding: "0" }}
           >
-            -----
+            ーーーーー
           </Typography>
         </div>
       </div>
