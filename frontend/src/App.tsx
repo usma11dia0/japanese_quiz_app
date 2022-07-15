@@ -16,61 +16,46 @@ import { QuizResult } from "./features/quiz/result/QuizResult";
 const App: FC = () => {
   const jwt = localStorage.getItem("localJWT");
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const BackgroundContainer = styled("div")({
-    // minheight: "100vh",
-    // backgroundImage: `url(
-    //   "../assets/background/japanese-paper_00372.jpg"
-    // )`,
-    // backgroundSize: "cover",
-    // backgroundPosition: "center",
-  });
+  // const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <ErrorBoundary>
       <Appbar />
-      {/* {matches ? <BackgroundContainer/> : ""} */}
-      <BackgroundContainer>
-        <Grid container spacing={0}>
-          <Grid item xs />
-          <Grid item xs={8}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                margin: "0 auto",
-                mt: 12,
-                minheight: "100vh",
-              }}
-            >
-              <Routes>
-                <Route path="/" element={jwt ? <QuizMenu /> : <Auth />} />
-                {/* <Route path="/setting" element={<Settings />} /> */}
-                <Route
-                  path="/questions"
-                  element={jwt ? <QuizQuestion /> : <Auth />}
-                />
-                <Route
-                  path="/result"
-                  element={jwt ? <QuizResult /> : <Auth />}
-                />
-                {/* <Route
+      <Grid container spacing={0}>
+        <Grid item xs />
+        <Grid item xs={8}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "0 auto",
+              mt: 12,
+              minheight: "100vh",
+            }}
+          >
+            <Routes>
+              <Route path="/" element={jwt ? <QuizMenu /> : <Auth />} />
+              {/* <Route path="/setting" element={<Settings />} /> */}
+              <Route
+                path="/questions"
+                element={jwt ? <QuizQuestion /> : <Auth />}
+              />
+              <Route path="/result" element={jwt ? <QuizResult /> : <Auth />} />
+              {/* <Route
                   path="/score"
                   element={jwt ? <FinalScreen /> : <Auth />}
                 /> */}
-                {/* <Route
+              {/* <Route
               path="/pron_practice"
               element={jwt ? <Practice /> : <Auth />}
             /> */}
-              </Routes>
-            </Box>
-          </Grid>
-          <Grid item xs />
+            </Routes>
+          </Box>
         </Grid>
-      </BackgroundContainer>
+        <Grid item xs />
+      </Grid>
     </ErrorBoundary>
   );
 };

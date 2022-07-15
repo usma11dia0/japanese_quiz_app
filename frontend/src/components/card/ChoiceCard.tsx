@@ -40,14 +40,25 @@ export const ChoiceCard: FC<CARDPROPS> = (props) => {
               </CardContent>
             </div>
             <div className={styles.front}>
-              <CardContent sx={{ color: "white", backgroundColor: brown[400] }}>
+              <CardMedia
+                component="img"
+                // image="../../../assets/icon/correct_mark.jpg"
+                image="../../../assets/icon/incorrect_mark.jpg"
+                alt="correct_incorrect_icon"
+                sx={{
+                  padding: "2em",
+                  // outline: "2px dashed #a1887f",
+                  // outlineOffset: "-30px",
+                }}
+              />
+              <CardContent sx={{ color: "white", backgroundColor: "#00558f" }}>
                 <Typography
                   variant="h5"
                   component="div"
                   textAlign="center"
                   fontWeight="bold"
                 >
-                  oooooooo
+                  不正解
                 </Typography>
               </CardContent>
             </div>

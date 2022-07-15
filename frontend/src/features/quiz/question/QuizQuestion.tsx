@@ -25,7 +25,6 @@ import { useAudio } from "../../../hooks/useAudio";
 import { READ_CHOICE } from "../../../types/features";
 import { useNavigate } from "react-router-dom";
 import { ScoreBoard } from "../../../components/scoreboard/ScoreBoard";
-import { fontSize } from "@mui/system";
 
 export const QuizQuestion = () => {
   const dispatch: AppDispatch = useDispatch();
