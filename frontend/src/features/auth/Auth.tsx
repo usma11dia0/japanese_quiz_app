@@ -173,6 +173,7 @@ export const Auth: FC = () => {
             y: 3,
             m: "auto",
             mt: 5,
+            mb: 2,
           }}
         >
           {isLoginView ? "ろぐいん" : "とうろく"}

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Box } from "@mui/system";
-import { Container, Grid, styled } from "@mui/material";
+import { Grid, styled, useMediaQuery, useTheme } from "@mui/material";
 
 import ErrorBoundary from "./components/ErrorBoundary";
 // import { Questions } from "./pages/Questions";
@@ -15,9 +15,10 @@ import { QuizResult } from "./features/quiz/result/QuizResult";
 
 const App: FC = () => {
   const jwt = localStorage.getItem("localJWT");
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   const BackgroundContainer = styled("div")({
-    // width: "auto",
     // minheight: "100vh",
     // backgroundImage: `url(
     //   "../assets/background/japanese-paper_00372.jpg"
@@ -29,6 +30,7 @@ const App: FC = () => {
   return (
     <ErrorBoundary>
       <Appbar />
+      {/* {matches ? <BackgroundContainer/> : ""} */}
       <BackgroundContainer>
         <Grid container spacing={0}>
           <Grid item xs />

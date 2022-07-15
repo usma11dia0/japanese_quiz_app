@@ -2,12 +2,15 @@ import { createTheme, responsiveFontSizes } from "@mui/material";
 import { brown } from "@mui/material/colors";
 
 let theme = createTheme({
-  // MuiFormLabel: {
-  //   root:{
-  //     MuiInputLabel-root:{
-  //       color: black;
-  //   },
-  // },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   typography: {
     fontFamily: ["Kameron", "serif", "Noto Sans JP", "sans-serif"].join(","),
   },
@@ -17,6 +20,10 @@ let theme = createTheme({
           @font-face {
             font-family: "Kameron", "serif";
             font-family: 'Noto Sans JP', sans-serif;
+          }
+          body {
+            background-image: url(../assets/background/japanese-paper_00372.jpg);
+          }
         `,
     },
   },

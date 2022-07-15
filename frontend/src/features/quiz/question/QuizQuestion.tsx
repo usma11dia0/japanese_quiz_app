@@ -8,6 +8,8 @@ import {
   CircularProgress,
   Box,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 // import DummySound from "./correct_audio.mp3";
 
@@ -23,7 +25,7 @@ import { useAudio } from "../../../hooks/useAudio";
 import { READ_CHOICE } from "../../../types/features";
 import { useNavigate } from "react-router-dom";
 import { ScoreBoard } from "../../../components/scoreboard/ScoreBoard";
-import { Container } from "@mui/system";
+import { fontSize } from "@mui/system";
 
 export const QuizQuestion = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -33,6 +35,9 @@ export const QuizQuestion = () => {
   const [choice, setChoice] = useState<READ_CHOICE>();
   const isloading = useSelector(selectIsLoading);
   const { playAudio } = useAudio();
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   // 外部APIよりChoiceデータ読込(初回のみ)
   useEffect(() => {
@@ -96,7 +101,7 @@ export const QuizQuestion = () => {
         <VolumeUpIcon
           color="primary"
           className={styles.volumeUpIcon}
-          sx={{ fontSize: "1.7rem", marginTop: "5" }}
+          sx={{ marginTop: "5", fontSize: "50px" }}
         />
       </IconButton>
       <Grid container spacing={15}>
