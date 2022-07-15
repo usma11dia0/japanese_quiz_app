@@ -5,7 +5,7 @@ export const ScoreBoard = () => {
   return (
     <Container maxWidth="sm" sx={{ display: "flex", justifyContent: "center" }}>
       <div className={styles.wrapper}>
-        <div className={styles.box17}>
+        <div className={styles.scorebox}>
           <Typography
             variant="h5"
             fontWeight="bold"

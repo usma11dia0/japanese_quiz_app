@@ -1,41 +1,39 @@
+@use "../../scss/variables" as var;
+
 .wrapper {
   display: flex;
   padding: 1rem;
   margin: 1rem;
-  background-color: #f5edde;
-  box-shadow: 0 5px 0 darken(#f5edde, 15%);
+  background-color: var.$cJPYellow;
+  box-shadow: 0 5px 0 darken(var.$cJPYellow, 15%);
   border-radius: 3px;
-  // box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   text-align: center;
   justify-content: center;
   align-items: center;
 }
 
-.box17 {
-  //   margin: 2em 0;
+.scorebox {
   position: relative;
   padding: 0.5em 1.5em;
-  border-top: solid 2px black;
-  border-bottom: solid 2px black;
+  border-top: solid 2px var.$cJPBlack;
+  border-bottom: solid 2px var.$cJPBlack;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    width: 2px;
+    height: -webkit-calc(100% + 20px);
+    height: calc(100% + 20px);
+    background-color: var.$cJPBlack;
+  }
+
+  &:before {
+    left: 10px;
+  }
+
+  &:after {
+    right: 10px;
+  }
 }
-.box17:before,
-.box17:after {
-  content: "";
-  position: absolute;
-  top: -10px;
-  width: 2px;
-  height: -webkit-calc(100% + 20px);
-  height: calc(100% + 20px);
-  background-color: black;
-}
-.box17:before {
-  left: 10px;
-}
-.box17:after {
-  right: 10px;
-}
-// .box17 p {
-//   margin: 0;
-//   padding: 0;
-//   font-size: 50px;
-// }

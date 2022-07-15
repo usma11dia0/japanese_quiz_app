@@ -1,0 +1,32 @@
+// back: 問題文表記
+// front: 正誤表記
+
+.card {
+  position: relative;
+  padding-top: calc(100% + 65px);
+
+  .back,
+  .front {
+    transition: all 0.6s;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+  }
+
+  .front {
+    transform: rotateY(-180deg);
+  }
+}
+
+/* ホバー時のカード裏面 */
+.card:hover .back {
+  transform: rotateY(180deg);
+}
+
+/* ホバー時のカード表面 */
+.card:hover .front {
+  transform: rotateY(0);
+}

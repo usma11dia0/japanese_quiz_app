@@ -10,27 +10,23 @@
   align-items: center;
 }
 
-.box17 {
+.scorebox {
   position: relative;
   padding: 0.5em 1.5em;
-  border-top: solid 2px black;
-  border-bottom: solid 2px black;
+  border-top: solid 2px #3f312b;
+  border-bottom: solid 2px #3f312b;
 }
-
-.box17:before,
-.box17:after {
+.scorebox:before, .scorebox:after {
   content: "";
   position: absolute;
   top: -10px;
   width: 2px;
   height: calc(100% + 20px);
-  background-color: black;
+  background-color: #3f312b;
 }
-
-.box17:before {
+.scorebox:before {
   left: 10px;
 }
-
-.box17:after {
+.scorebox:after {
   right: 10px;
 }/*# sourceMappingURL=ScoreBoard.module.css.map */
