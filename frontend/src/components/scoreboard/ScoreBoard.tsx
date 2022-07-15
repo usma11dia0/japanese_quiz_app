@@ -3,7 +3,7 @@ import styles from "./ScoreBoard.module.css";
 
 export const ScoreBoard = () => {
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" sx={{ display: "flex", justifyContent: "center" }}>
       <div className={styles.wrapper}>
         <div className={styles.box17}>
           <Typography
@@ -11,7 +11,7 @@ export const ScoreBoard = () => {
             fontWeight="bold"
             sx={{ margin: "0", padding: "0" }}
           >
-            得点 3/5
+            -----
           </Typography>
         </div>
       </div>

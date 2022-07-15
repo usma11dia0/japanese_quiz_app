@@ -89,7 +89,7 @@ export const QuizQuestion = () => {
 
   return (
     <>
-      <Typography variant="h5" fontWeight="bold" mt={1}>
+      <Typography variant="h5" fontWeight="bold" mt={-2}>
         問.{choiceIndex + 1} 正しい{choice ? choice.quiz_question_text : ""}
         を選択してください。
       </Typography>
@@ -101,7 +101,7 @@ export const QuizQuestion = () => {
         <VolumeUpIcon
           color="primary"
           className={styles.volumeUpIcon}
-          sx={{ marginTop: "5", fontSize: "50px" }}
+          sx={{ marginTop: "2", fontSize: "40px" }} // marginTop: "5", fontSize: "50px"
         />
       </IconButton>
       <Grid container spacing={15}>
