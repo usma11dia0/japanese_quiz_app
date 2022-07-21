@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Typography,
@@ -9,7 +9,6 @@ import {
   Box,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 // import DummySound from "./correct_audio.mp3";
 
@@ -31,28 +30,43 @@ export const QuizQuestion = () => {
   const navigate = useNavigate();
   const choices = useSelector(selectChoices);
   const [choiceIndex, setChoiceIndex] = useState<number>(0);
-  const [choice, setChoice] = useState<READ_CHOICE>();
+  const [questionChoices, setQuestionChoices] = useState<READ_CHOICE[]>();
+  const [answerChoice, setAnswerChoice] = useState<READ_CHOICE>();
+  const [isCorrect, setIsCorrect] = useState(false);
   const isloading = useSelector(selectIsLoading);
   const { playAudio } = useAudio();
 
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   // 外部APIよりChoiceデータ読込(初回のみ)
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchBootLoader = async () => {
       await dispatch(fetchAsyncGetChoices());
     };
     fetchBootLoader();
   }, []);
 
-  console.log(choices);
+  //乱数作成関数
+  const getRandomInt = (max: number) => {
+    return Math.floor(Math.random() * Math.floor(max));
+  };
 
   // 読み込んだChoiceデータを一つずつ抽出(choiceIndexのstate変更時に都度実行)
   useEffect(() => {
     if (choices[0].quiz !== "") {
-      const selectChoice = choices[choiceIndex];
-      setChoice(selectChoice);
+      const answerChoice = choices[choiceIndex];
+      let targetChoices = [answerChoice];
+
+      //answerChoiceと同じ発音の同音異義語を抽出
+      for (const choice of choices) {
+        if (
+          choice["quiz_question_text"] === answerChoice["quiz_question_text"] &&
+          choice["choice_alphabet"] !== answerChoice["choice_alphabet"]
+        )
+          targetChoices.splice(getRandomInt(targetChoices.length), 0, choice);
+      }
+      setAnswerChoice(answerChoice);
+      setQuestionChoices(targetChoices);
     }
   }, [choices, choiceIndex]);
 
@@ -65,31 +79,68 @@ export const QuizQuestion = () => {
   }
 
   const handleClickAudio = () => {
-    playAudio(choice ? choice.audio_choice_src : "");
+    playAudio(answerChoice ? answerChoice.audio_choice_src : "");
   };
 
   const handleClickAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
-    alert("クリックを検知しました");
-    const answer = choice!.choice_alphabet;
-    if (e.target instanceof HTMLElement) {
-      if (e.target.innerText.toUpperCase() === answer.toUpperCase()) {
-        // dispatch(handleScoreChange(score+1));
-      }
-    }
+    const answer = answerChoice!.choice_text;
 
-    if (choiceIndex + 1 < choices.length) {
-      setChoiceIndex(choiceIndex + 1);
-    } else {
-      navigate("/quizzes/result");
+    if (e.target instanceof HTMLElement) {
+      switch (e.target.innerText) {
+        case "":
+          if (e.target instanceof HTMLImageElement) {
+            if (e.target.currentSrc === answerChoice?.image_choice_src) {
+              setIsCorrect(true);
+              alert("正解です");
+              console.log(e.target.currentSrc);
+              console.log(answerChoice?.image_choice_src);
+            } else {
+              setIsCorrect(false);
+              alert("不正解です");
+              console.log(e.target.currentSrc);
+              console.log(answerChoice?.image_choice_src);
+            }
+          }
+          break;
+        default:
+          if (
+            e.target.innerText.toUpperCase() ===
+            answerChoice?.choice_text.toUpperCase()
+          ) {
+            setIsCorrect(true);
+            alert("正解です");
+            console.log(e.target.innerText);
+            console.log(answerChoice?.choice_text);
+          } else {
+            setIsCorrect(false);
+            alert("不正解です");
+            console.log(e.target.innerText);
+            console.log(answerChoice?.choice_text);
+          }
+          break;
+      }
+
+      document
+        .querySelector(".ChoiceCard_card__6lcet")
+        ?.classList.add("clicked");
+
+      if (choiceIndex + 1 < choices.length) {
+        setTimeout(() => {
+          setChoiceIndex(choiceIndex + 1);
+        }, 3000);
+      } else {
+        navigate("/quizzes/result");
+      }
     }
   };
 
-  console.log(choice);
+  console.log(choices);
 
   return (
     <>
       <Typography variant="h5" fontWeight="bold" mt={-2}>
-        問.{choiceIndex + 1} 正しい{choice ? choice.quiz_question_text : ""}
+        問.{choiceIndex + 1} 正しい
+        {answerChoice ? answerChoice.quiz_question_text : ""}
         を選択してください。
       </Typography>
       <IconButton
@@ -100,26 +151,28 @@ export const QuizQuestion = () => {
         <VolumeUpIcon
           color="primary"
           className={styles.volumeUpIcon}
-          sx={{ marginTop: "2", fontSize: "40px" }} // marginTop: "5", fontSize: "50px"
+          sx={{ marginTop: "2", fontSize: "40px" }}
         />
       </IconButton>
       <Grid container spacing={15}>
         <Grid item xs={6}>
           <ChoiceCard
             customSx={{ mt: 2 }}
-            imgSrc={choice ? choice.image_choice_src : ""}
+            imgSrc={questionChoices ? questionChoices[0].image_choice_src : ""}
+            isCorrect={isCorrect}
             onClick={(e) => handleClickAnswer(e)}
           >
-            {choice ? choice.choice_text : ""}
+            {questionChoices ? questionChoices[0].choice_text : ""}
           </ChoiceCard>
         </Grid>
         <Grid item xs={6}>
           <ChoiceCard
             customSx={{ mt: 2 }}
-            imgSrc={choice ? choice.image_choice_src : ""}
-            onClick={handleClickAnswer}
+            imgSrc={questionChoices ? questionChoices[1].image_choice_src : ""}
+            isCorrect={isCorrect}
+            onClick={(e) => handleClickAnswer(e)}
           >
-            {choice ? choice.choice_text : ""}
+            {questionChoices ? questionChoices[1].choice_text : ""}
           </ChoiceCard>
         </Grid>
       </Grid>

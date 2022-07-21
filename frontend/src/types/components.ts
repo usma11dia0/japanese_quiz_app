@@ -10,6 +10,7 @@ export interface CARDPROPS {
   children: ReactNode;
   customSx?: STYLEPROPATY;
   imgSrc?: string;
+  isCorrect?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   // onClick?: () => void;
 }

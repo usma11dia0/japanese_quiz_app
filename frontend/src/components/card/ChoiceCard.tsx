@@ -11,7 +11,7 @@ import { CARDPROPS } from "../../types/components";
 import { Container } from "@mui/system";
 
 export const ChoiceCard: FC<CARDPROPS> = (props) => {
-  const { children, customSx, imgSrc, onClick } = props;
+  const { children, customSx, imgSrc, isCorrect, onClick } = props;
   return (
     <Container maxWidth="sm">
       <Card sx={customSx} elevation={4}>
@@ -24,8 +24,6 @@ export const ChoiceCard: FC<CARDPROPS> = (props) => {
                 alt="choice image"
                 sx={{
                   padding: "2em",
-                  // outline: "2px dashed #a1887f",
-                  // outlineOffset: "-30px",
                 }}
               />
               <CardContent sx={{ color: "white", backgroundColor: brown[400] }}>
@@ -42,13 +40,14 @@ export const ChoiceCard: FC<CARDPROPS> = (props) => {
             <div className={styles.front}>
               <CardMedia
                 component="img"
-                // image="../../../assets/icon/correct_mark.jpg"
-                image="../../../assets/icon/incorrect_mark.jpg"
+                image={
+                  isCorrect
+                    ? "../../../assets/icon/correct_mark.jpg"
+                    : "../../../assets/icon/incorrect_mark.jpg"
+                }
                 alt="correct_incorrect_icon"
                 sx={{
                   padding: "2em",
-                  // outline: "2px dashed #a1887f",
-                  // outlineOffset: "-30px",
                 }}
               />
               <CardContent sx={{ color: "white", backgroundColor: "#00558f" }}>
@@ -58,7 +57,7 @@ export const ChoiceCard: FC<CARDPROPS> = (props) => {
                   textAlign="center"
                   fontWeight="bold"
                 >
-                  不正解
+                  {isCorrect ? "正解" : "不正解"}
                 </Typography>
               </CardContent>
             </div>

@@ -18,12 +18,12 @@
   transform: rotateY(-180deg);
 }
 
-/* ホバー時のカード裏面 */
+/* クリック時のカード裏面 */
 .card:hover .back {
   transform: rotateY(180deg);
 }
 
-/* ホバー時のカード表面 */
+/* クリック時のカード表面 */
 .card:hover .front {
   transform: rotateY(0);
 }/*# sourceMappingURL=ChoiceCard.module.css.map */
