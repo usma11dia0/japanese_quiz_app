@@ -5,18 +5,23 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { brown } from "@mui/material/colors";
+import { Container } from "@mui/system";
 
 import styles from "./ChoiceCard.module.css";
 import { CARDPROPS } from "../../types/components";
-import { Container } from "@mui/system";
 
 export const ChoiceCard: FC<CARDPROPS> = (props) => {
-  const { children, customSx, imgSrc, isCorrect, onClick } = props;
+  const { children, customSx, imgSrc, isCorrect, isClicked, onClick } = props;
+
   return (
     <Container maxWidth="sm">
       <Card sx={customSx} elevation={4}>
         <CardActionArea onClick={onClick}>
-          <div className={styles.card}>
+          <div
+            className={
+              isClicked ? styles.cardClicked + " " + styles.card : styles.card
+            }
+          >
             <div className={styles.back}>
               <CardMedia
                 component="img"

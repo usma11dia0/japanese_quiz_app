@@ -2,7 +2,12 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import { RootState } from "../../app/store";
-import { READ_CHOICE, READ_QUIZ, QUIZ_STATE } from "../../types/features";
+import {
+  READ_CHOICE,
+  READ_QUIZ,
+  QUIZ_STATE,
+  SELECT_CARD,
+} from "../../types/features";
 
 export const fetchAsyncGetQuizzes = createAsyncThunk(
   "quiz/getQuizzes",
@@ -62,7 +67,7 @@ export const initialState: QUIZ_STATE = {
       updated_at: "",
     },
   ],
-  selectedChoice: {
+  answerChoice: {
     quiz: "",
     quiz_question_text: "",
     choice_text: "",
@@ -72,6 +77,10 @@ export const initialState: QUIZ_STATE = {
     audio_choice_src: "",
     created_at: "",
     updated_at: "",
+  },
+  selectedCard: {
+    right: false,
+    left: false,
   },
   isloading: true,
 };
@@ -83,8 +92,8 @@ export const quizSlice = createSlice({
     selectQuiz(state, action: PayloadAction<READ_QUIZ>) {
       state.selectedQuiz = action.payload;
     },
-    selectChoice(state, action: PayloadAction<READ_CHOICE>) {
-      state.selectedChoice = action.payload;
+    selectCard(state, action: PayloadAction<SELECT_CARD>) {
+      state.selectedCard = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -124,10 +133,9 @@ export const quizSlice = createSlice({
   },
 });
 
-export const { selectChoice } = quizSlice.actions;
+export const { selectCard } = quizSlice.actions;
 export const selectSelectedQuiz = (state: RootState) => state.quiz.selectedQuiz;
-export const selectSelectedChoice = (state: RootState) =>
-  state.quiz.selectedChoice;
+export const selectSelectedCard = (state: RootState) => state.quiz.selectedCard;
 export const selectQuizzes = (state: RootState) => state.quiz.quizzes;
 export const selectChoices = (state: RootState) => state.quiz.choices;
 export const selectIsLoading = (state: RootState) => state.quiz.isloading;

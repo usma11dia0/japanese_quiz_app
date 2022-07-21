@@ -56,6 +56,11 @@ export interface QUIZ_STATE {
   quizzes: READ_QUIZ[];
   selectedQuiz: READ_QUIZ;
   choices: READ_CHOICE[];
-  selectedChoice: READ_CHOICE;
+  answerChoice: READ_CHOICE;
+  selectedCard: SELECT_CARD;
   isloading: boolean;
+}
+export interface SELECT_CARD {
+  right?: boolean;
+  left?: boolean;
 }
