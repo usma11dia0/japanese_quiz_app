@@ -55,7 +55,12 @@ export const ChoiceCard: FC<CARDPROPS> = (props) => {
                   padding: "2em",
                 }}
               />
-              <CardContent sx={{ color: "white", backgroundColor: "#00558f" }}>
+              <CardContent
+                sx={{
+                  color: "white",
+                  backgroundColor: isCorrect ? "#ba2636" : "#00558f",
+                }}
+              >
                 <Typography
                   variant="h5"
                   component="div"

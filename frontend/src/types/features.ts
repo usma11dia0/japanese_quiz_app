@@ -53,10 +53,9 @@ export interface READ_QUIZ {
   updated_at: string;
 }
 export interface QUIZ_STATE {
-  quizzes: READ_QUIZ[];
-  selectedQuiz: READ_QUIZ;
   choices: READ_CHOICE[];
-  answerChoice: READ_CHOICE;
+  selectedQuestionChoices: READ_CHOICE[];
+  selectedAnswerChoice: READ_CHOICE;
   selectedCard: SELECT_CARD;
   isloading: boolean;
 }

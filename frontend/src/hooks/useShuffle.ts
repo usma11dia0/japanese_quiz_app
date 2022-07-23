@@ -1,9 +1,11 @@
 import { useState } from "react";
 
-export const useShuffle = () => {
-  const [orderedArrayObject, setOrderedArrayObject] = useState<{}[]>();
+export const useShuffle = <T>() => {
+  const [orderedArrayObject, setOrderedArrayObject] = useState<T>();
 
-  const arrayObjectShuffle = (arrayObject: {}[]) => {
+  const setArrayObjectShuffle = <T>(
+    arrayObject: T extends Array<T> ? any : any
+  ) => {
     if (orderedArrayObject === undefined) {
       for (let i = arrayObject.length - 1; 0 < i; i--) {
         let r = Math.floor(Math.random() * (i + 1));
@@ -14,5 +16,5 @@ export const useShuffle = () => {
       setOrderedArrayObject(arrayObject);
     }
   };
-  return { arrayObjectShuffle, orderedArrayObject };
+  return { orderedArrayObject, setArrayObjectShuffle };
 };

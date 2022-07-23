@@ -3,9 +3,9 @@ import { useShuffle } from "../../../hooks/useShuffle";
 import { PrononciationQuizs } from "../../../dummyData";
 
 export const QuizResult = () => {
-  const { arrayObjectShuffle, orderedArrayObject } = useShuffle();
+  const { orderedArrayObject, setArrayObjectShuffle } = useShuffle();
   // console.log(PrononciationQuizs);
-  arrayObjectShuffle(PrononciationQuizs);
+  setArrayObjectShuffle(PrononciationQuizs);
   console.log(orderedArrayObject);
   return <div>QuizResult</div>;
 };

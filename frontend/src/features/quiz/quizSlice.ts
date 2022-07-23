@@ -40,20 +40,6 @@ export const fetchAsyncGetChoices = createAsyncThunk(
 );
 
 export const initialState: QUIZ_STATE = {
-  quizzes: [
-    {
-      question_id: "",
-      question_text: "",
-      created_at: "",
-      updated_at: "",
-    },
-  ],
-  selectedQuiz: {
-    question_id: "",
-    question_text: "",
-    created_at: "",
-    updated_at: "",
-  },
   choices: [
     {
       quiz: "",
@@ -67,7 +53,20 @@ export const initialState: QUIZ_STATE = {
       updated_at: "",
     },
   ],
-  answerChoice: {
+  selectedQuestionChoices: [
+    {
+      quiz: "",
+      quiz_question_text: "",
+      choice_text: "",
+      choice_alphabet: "",
+      answer_explanation: "",
+      image_choice_src: "",
+      audio_choice_src: "",
+      created_at: "",
+      updated_at: "",
+    },
+  ],
+  selectedAnswerChoice: {
     quiz: "",
     quiz_question_text: "",
     choice_text: "",
@@ -89,8 +88,11 @@ export const quizSlice = createSlice({
   name: "quiz",
   initialState,
   reducers: {
-    selectQuiz(state, action: PayloadAction<READ_QUIZ>) {
-      state.selectedQuiz = action.payload;
+    selectQuestionChoices(state, action: PayloadAction<READ_CHOICE[]>) {
+      state.selectedQuestionChoices = action.payload;
+    },
+    selectAnswerChoice(state, action: PayloadAction<READ_CHOICE>) {
+      state.selectedAnswerChoice = action.payload;
     },
     selectCard(state, action: PayloadAction<SELECT_CARD>) {
       state.selectedCard = action.payload;
@@ -110,19 +112,35 @@ export const quizSlice = createSlice({
     builder.addCase(fetchAsyncGetQuizzes.rejected, () => {
       window.location.href = "/";
     });
+    // builder.addCase(
+    //   fetchAsyncGetChoices.fulfilled,
+    //   (state, action: PayloadAction<READ_CHOICE[]>) => {
+    //     let copyActionPayload: READ_CHOICE[] = [...action.payload];
+    //     for (let i = copyActionPayload.length - 1; 0 < i; i--) {
+    //       let r = Math.floor(Math.random() * (i + 1));
+    //       var tmp = copyActionPayload[i];
+    //       copyActionPayload[i] = copyActionPayload[r];
+    //       copyActionPayload[r] = tmp;
+    //     }
+    //     return {
+    //       ...state,
+    //       choices: copyActionPayload,
+    //       isloading: false,
+    //     };
+    //   }
+    // );
     builder.addCase(
       fetchAsyncGetChoices.fulfilled,
       (state, action: PayloadAction<READ_CHOICE[]>) => {
-        let copyActionPayload: READ_CHOICE[] = [...action.payload];
-        for (let i = copyActionPayload.length - 1; 0 < i; i--) {
+        for (let i = action.payload.length - 1; 0 < i; i--) {
           let r = Math.floor(Math.random() * (i + 1));
-          var tmp = copyActionPayload[i];
-          copyActionPayload[i] = copyActionPayload[r];
-          copyActionPayload[r] = tmp;
+          var tmp = action.payload[i];
+          action.payload[i] = action.payload[r];
+          action.payload[r] = tmp;
         }
         return {
           ...state,
-          choices: copyActionPayload,
+          choices: action.payload,
           isloading: false,
         };
       }
@@ -133,11 +151,14 @@ export const quizSlice = createSlice({
   },
 });
 
-export const { selectCard } = quizSlice.actions;
-export const selectSelectedQuiz = (state: RootState) => state.quiz.selectedQuiz;
-export const selectSelectedCard = (state: RootState) => state.quiz.selectedCard;
-export const selectQuizzes = (state: RootState) => state.quiz.quizzes;
+export const { selectQuestionChoices, selectAnswerChoice, selectCard } =
+  quizSlice.actions;
 export const selectChoices = (state: RootState) => state.quiz.choices;
+export const selectSelectedQuestionChoices = (state: RootState) =>
+  state.quiz.selectedQuestionChoices;
+export const selectSelectedAnswerChoice = (state: RootState) =>
+  state.quiz.selectedAnswerChoice;
+export const selectSelectedCard = (state: RootState) => state.quiz.selectedCard;
 export const selectIsLoading = (state: RootState) => state.quiz.isloading;
 
 export default quizSlice.reducer;

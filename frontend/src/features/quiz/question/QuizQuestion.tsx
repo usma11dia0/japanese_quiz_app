@@ -15,32 +15,38 @@ import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { ChoiceCard } from "../../../components/card/ChoiceCard";
 import styles from "./QuizQuestion.module.css";
 import {
+  initialState,
+  selectCard,
   fetchAsyncGetChoices,
   selectChoices,
-  selectIsLoading,
-  selectCard,
+  selectSelectedQuestionChoices,
+  selectSelectedAnswerChoice,
   selectSelectedCard,
+  selectIsLoading,
+  selectQuestionChoices,
+  selectAnswerChoice,
 } from "../quizSlice";
 import { AppDispatch } from "../../../app/store";
 import { useAudio } from "../../../hooks/useAudio";
+import { usePrepareQuiz } from "../../../hooks/usePrepareQuiz";
 import { READ_CHOICE, SELECT_CARD } from "../../../types/features";
 import { useNavigate } from "react-router-dom";
 import { ScoreBoard } from "../../../components/scoreboard/ScoreBoard";
-import { FALSE } from "sass";
 
 export const QuizQuestion = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
-  const choices = useSelector(selectChoices);
+  const choices: READ_CHOICE[] = useSelector(selectChoices);
+  const selectedQuestionChoices = useSelector(selectSelectedQuestionChoices);
+  const selectedAnswerChoice = useSelector(selectSelectedAnswerChoice);
   const selectedCard = useSelector(selectSelectedCard);
+  const isloading = useSelector(selectIsLoading);
   const [choiceIndex, setChoiceIndex] = useState<number>(0);
   const [questionChoices, setQuestionChoices] = useState<READ_CHOICE[]>();
   const [answerChoice, setAnswerChoice] = useState<READ_CHOICE>();
   const [isCorrect, setIsCorrect] = useState(false);
-
-  const [isClicked, IsClicked] = useState(false);
-  const isloading = useSelector(selectIsLoading);
   const { playAudio } = useAudio();
+  const { targetChoices, targetAnswer, prepareQuiz } = usePrepareQuiz();
 
   const theme = useTheme();
 
@@ -52,31 +58,22 @@ export const QuizQuestion = () => {
     fetchBootLoader();
   }, []);
 
-  //乱数作成関数
-  const getRandomInt = (max: number) => {
-    return Math.floor(Math.random() * Math.floor(max));
-  };
-
-  // 読み込んだChoiceデータを一つずつ抽出(choiceIndexのstate変更時に都度実行)
+  // 読み込んだChoicesデータを一つずつ抽出(choiceIndexのstate変更時に都度実行)
   useEffect(() => {
-    dispatch(selectCard({ right: false, left: false }));
+    dispatch(selectCard(initialState.selectedCard));
     setIsCorrect(false);
-    if (choices[0].quiz !== "") {
-      const answerChoice = choices[choiceIndex];
-      let targetChoices = [answerChoice];
-
-      //answerChoiceと同じ発音の同音異義語を抽出
-      for (const choice of choices) {
-        if (
-          choice["quiz_question_text"] === answerChoice["quiz_question_text"] &&
-          choice["choice_alphabet"] !== answerChoice["choice_alphabet"]
-        )
-          targetChoices.splice(getRandomInt(targetChoices.length), 0, choice);
-      }
-      setAnswerChoice(answerChoice);
-      setQuestionChoices(targetChoices);
-    }
-  }, [choices, choiceIndex]);
+    prepareQuiz(choices, choiceIndex);
+    dispatch(
+      selectQuestionChoices(
+        targetChoices ? targetChoices : initialState.selectedQuestionChoices
+      )
+    );
+    dispatch(
+      selectAnswerChoice(
+        targetAnswer ? targetAnswer : initialState.selectedAnswerChoice
+      )
+    );
+  }, [choices, choiceIndex, targetAnswer]);
 
   if (isloading) {
     return (
@@ -87,7 +84,9 @@ export const QuizQuestion = () => {
   }
 
   const handleClickAudio = () => {
-    playAudio(answerChoice ? answerChoice.audio_choice_src : "");
+    playAudio(
+      selectedAnswerChoice ? selectedAnswerChoice.audio_choice_src : ""
+    );
   };
 
   const handleClickAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -95,33 +94,35 @@ export const QuizQuestion = () => {
       switch (e.target.innerText) {
         case "":
           if (e.target instanceof HTMLImageElement) {
-            if (e.target.currentSrc === answerChoice?.image_choice_src) {
+            if (
+              e.target.currentSrc === selectedAnswerChoice?.image_choice_src
+            ) {
               setIsCorrect(true);
               // alert("正解です");
               console.log(e.target.currentSrc);
-              console.log(answerChoice?.image_choice_src);
+              console.log(selectedAnswerChoice?.image_choice_src);
             } else {
               setIsCorrect(false);
               // alert("不正解です");
               console.log(e.target.currentSrc);
-              console.log(answerChoice?.image_choice_src);
+              console.log(selectedAnswerChoice?.image_choice_src);
             }
           }
           break;
         default:
           if (
             e.target.innerText.toUpperCase() ===
-            answerChoice?.choice_text.toUpperCase()
+            selectedAnswerChoice?.choice_text.toUpperCase()
           ) {
             setIsCorrect(true);
             // alert("正解です");
             console.log(e.target.innerText);
-            console.log(answerChoice?.choice_text);
+            console.log(selectedAnswerChoice?.choice_text);
           } else {
             setIsCorrect(false);
             // alert("不正解です");
             console.log(e.target.innerText);
-            console.log(answerChoice?.choice_text);
+            console.log(selectedAnswerChoice?.choice_text);
           }
           break;
       }
@@ -147,7 +148,7 @@ export const QuizQuestion = () => {
     <>
       <Typography variant="h5" fontWeight="bold" mt={-2}>
         問.{choiceIndex + 1} 正しい
-        {answerChoice ? answerChoice.quiz_question_text : ""}
+        {selectedAnswerChoice ? selectedAnswerChoice.quiz_question_text : ""}
         を選択してください。
       </Typography>
       <IconButton
@@ -165,7 +166,11 @@ export const QuizQuestion = () => {
         <Grid item xs={6}>
           <ChoiceCard
             customSx={{ mt: 2 }}
-            imgSrc={questionChoices ? questionChoices[0].image_choice_src : ""}
+            imgSrc={
+              selectedQuestionChoices[0].quiz !== ""
+                ? selectedQuestionChoices[0].image_choice_src
+                : ""
+            }
             isCorrect={isCorrect}
             isClicked={selectedCard.right ? true : false}
             onClick={(e) => {
@@ -173,13 +178,19 @@ export const QuizQuestion = () => {
               dispatch(selectCard({ right: true }));
             }}
           >
-            {questionChoices ? questionChoices[0].choice_text : ""}
+            {selectedQuestionChoices[0].quiz !== ""
+              ? selectedQuestionChoices[0].choice_text
+              : ""}
           </ChoiceCard>
         </Grid>
         <Grid item xs={6}>
           <ChoiceCard
             customSx={{ mt: 2 }}
-            imgSrc={questionChoices ? questionChoices[1].image_choice_src : ""}
+            imgSrc={
+              selectedQuestionChoices[0].quiz !== ""
+                ? selectedQuestionChoices[1].image_choice_src
+                : ""
+            }
             isCorrect={isCorrect}
             isClicked={selectedCard.left ? true : false}
             onClick={(e) => {
@@ -187,7 +198,9 @@ export const QuizQuestion = () => {
               dispatch(selectCard({ left: true }));
             }}
           >
-            {questionChoices ? questionChoices[1].choice_text : ""}
+            {selectedQuestionChoices[0].quiz !== ""
+              ? selectedQuestionChoices[1].choice_text
+              : ""}
           </ChoiceCard>
         </Grid>
       </Grid>
