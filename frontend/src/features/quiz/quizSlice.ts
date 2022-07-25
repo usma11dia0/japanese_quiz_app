@@ -51,6 +51,7 @@ export const initialState: QUIZ_STATE = {
       audio_choice_src: "",
       created_at: "",
       updated_at: "",
+      is_correct: false,
     },
   ],
   selectedQuestionChoices: [
@@ -96,6 +97,13 @@ export const quizSlice = createSlice({
     },
     selectCard(state, action: PayloadAction<SELECT_CARD>) {
       state.selectedCard = action.payload;
+    },
+    addIsCorrect(state, action: PayloadAction<READ_CHOICE>) {
+      state.choices.map((choice: READ_CHOICE) =>
+        choice.choice_alphabet === action.payload.choice_alphabet
+          ? (choice.is_correct = true)
+          : (choice.is_correct = false)
+      );
     },
   },
   extraReducers: (builder) => {
@@ -151,8 +159,12 @@ export const quizSlice = createSlice({
   },
 });
 
-export const { selectQuestionChoices, selectAnswerChoice, selectCard } =
-  quizSlice.actions;
+export const {
+  selectQuestionChoices,
+  selectAnswerChoice,
+  selectCard,
+  addIsCorrect,
+} = quizSlice.actions;
 export const selectChoices = (state: RootState) => state.quiz.choices;
 export const selectSelectedQuestionChoices = (state: RootState) =>
   state.quiz.selectedQuestionChoices;

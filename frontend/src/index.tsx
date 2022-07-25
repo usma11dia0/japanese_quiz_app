@@ -14,19 +14,19 @@ const container = document.getElementById("root")!;
 const root = createRoot(container);
 
 root.render(
-  // <React.StrictMode>
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Auth />} />
-          <Route path="/quizzes/*" element={<App />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
-  </ThemeProvider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Auth />} />
+            <Route path="/quizzes/*" element={<App />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
+  </React.StrictMode>
 );
 
 // // If you want to start measuring performance in your app, pass a function

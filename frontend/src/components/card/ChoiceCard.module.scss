@@ -7,7 +7,6 @@
 
   .back,
   .front {
-    transition: all 0.6s;
     position: absolute;
     left: 0;
     top: 0;
@@ -22,11 +21,13 @@
 
   /* クリック時のカード裏面 問題文記載 */
   &.cardClicked .back {
+    transition: all 1s ease-in-out;
     transform: rotateY(180deg);
   }
 
   /* クリック時のカード表面 正解不正解記載　*/
   &.cardClicked .front {
+    transition: all 1s ease-in-out;
     transform: rotateY(0);
   }
 }

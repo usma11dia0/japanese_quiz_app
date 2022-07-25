@@ -46,9 +46,11 @@ export const ChoiceCard: FC<CARDPROPS> = (props) => {
               <CardMedia
                 component="img"
                 image={
-                  isCorrect
+                  isCorrect === true
                     ? "../../../assets/icon/correct_mark.jpg"
-                    : "../../../assets/icon/incorrect_mark.jpg"
+                    : isCorrect === false
+                    ? "../../../assets/icon/incorrect_mark.jpg"
+                    : "../../../assets/icon/card_default_white.jpg"
                 }
                 alt="correct_incorrect_icon"
                 sx={{
@@ -58,7 +60,12 @@ export const ChoiceCard: FC<CARDPROPS> = (props) => {
               <CardContent
                 sx={{
                   color: "white",
-                  backgroundColor: isCorrect ? "#ba2636" : "#00558f",
+                  backgroundColor:
+                    isCorrect === true
+                      ? "#ba2636"
+                      : isCorrect === false
+                      ? "#00558f"
+                      : "white",
                 }}
               >
                 <Typography
@@ -67,7 +74,11 @@ export const ChoiceCard: FC<CARDPROPS> = (props) => {
                   textAlign="center"
                   fontWeight="bold"
                 >
-                  {isCorrect ? "正解" : "不正解"}
+                  {isCorrect === true
+                    ? "正解"
+                    : isCorrect === false
+                    ? "不正解"
+                    : ""}
                 </Typography>
               </CardContent>
             </div>

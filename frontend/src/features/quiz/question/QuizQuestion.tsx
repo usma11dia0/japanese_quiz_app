@@ -8,7 +8,6 @@ import {
   CircularProgress,
   Box,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 // import DummySound from "./correct_audio.mp3";
 
@@ -19,6 +18,7 @@ import {
   selectCard,
   fetchAsyncGetChoices,
   selectChoices,
+  addIsCorrect,
   selectSelectedQuestionChoices,
   selectSelectedAnswerChoice,
   selectSelectedCard,
@@ -42,13 +42,11 @@ export const QuizQuestion = () => {
   const selectedCard = useSelector(selectSelectedCard);
   const isloading = useSelector(selectIsLoading);
   const [choiceIndex, setChoiceIndex] = useState<number>(0);
-  const [questionChoices, setQuestionChoices] = useState<READ_CHOICE[]>();
-  const [answerChoice, setAnswerChoice] = useState<READ_CHOICE>();
-  const [isCorrect, setIsCorrect] = useState(false);
+  const [isCorrect, setIsCorrect] = useState<boolean | undefined>(undefined);
   const { playAudio } = useAudio();
   const { targetChoices, targetAnswer, prepareQuiz } = usePrepareQuiz();
 
-  const theme = useTheme();
+  const NumberOfQuestion = 5;
 
   // 外部APIよりChoiceデータ読込(初回のみ)
   useEffect(() => {
@@ -59,9 +57,9 @@ export const QuizQuestion = () => {
   }, []);
 
   // 読み込んだChoicesデータを一つずつ抽出(choiceIndexのstate変更時に都度実行)
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(selectCard(initialState.selectedCard));
-    setIsCorrect(false);
+    setIsCorrect(undefined);
     prepareQuiz(choices, choiceIndex);
     dispatch(
       selectQuestionChoices(
@@ -73,7 +71,7 @@ export const QuizQuestion = () => {
         targetAnswer ? targetAnswer : initialState.selectedAnswerChoice
       )
     );
-  }, [choices, choiceIndex, targetAnswer]);
+  }, [choices[0].quiz, choiceIndex, targetAnswer]);
 
   if (isloading) {
     return (
@@ -97,13 +95,15 @@ export const QuizQuestion = () => {
             if (
               e.target.currentSrc === selectedAnswerChoice?.image_choice_src
             ) {
-              setIsCorrect(true);
               // alert("正解です");
+              setIsCorrect(true);
+              dispatch(addIsCorrect(selectedAnswerChoice));
+
               console.log(e.target.currentSrc);
               console.log(selectedAnswerChoice?.image_choice_src);
             } else {
-              setIsCorrect(false);
               // alert("不正解です");
+              setIsCorrect(false);
               console.log(e.target.currentSrc);
               console.log(selectedAnswerChoice?.image_choice_src);
             }
@@ -114,30 +114,28 @@ export const QuizQuestion = () => {
             e.target.innerText.toUpperCase() ===
             selectedAnswerChoice?.choice_text.toUpperCase()
           ) {
-            setIsCorrect(true);
             // alert("正解です");
+            setIsCorrect(true);
+            dispatch(addIsCorrect(selectedAnswerChoice));
             console.log(e.target.innerText);
             console.log(selectedAnswerChoice?.choice_text);
           } else {
-            setIsCorrect(false);
             // alert("不正解です");
+            setIsCorrect(false);
             console.log(e.target.innerText);
             console.log(selectedAnswerChoice?.choice_text);
           }
           break;
       }
 
-      // document.querySelector(".ChoiceCard_card__6lcet")?.classList.add("test");
-      // setIsClicked(true);
-
-      if (choiceIndex + 1 < choices.length) {
+      if (choiceIndex + 1 < NumberOfQuestion) {
         setTimeout(() => {
           setChoiceIndex(choiceIndex + 1);
-        }, 1000);
+        }, 1500);
       } else {
         setTimeout(() => {
           navigate("/quizzes/result");
-        }, 1000);
+        }, 1500);
       }
     }
   };

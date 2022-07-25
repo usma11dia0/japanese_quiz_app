@@ -45,6 +45,7 @@ export interface READ_CHOICE {
   audio_choice_src: string;
   created_at: string;
   updated_at: string;
+  is_correct?: boolean;
 }
 export interface READ_QUIZ {
   question_id: string;
