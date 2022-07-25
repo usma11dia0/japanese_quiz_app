@@ -1,14 +1,14 @@
 import { ReactNode } from "react";
 
-export interface BUTTONPROPS {
+export interface BUTTON_PROPS {
   children: ReactNode;
-  customSx?: STYLEPROPATY;
+  customSx?: STYLE_PROPATY;
   onClick?: () => void;
 }
 
-export interface CARDPROPS {
+export interface CARD_PROPS {
   children: ReactNode;
-  customSx?: STYLEPROPATY;
+  customSx?: STYLE_PROPATY;
   imgSrc?: string;
   isCorrect?: boolean;
   isClicked?: boolean;
@@ -16,6 +16,12 @@ export interface CARDPROPS {
   // onClick?: () => void;
 }
 
-export interface STYLEPROPATY {
+export interface SCOREBOARD_PROPS {
+  children: ReactNode;
+  customSx?: STYLE_PROPATY;
+  onClick?: () => void;
+}
+
+export interface STYLE_PROPATY {
   [propaty: string]: string | number;
 }

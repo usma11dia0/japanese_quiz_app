@@ -8,9 +8,9 @@ import { brown } from "@mui/material/colors";
 import { Container } from "@mui/system";
 
 import styles from "./ChoiceCard.module.css";
-import { CARDPROPS } from "../../types/components";
+import { CARD_PROPS } from "../../types/components";
 
-export const ChoiceCard: FC<CARDPROPS> = (props) => {
+export const ChoiceCard: FC<CARD_PROPS> = (props) => {
   const { children, customSx, imgSrc, isCorrect, isClicked, onClick } = props;
 
   return (
@@ -36,7 +36,7 @@ export const ChoiceCard: FC<CARDPROPS> = (props) => {
                   variant="h5"
                   component="div"
                   textAlign="center"
-                  fontWeight="bold"
+                  // fontWeight="bold"
                 >
                   {children}
                 </Typography>

@@ -12,14 +12,13 @@ let theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["Kameron", "serif", "Noto Sans JP", "sans-serif"].join(","),
+    fontFamily: ["Yuji Boku", "serif"].join(","),
   },
   components: {
     MuiCssBaseline: {
       styleOverrides: `
           @font-face {
-            font-family: "Kameron", "serif";
-            font-family: 'Noto Sans JP', sans-serif;
+            font-family: 'Yuji Boku', serif;
           }
           body {
             background-image: url(../assets/background/japanese-paper_00372.jpg);
@@ -35,5 +34,9 @@ let theme = createTheme({
   },
 });
 theme = responsiveFontSizes(theme);
+
+// 日本語フォント初期
+// font-family: "Kameron", "serif";
+// font-family: 'Noto Sans JP', sans-serif;
 
 export default theme;

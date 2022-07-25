@@ -202,9 +202,9 @@ export const QuizQuestion = () => {
           </ChoiceCard>
         </Grid>
       </Grid>
-      {/* <Typography variant="h4" fontWeight="bold" mt={5}> */}
-      <ScoreBoard />
-      {/* </Typography> */}
+      <Typography variant="h5" fontWeight="bold">
+        <ScoreBoard> 4 / 5 </ScoreBoard>
+      </Typography>
     </>
   );
 };

@@ -35,7 +35,7 @@ export const Appbar = () => {
               variant="h6"
               component="div"
               sx={{ flexGrow: 1, cursor: "pointer" }}
-              mt={0.5}
+              mt={-0.2}
               onClick={handleClickToMenu}
             >
               日本語同音異義語クイズ
@@ -57,7 +57,7 @@ export const Appbar = () => {
                 color="inherit"
                 sx={{ paddingLeft: "3px", justifyContent: "flex-start" }}
               >
-                <Typography variant="h6" component="div" mt={0.5}>
+                <Typography variant="h6" component="div" mt={-0.2}>
                   退出
                 </Typography>
               </Button>

@@ -11,10 +11,10 @@ export const QuizMenu: FC = () => {
 
   return (
     <>
-      <Typography variant="h2" fontWeight="bold" mt={2}>
+      <Typography variant="h2" mt={2}>
         日本語
       </Typography>
-      <Typography variant="h2" fontWeight="bold" mt={2}>
+      <Typography variant="h2" mt={2}>
         同音異義語クイズ
       </Typography>
 
