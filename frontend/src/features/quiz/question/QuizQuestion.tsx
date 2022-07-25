@@ -43,6 +43,7 @@ export const QuizQuestion = () => {
   const isloading = useSelector(selectIsLoading);
   const [choiceIndex, setChoiceIndex] = useState<number>(0);
   const [isCorrect, setIsCorrect] = useState<boolean | undefined>(undefined);
+  const [countIsCorrect, setCountIsCorrect] = useState<number>(0);
   const { playAudio } = useAudio();
   const { targetChoices, targetAnswer, prepareQuiz } = usePrepareQuiz();
 
@@ -54,6 +55,7 @@ export const QuizQuestion = () => {
       await dispatch(fetchAsyncGetChoices());
     };
     fetchBootLoader();
+    setCountIsCorrect(0);
   }, []);
 
   // 読み込んだChoicesデータを一つずつ抽出(choiceIndexのstate変更時に都度実行)
@@ -97,6 +99,7 @@ export const QuizQuestion = () => {
             ) {
               // alert("正解です");
               setIsCorrect(true);
+              setCountIsCorrect(countIsCorrect + 1);
               dispatch(addIsCorrect(selectedAnswerChoice));
 
               console.log(e.target.currentSrc);
@@ -116,6 +119,7 @@ export const QuizQuestion = () => {
           ) {
             // alert("正解です");
             setIsCorrect(true);
+            setCountIsCorrect(countIsCorrect + 1);
             dispatch(addIsCorrect(selectedAnswerChoice));
             console.log(e.target.innerText);
             console.log(selectedAnswerChoice?.choice_text);
@@ -203,7 +207,9 @@ export const QuizQuestion = () => {
         </Grid>
       </Grid>
       <Typography variant="h5" fontWeight="bold">
-        <ScoreBoard> 4 / 5 </ScoreBoard>
+        <ScoreBoard>
+          {countIsCorrect} / {NumberOfQuestion}{" "}
+        </ScoreBoard>
       </Typography>
     </>
   );
