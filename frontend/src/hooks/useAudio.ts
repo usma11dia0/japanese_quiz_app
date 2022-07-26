@@ -1,14 +1,15 @@
-import { FC, useState } from "react";
-import { Howl, Howler } from "howler";
+import { useState } from "react";
+import { Howl } from "howler";
 
 export const useAudio = () => {
   const [sound, setSound] = useState<Howl>();
 
-  const playAudio = (audioSrc: string) => {
+  const playAudio = (audioSrc: string, volume?: number) => {
     const sound = new Howl({
       src: [audioSrc],
     });
     setSound(sound);
+    sound.volume(volume ? volume : 0.5);
     sound.play();
   };
   return { playAudio, sound };

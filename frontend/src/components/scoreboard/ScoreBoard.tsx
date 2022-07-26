@@ -1,17 +1,17 @@
 import { Container, Typography } from "@mui/material";
-import { FC } from "react";
+import { FC, memo } from "react";
 
 import { SCOREBOARD_PROPS } from "../../types/components";
 import styles from "./ScoreBoard.module.css";
 
-export const ScoreBoard: FC<SCOREBOARD_PROPS> = (props) => {
+export const ScoreBoard: FC<SCOREBOARD_PROPS> = memo((props) => {
   const { children } = props;
   return (
     <Container maxWidth="sm" sx={{ display: "flex", justifyContent: "center" }}>
       <div className={styles.wrapper}>
         <div className={styles.scorebox}>
           <Typography
-            variant="h3"
+            variant="h4"
             fontWeight="bold"
             sx={{ margin: "0", padding: "0" }}
           >
@@ -21,4 +21,4 @@ export const ScoreBoard: FC<SCOREBOARD_PROPS> = (props) => {
       </div>
     </Container>
   );
-};
+});

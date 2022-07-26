@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Typography,
@@ -9,7 +9,6 @@ import {
   Box,
 } from "@mui/material";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-// import DummySound from "./correct_audio.mp3";
 
 import { ChoiceCard } from "../../../components/card/ChoiceCard";
 import styles from "./QuizQuestion.module.css";
@@ -29,7 +28,7 @@ import {
 import { AppDispatch } from "../../../app/store";
 import { useAudio } from "../../../hooks/useAudio";
 import { usePrepareQuiz } from "../../../hooks/usePrepareQuiz";
-import { READ_CHOICE, SELECT_CARD } from "../../../types/features";
+import { READ_CHOICE } from "../../../types/features";
 import { useNavigate } from "react-router-dom";
 import { ScoreBoard } from "../../../components/scoreboard/ScoreBoard";
 
@@ -50,7 +49,7 @@ export const QuizQuestion = () => {
   const NumberOfQuestion = 5;
 
   // 外部APIよりChoiceデータ読込(初回のみ)
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchBootLoader = async () => {
       await dispatch(fetchAsyncGetChoices());
     };
@@ -75,13 +74,14 @@ export const QuizQuestion = () => {
     );
   }, [choices[0].quiz, choiceIndex, targetAnswer]);
 
-  if (isloading) {
-    return (
-      <Box mt={20}>
-        <CircularProgress />
-      </Box>
-    );
-  }
+  // 初回読み込み時に音声を一度だけ再生 (最初の問のみ音声が重複してしまう)
+  // useLayoutEffect(() => {
+  //   if (choices[0].quiz !== "" && document.readyState === "complete") {
+  //     playAudio(
+  //       selectedAnswerChoice ? selectedAnswerChoice.audio_choice_src : ""
+  //     );
+  //   }
+  // }, [selectedAnswerChoice]);
 
   const handleClickAudio = () => {
     playAudio(
@@ -98,17 +98,18 @@ export const QuizQuestion = () => {
               e.target.currentSrc === selectedAnswerChoice?.image_choice_src
             ) {
               // alert("正解です");
+              // console.log(e.target.currentSrc);
+              // console.log(selectedAnswerChoice?.image_choice_src);
               setIsCorrect(true);
               setCountIsCorrect(countIsCorrect + 1);
               dispatch(addIsCorrect(selectedAnswerChoice));
-
-              console.log(e.target.currentSrc);
-              console.log(selectedAnswerChoice?.image_choice_src);
+              playAudio("../../../../assets/audio/seikai_1.mp3", 0.1);
             } else {
               // alert("不正解です");
+              // console.log(e.target.currentSrc);
+              // console.log(selectedAnswerChoice?.image_choice_src);
               setIsCorrect(false);
-              console.log(e.target.currentSrc);
-              console.log(selectedAnswerChoice?.image_choice_src);
+              playAudio("../../../../assets/audio/huseikai_2.mp3", 0.1);
             }
           }
           break;
@@ -121,6 +122,7 @@ export const QuizQuestion = () => {
             setIsCorrect(true);
             setCountIsCorrect(countIsCorrect + 1);
             dispatch(addIsCorrect(selectedAnswerChoice));
+            playAudio("../../../../assets/audio/seikai_1.mp3");
             console.log(e.target.innerText);
             console.log(selectedAnswerChoice?.choice_text);
           } else {
@@ -144,11 +146,17 @@ export const QuizQuestion = () => {
     }
   };
 
-  console.log(choices);
+  if (isloading) {
+    return (
+      <Box mt={20}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <>
-      <Typography variant="h5" fontWeight="bold" mt={-2}>
+      <Typography variant="h5" fontWeight="bold" mt={-2.5}>
         問.{choiceIndex + 1} 正しい
         {selectedAnswerChoice ? selectedAnswerChoice.quiz_question_text : ""}
         を選択してください。
@@ -206,11 +214,9 @@ export const QuizQuestion = () => {
           </ChoiceCard>
         </Grid>
       </Grid>
-      <Typography variant="h5" fontWeight="bold">
-        <ScoreBoard>
-          {countIsCorrect} / {NumberOfQuestion}{" "}
-        </ScoreBoard>
-      </Typography>
+      <ScoreBoard>
+        {countIsCorrect} / {NumberOfQuestion}{" "}
+      </ScoreBoard>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -10,7 +10,7 @@ import { Container } from "@mui/system";
 import styles from "./ChoiceCard.module.css";
 import { CARD_PROPS } from "../../types/components";
 
-export const ChoiceCard: FC<CARD_PROPS> = (props) => {
+export const ChoiceCard: FC<CARD_PROPS> = memo((props) => {
   const { children, customSx, imgSrc, isCorrect, isClicked, onClick } = props;
 
   return (
@@ -87,4 +87,4 @@ export const ChoiceCard: FC<CARD_PROPS> = (props) => {
       </Card>
     </Container>
   );
-};
+});

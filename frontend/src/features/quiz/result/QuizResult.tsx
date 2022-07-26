@@ -1,11 +1,49 @@
-import React from "react";
-import { useShuffle } from "../../../hooks/useShuffle";
-import { PrononciationQuizs } from "../../../dummyData";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export const QuizResult = () => {
-  const { orderedArrayObject, setArrayObjectShuffle } = useShuffle();
-  // console.log(PrononciationQuizs);
-  setArrayObjectShuffle(PrononciationQuizs);
-  console.log(orderedArrayObject);
-  return <div>QuizResult</div>;
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div>
+      <Button onClick={handleOpen}>Open QuizResult Modal</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            id="modal-modal-title"
+            variant="h4"
+            fontWeight="bold"
+            component="h2"
+          >
+            結 果 発 表
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            ここに成績一覧が表示されます。
+          </Typography>
+        </Box>
+      </Modal>
+    </div>
+  );
 };
