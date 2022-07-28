@@ -15,6 +15,8 @@ export const Appbar = () => {
 
   const handleClickToMenu = () => {
     navigate("/quizzes");
+    // store内のRedux stateをリセット
+    window.location.reload();
   };
 
   return (

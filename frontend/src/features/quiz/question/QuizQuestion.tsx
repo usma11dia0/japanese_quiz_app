@@ -18,6 +18,8 @@ import {
   fetchAsyncGetChoices,
   selectChoices,
   addIsCorrect,
+  addIsInCorrect,
+  resetState,
   selectSelectedQuestionChoices,
   selectSelectedAnswerChoice,
   selectSelectedCard,
@@ -50,11 +52,12 @@ export const QuizQuestion = () => {
 
   // 外部APIよりChoiceデータ読込(初回のみ)
   useLayoutEffect(() => {
+    dispatch(resetState());
     const fetchBootLoader = async () => {
       await dispatch(fetchAsyncGetChoices());
+      await setCountIsCorrect(0);
     };
     fetchBootLoader();
-    setCountIsCorrect(0);
   }, []);
 
   // 読み込んだChoicesデータを一つずつ抽出(choiceIndexのstate変更時に都度実行)
@@ -74,14 +77,13 @@ export const QuizQuestion = () => {
     );
   }, [choices[0].quiz, choiceIndex, targetAnswer]);
 
-  // 初回読み込み時に音声を一度だけ再生 (最初の問のみ音声が重複してしまう)
-  // useLayoutEffect(() => {
-  //   if (choices[0].quiz !== "" && document.readyState === "complete") {
-  //     playAudio(
-  //       selectedAnswerChoice ? selectedAnswerChoice.audio_choice_src : ""
-  //     );
-  //   }
-  // }, [selectedAnswerChoice]);
+  //初回読み込み時は自動で音声を再生
+  useLayoutEffect(() => {
+    if (choices[0].quiz !== "" && document.readyState === "complete") {
+      const targetIcon = document.querySelector<HTMLElement>(".sound-icon");
+      targetIcon?.click();
+    }
+  }, [selectedAnswerChoice]);
 
   const handleClickAudio = () => {
     playAudio(
@@ -109,6 +111,7 @@ export const QuizQuestion = () => {
               // console.log(e.target.currentSrc);
               // console.log(selectedAnswerChoice?.image_choice_src);
               setIsCorrect(false);
+              dispatch(addIsInCorrect(selectedAnswerChoice));
               playAudio("../../../../assets/audio/huseikai_2.mp3", 0.1);
             }
           }
@@ -119,17 +122,19 @@ export const QuizQuestion = () => {
             selectedAnswerChoice?.choice_text.toUpperCase()
           ) {
             // alert("正解です");
+            // console.log(e.target.innerText);
+            // console.log(selectedAnswerChoice?.choice_text);
             setIsCorrect(true);
             setCountIsCorrect(countIsCorrect + 1);
             dispatch(addIsCorrect(selectedAnswerChoice));
             playAudio("../../../../assets/audio/seikai_1.mp3");
-            console.log(e.target.innerText);
-            console.log(selectedAnswerChoice?.choice_text);
           } else {
             // alert("不正解です");
+            // console.log(e.target.innerText);
+            // console.log(selectedAnswerChoice?.choice_text);
             setIsCorrect(false);
-            console.log(e.target.innerText);
-            console.log(selectedAnswerChoice?.choice_text);
+            dispatch(addIsInCorrect(selectedAnswerChoice));
+            playAudio("../../../../assets/audio/huseikai_2.mp3", 0.1);
           }
           break;
       }
@@ -165,6 +170,7 @@ export const QuizQuestion = () => {
         aria-label="play volume"
         disableRipple={true}
         onClick={handleClickAudio}
+        className="sound-icon"
       >
         <VolumeUpIcon
           color="primary"
