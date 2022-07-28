@@ -166,7 +166,7 @@ export const Auth: FC = () => {
           variant="contained"
           type="submit"
           color="primary"
-          size="small"
+          size="medium"
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -180,7 +180,7 @@ export const Auth: FC = () => {
         </Button>
       </form>
       <br />
-      <span onClick={() => dispatch(toggleMode())}>
+      <span onClick={() => dispatch(toggleMode())} className={styles.span}>
         {isLoginView ? "はじめての方はこちら" : "ろぐいんはこちら"}
       </span>
       <ToastContainer

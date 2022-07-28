@@ -1,0 +1,15 @@
+@use "../../../scss/variables" as var;
+
+.table {
+  table-layout: "fixed";
+}
+
+.button {
+  margin: 24px;
+}
+
+.small {
+  margin: auto;
+  width: 24px;
+  height: 24px;
+}

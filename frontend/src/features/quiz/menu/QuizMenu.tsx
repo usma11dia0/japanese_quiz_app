@@ -11,7 +11,7 @@ export const QuizMenu: FC = () => {
 
   return (
     <>
-      <Typography variant="h2" mt={2}>
+      <Typography variant="h2" mt={0}>
         日本語
       </Typography>
       <Typography variant="h2" mt={2}>
@@ -20,7 +20,7 @@ export const QuizMenu: FC = () => {
 
       <PrimaryButton
         onClick={() => navigate("/quizzes/questions")}
-        customSx={{ marginTop: "50px" }}
+        customSx={{ marginTop: "70px" }}
       >
         聞き分け練習
       </PrimaryButton>

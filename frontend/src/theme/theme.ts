@@ -2,6 +2,7 @@ import { createTheme, responsiveFontSizes } from "@mui/material";
 import { brown } from "@mui/material/colors";
 
 let theme = createTheme({
+  spacing: 8,
   breakpoints: {
     values: {
       xs: 0,

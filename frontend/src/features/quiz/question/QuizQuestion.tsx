@@ -11,7 +11,6 @@ import {
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
 import { ChoiceCard } from "../../../components/card/ChoiceCard";
-import styles from "./QuizQuestion.module.css";
 import {
   initialState,
   selectCard,
@@ -33,6 +32,7 @@ import { usePrepareQuiz } from "../../../hooks/usePrepareQuiz";
 import { READ_CHOICE } from "../../../types/features";
 import { useNavigate } from "react-router-dom";
 import { ScoreBoard } from "../../../components/scoreboard/ScoreBoard";
+import styles from "./QuizQuestion.module.css";
 
 export const QuizQuestion = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -127,7 +127,7 @@ export const QuizQuestion = () => {
             setIsCorrect(true);
             setCountIsCorrect(countIsCorrect + 1);
             dispatch(addIsCorrect(selectedAnswerChoice));
-            playAudio("../../../../assets/audio/seikai_1.mp3");
+            playAudio("../../../../assets/audio/seikai_1.mp3", 0.1);
           } else {
             // alert("不正解です");
             // console.log(e.target.innerText);
