@@ -88,7 +88,8 @@ export const QuizQuestion = () => {
 
   const handleClickAudio = () => {
     playAudio(
-      selectedAnswerChoice ? selectedAnswerChoice.audio_choice_src : ""
+      selectedAnswerChoice ? selectedAnswerChoice.audio_choice_src : "",
+      1.0
     );
   };
 

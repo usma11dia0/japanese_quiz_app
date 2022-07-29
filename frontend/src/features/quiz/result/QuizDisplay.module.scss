@@ -1,4 +1,15 @@
+.table {
+  table-layout: fixed;
+  width: 100%;
+  // writing-mode: vertical-rl;
+}
+
+.table_head {
+  writing-mode: vertical-rl;
+  width: 15%;
+}
+
 .img {
-  width: 15vh;
-  height: 15vh;
+  width: 20vh;
+  height: 20vh;
 }
