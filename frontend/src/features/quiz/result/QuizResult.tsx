@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import {
@@ -19,7 +20,6 @@ import {
   initialState,
   selectChoices,
   selectAnswerChoice,
-  selectSelectedAnswerChoice,
   selectScore,
 } from "../quizSlice";
 import { useAudio } from "../../../hooks/useAudio";
@@ -35,7 +35,6 @@ export const QuizResult = () => {
   const columns = resultChoices[0] && Object.keys(resultChoices[0]);
   const { playAudio } = useAudio();
   const score = useSelector(selectScore);
-  const selectedChoice = useSelector(selectSelectedAnswerChoice);
   const navigate = useNavigate();
 
   //列名の文字列変換用配列
@@ -79,7 +78,7 @@ export const QuizResult = () => {
         playAudio("../../../../assets/audio/clapping_short2.mp3", 0.1);
       }, 2000);
     }
-  }, [resultChoices]);
+  }, []);
 
   return (
     <>
@@ -103,7 +102,7 @@ export const QuizResult = () => {
             border: "2px solid #000",
             boxShadow: 24,
             overflowWrap: "break-word",
-            p: 3,
+            p: 2,
           }}
         >
           <Grid container spacing={2}>
@@ -208,9 +207,7 @@ export const QuizResult = () => {
                           <button
                             className={styles.tasklist__icon}
                             onClick={() => {
-                              {
-                                dispatch(selectAnswerChoice(row));
-                              }
+                              dispatch(selectAnswerChoice(row));
                             }}
                           >
                             <ContentPasteSearchRoundedIcon />

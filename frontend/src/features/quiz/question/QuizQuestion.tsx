@@ -1,14 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Typography,
-  Grid,
-  IconButton,
-  CircularProgress,
-  Box,
-} from "@mui/material";
-import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import { Typography, Grid, CircularProgress, Box } from "@mui/material";
 
 import { ChoiceCard } from "../../../components/card/ChoiceCard";
 import {
