@@ -19,6 +19,7 @@ import {
   selectChoices,
   selectAnswerChoice,
   selectSelectedAnswerChoice,
+  selectScore,
 } from "../quizSlice";
 import { useAudio } from "../../../hooks/useAudio";
 import { AppDispatch } from "../../../app/store";
@@ -31,6 +32,7 @@ export const QuizResult = () => {
   const resultChoices = useSelector(selectChoices);
   const columns = resultChoices[0] && Object.keys(resultChoices[0]);
   const { playAudio } = useAudio();
+  const score = useSelector(selectScore);
   const navigate = useNavigate();
 
   //列名の文字列変換用配列
@@ -68,9 +70,11 @@ export const QuizResult = () => {
       targetIcon?.click();
     }
     playAudio("../../../../assets/audio/bamenntennkann-2.mp3", 0.1);
-    setTimeout(() => {
-      playAudio("../../../../assets/audio/clapping_short2.mp3", 0.1);
-    }, 2000);
+    if (score === 5) {
+      setTimeout(() => {
+        playAudio("../../../../assets/audio/clapping_short2.mp3", 0.1);
+      }, 2000);
+    }
   }, [resultChoices]);
 
   return (
@@ -111,10 +115,10 @@ export const QuizResult = () => {
             variant="h2"
             fontWeight="bold"
             component="h1"
-            color="#ba2636"
+            color={score === 5 ? "#ba2636" : "#3f312b"}
             sx={{ display: "inline-flex", mt: 0, ml: 5 }}
           >
-            満 点
+            {score === 5 ? `満 点` : `${score} 点`}
           </Typography>
           <Button
             variant="contained"

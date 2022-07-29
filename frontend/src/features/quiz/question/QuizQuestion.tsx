@@ -18,11 +18,13 @@ import {
   selectChoices,
   addIsCorrect,
   addIsInCorrect,
+  incrementScore,
   resetState,
   selectSelectedQuestionChoices,
   selectSelectedAnswerChoice,
   selectSelectedCard,
   selectIsLoading,
+  selectScore,
   selectQuestionChoices,
   selectAnswerChoice,
 } from "../quizSlice";
@@ -42,6 +44,7 @@ export const QuizQuestion = () => {
   const selectedAnswerChoice = useSelector(selectSelectedAnswerChoice);
   const selectedCard = useSelector(selectSelectedCard);
   const isloading = useSelector(selectIsLoading);
+  const score = useSelector(selectScore);
   const [choiceIndex, setChoiceIndex] = useState<number>(0);
   const [isCorrect, setIsCorrect] = useState<boolean | undefined>(undefined);
   const [countIsCorrect, setCountIsCorrect] = useState<number>(0);
@@ -55,7 +58,6 @@ export const QuizQuestion = () => {
     dispatch(resetState());
     const fetchBootLoader = async () => {
       await dispatch(fetchAsyncGetChoices());
-      await setCountIsCorrect(0);
     };
     fetchBootLoader();
   }, []);
@@ -103,7 +105,7 @@ export const QuizQuestion = () => {
               // console.log(e.target.currentSrc);
               // console.log(selectedAnswerChoice?.image_choice_src);
               setIsCorrect(true);
-              setCountIsCorrect(countIsCorrect + 1);
+              dispatch(incrementScore());
               dispatch(addIsCorrect(selectedAnswerChoice));
               playAudio("../../../../assets/audio/seikai_1.mp3", 0.1);
             } else {
@@ -125,7 +127,7 @@ export const QuizQuestion = () => {
             // console.log(e.target.innerText);
             // console.log(selectedAnswerChoice?.choice_text);
             setIsCorrect(true);
-            setCountIsCorrect(countIsCorrect + 1);
+            dispatch(incrementScore());
             dispatch(addIsCorrect(selectedAnswerChoice));
             playAudio("../../../../assets/audio/seikai_1.mp3", 0.1);
           } else {
@@ -221,7 +223,7 @@ export const QuizQuestion = () => {
         </Grid>
       </Grid>
       <ScoreBoard>
-        {countIsCorrect} / {NumberOfQuestion}{" "}
+        {score} / {NumberOfQuestion}{" "}
       </ScoreBoard>
     </>
   );

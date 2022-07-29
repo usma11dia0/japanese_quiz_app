@@ -85,6 +85,7 @@ export const initialState: QUIZ_STATE = {
     left: false,
   },
   isloading: true,
+  score: 0,
 };
 
 export const quizSlice = createSlice({
@@ -115,6 +116,9 @@ export const quizSlice = createSlice({
           ? (choice.is_correct = false)
           : (choice.is_correct = choice.is_correct)
       );
+    },
+    incrementScore(state) {
+      state.score += 1;
     },
     resetState: () => initialState,
   },
@@ -160,6 +164,7 @@ export const {
   selectCard,
   addIsCorrect,
   addIsInCorrect,
+  incrementScore,
   resetState,
 } = quizSlice.actions;
 export const selectChoices = (state: RootState) => state.quiz.choices;
@@ -169,5 +174,6 @@ export const selectSelectedAnswerChoice = (state: RootState) =>
   state.quiz.selectedAnswerChoice;
 export const selectSelectedCard = (state: RootState) => state.quiz.selectedCard;
 export const selectIsLoading = (state: RootState) => state.quiz.isloading;
+export const selectScore = (state: RootState) => state.quiz.score;
 
 export default quizSlice.reducer;

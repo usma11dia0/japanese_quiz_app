@@ -59,6 +59,7 @@ export interface QUIZ_STATE {
   selectedAnswerChoice: READ_CHOICE;
   selectedCard: SELECT_CARD;
   isloading: boolean;
+  score: number;
 }
 export interface SELECT_CARD {
   right?: boolean;
