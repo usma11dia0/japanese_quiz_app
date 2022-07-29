@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 export interface BUTTON_PROPS {
-  children: ReactNode;
+  children?: ReactNode;
   customSx?: STYLE_PROPATY;
   onClick?: () => void;
 }

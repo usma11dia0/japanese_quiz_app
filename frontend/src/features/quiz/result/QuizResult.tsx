@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
+  initialState,
   selectChoices,
   selectAnswerChoice,
   selectSelectedAnswerChoice,
@@ -66,6 +67,7 @@ export const QuizResult = () => {
 
   //初回読み込み時に自動でmodal表示 + 音声再生
   useEffect(() => {
+    dispatch(selectAnswerChoice(initialState.selectedAnswerChoice));
     if (resultChoices[0].quiz !== "" && document.readyState === "complete") {
       const targetIcon = document.querySelector<HTMLElement>(".open-modal");
       targetIcon?.click();

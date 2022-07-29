@@ -34,7 +34,7 @@ import { usePrepareQuiz } from "../../../hooks/usePrepareQuiz";
 import { READ_CHOICE } from "../../../types/features";
 import { useNavigate } from "react-router-dom";
 import { ScoreBoard } from "../../../components/scoreboard/ScoreBoard";
-import styles from "./QuizQuestion.module.css";
+import { SoundIcon } from "../../../components/button/SoundIcon";
 
 export const QuizQuestion = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -47,7 +47,6 @@ export const QuizQuestion = () => {
   const score = useSelector(selectScore);
   const [choiceIndex, setChoiceIndex] = useState<number>(0);
   const [isCorrect, setIsCorrect] = useState<boolean | undefined>(undefined);
-  const [countIsCorrect, setCountIsCorrect] = useState<number>(0);
   const { playAudio } = useAudio();
   const { targetChoices, targetAnswer, prepareQuiz } = usePrepareQuiz();
 
@@ -168,18 +167,7 @@ export const QuizQuestion = () => {
         {selectedAnswerChoice ? selectedAnswerChoice.quiz_question_text : ""}
         を選択してください。
       </Typography>
-      <IconButton
-        aria-label="play volume"
-        disableRipple={true}
-        onClick={handleClickAudio}
-        className="sound-icon"
-      >
-        <VolumeUpIcon
-          color="primary"
-          className={styles.volumeUpIcon}
-          sx={{ marginTop: "2", fontSize: "40px" }}
-        />
-      </IconButton>
+      <SoundIcon onClick={handleClickAudio} />
       <Grid container spacing={15}>
         <Grid item xs={6}>
           <ChoiceCard
