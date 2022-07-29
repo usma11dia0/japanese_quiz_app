@@ -37,20 +37,11 @@ const App: FC = () => {
           >
             <Routes>
               <Route path="/" element={jwt ? <QuizMenu /> : <Auth />} />
-              {/* <Route path="/setting" element={<Settings />} /> */}
               <Route
                 path="/questions"
                 element={jwt ? <QuizQuestion /> : <Auth />}
               />
               <Route path="/result" element={jwt ? <QuizResult /> : <Auth />} />
-              {/* <Route
-                  path="/score"
-                  element={jwt ? <FinalScreen /> : <Auth />}
-                /> */}
-              {/* <Route
-              path="/pron_practice"
-              element={jwt ? <Practice /> : <Auth />}
-            /> */}
             </Routes>
           </Box>
         </Grid>

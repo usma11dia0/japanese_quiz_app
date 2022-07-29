@@ -24,6 +24,7 @@ import {
 import { useAudio } from "../../../hooks/useAudio";
 import { AppDispatch } from "../../../app/store";
 import styles from "./QuizResult.module.css";
+import { QuizDisplay } from "./QuizDisplay";
 
 export const QuizResult = () => {
   const [open, setOpen] = useState(false);
@@ -98,42 +99,45 @@ export const QuizResult = () => {
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
+            overflowWrap: "break-word",
             p: 1,
           }}
         >
-          <Typography
-            id="modal-modal-title"
-            variant="h4"
-            fontWeight="bold"
-            component="h1"
-            sx={{ display: "inline-flex", mt: 0, ml: 3 }}
-          >
-            今 回 の 成 績
-          </Typography>
-          <Typography
-            id="modal-modal-title"
-            variant="h2"
-            fontWeight="bold"
-            component="h1"
-            color={score === 5 ? "#ba2636" : "#3f312b"}
-            sx={{ display: "inline-flex", mt: 0, ml: 5 }}
-          >
-            {score === 5 ? `満 点` : `${score} 点`}
-          </Typography>
-          <Button
-            variant="contained"
-            disableElevation
-            onClick={() => {
-              navigate("/quizzes/");
-              // store内のRedux stateをリセット
-              window.location.reload();
-            }}
-            sx={{ ml: 7 }}
-          >
-            戻る
-          </Button>
           <Grid container spacing={2}>
             <Grid item xs={7}>
+              <Typography
+                id="modal-modal-title"
+                variant="h4"
+                fontWeight="bold"
+                component="h1"
+                sx={{ display: "inline-flex", mt: 0, ml: 3 }}
+              >
+                今 回 の 成 績
+              </Typography>
+              <Typography
+                id="modal-modal-title"
+                variant="h2"
+                fontWeight="bold"
+                component="h1"
+                color={score === 5 ? "#ba2636" : "#3f312b"}
+                sx={{ display: "inline-flex", mt: 0, ml: 5 }}
+              >
+                {score === 5 ? `満 点` : `${score} 点`}
+              </Typography>
+              <Button
+                variant="contained"
+                disableElevation
+                onClick={() => {
+                  navigate("/quizzes/");
+                  // store内のRedux stateをリセット
+                  window.location.reload();
+                }}
+                sx={{ ml: 7 }}
+              >
+                戻る
+              </Button>
+              {/* <Grid container spacing={2}>
+              <Grid item xs={7}> */}
               <Table size="medium" className={styles.table} sx={{ mt: 2 }}>
                 <TableHead>
                   <TableRow>
@@ -215,10 +219,12 @@ export const QuizResult = () => {
                 </TableBody>
               </Table>
             </Grid>
-            <Grid item xs={5}>
-              テスト
+            {/* </Grid> */}
+            <Grid item xs={4}>
+              <QuizDisplay />
             </Grid>
           </Grid>
+          {/* </Grid> */}
         </Box>
       </Modal>
     </>
