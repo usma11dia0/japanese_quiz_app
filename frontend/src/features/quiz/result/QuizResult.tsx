@@ -7,33 +7,31 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TableSortLabel,
-  useTheme,
+  Grid,
 } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
-import ManageSearchOutlinedIcon from "@mui/icons-material/ManageSearchOutlined";
 import ContentPasteSearchRoundedIcon from "@mui/icons-material/ContentPasteSearchRounded";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import {
-  initialState,
   selectChoices,
   selectAnswerChoice,
-  selectSelectedQuestionChoices,
   selectSelectedAnswerChoice,
 } from "../quizSlice";
-import styles from "./QuizResult.module.css";
+import { useAudio } from "../../../hooks/useAudio";
 import { AppDispatch } from "../../../app/store";
+import styles from "./QuizResult.module.css";
 
 export const QuizResult = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const dispatch: AppDispatch = useDispatch();
   const resultChoices = useSelector(selectChoices);
   const columns = resultChoices[0] && Object.keys(resultChoices[0]);
-  const selectChoice = useSelector(selectSelectedAnswerChoice);
+  const { playAudio } = useAudio();
+  const navigate = useNavigate();
 
   //列名の文字列変換用配列
   const dictionaryColumnArray = [
@@ -63,12 +61,25 @@ export const QuizResult = () => {
     },
   ];
 
+  //初回読み込み時に自動でmodal表示 + 音声再生
+  useEffect(() => {
+    if (resultChoices[0].quiz !== "" && document.readyState === "complete") {
+      const targetIcon = document.querySelector<HTMLElement>(".open-modal");
+      targetIcon?.click();
+    }
+    playAudio("../../../../assets/audio/bamenntennkann-2.mp3", 0.1);
+    setTimeout(() => {
+      playAudio("../../../../assets/audio/clapping_short2.mp3", 0.1);
+    }, 2000);
+  }, [resultChoices]);
+
   return (
     <>
-      <Button onClick={handleOpen}>Open QuizResult Modal</Button>
+      <Button onClick={handleOpen} className="open-modal">
+        Open QuizResult Modal
+      </Button>
       <Modal
         open={open}
-        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -79,87 +90,131 @@ export const QuizResult = () => {
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: "150vh",
-            height: "80vh",
+            height: "90vh",
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
-            p: 4,
+            p: 1,
           }}
         >
           <Typography
             id="modal-modal-title"
             variant="h4"
             fontWeight="bold"
-            component="h2"
+            component="h1"
+            sx={{ display: "inline-flex", mt: 0, ml: 3 }}
           >
-            結 果 発 表
+            今 回 の 成 績
           </Typography>
-          {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            ここに成績一覧が表示されます。
-          </Typography> */}
-          <Table size="small" className={styles.table}>
-            <TableHead>
-              <TableRow>
-                {columns.map(
-                  (column, colIndex) =>
-                    (column === "quiz_question_text" ||
-                      column === "choice_text" ||
-                      column === "is_correct") && (
-                      <TableCell align="center" key={colIndex}>
-                        <strong>
-                          {dictionaryColumnArray
-                            ? dictionaryColumnArray.find((pair) => {
-                                return pair.source === column;
-                              })!.replacement
-                            : ""}
-                        </strong>
-                      </TableCell>
-                    )
-                )}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {resultChoices.map((row, rowIndex) => (
-                <TableRow hover key={rowIndex}>
-                  {Object.keys(row).map(
-                    (key, colIndex) =>
-                      (key === "quiz_question_text" ||
-                        key === "choice_text" ||
-                        key === "is_correct") &&
-                      row["is_correct"] !== undefined && (
-                        <TableCell
-                          align="center"
-                          className={styles.tasklist__hover}
-                          key={`${rowIndex}+${colIndex}`}
-                          onClick={() => {
-                            dispatch(selectAnswerChoice(row));
-                          }}
-                        >
-                          <span>
-                            {row[key]?.toString() === "false" ||
-                            row[key]?.toString() === "true"
-                              ? dictionaryRowArray.find((pair) => {
-                                  return pair.source === row[key]?.toString();
-                                })!.replacement
-                              : row[key]?.toString()}
-                          </span>
+          <Typography
+            id="modal-modal-title"
+            variant="h2"
+            fontWeight="bold"
+            component="h1"
+            color="#ba2636"
+            sx={{ display: "inline-flex", mt: 0, ml: 5 }}
+          >
+            満 点
+          </Typography>
+          <Button
+            variant="contained"
+            disableElevation
+            onClick={() => {
+              navigate("/quizzes/");
+              // store内のRedux stateをリセット
+              window.location.reload();
+            }}
+            sx={{ ml: 7 }}
+          >
+            戻る
+          </Button>
+          <Grid container spacing={2}>
+            <Grid item xs={7}>
+              <Table size="medium" className={styles.table} sx={{ mt: 2 }}>
+                <TableHead>
+                  <TableRow>
+                    {columns.map(
+                      (column, colIndex) =>
+                        (column === "quiz_question_text" ||
+                          column === "choice_text" ||
+                          column === "is_correct") && (
+                          <TableCell align="center" key={colIndex}>
+                            <strong>
+                              {dictionaryColumnArray
+                                ? dictionaryColumnArray.find((pair) => {
+                                    return pair.source === column;
+                                  })!.replacement
+                                : ""}
+                            </strong>
+                          </TableCell>
+                        )
+                    )}
+                    <TableCell align="center">
+                      <strong>詳細</strong>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {resultChoices.map((row, rowIndex) => (
+                    <TableRow hover key={rowIndex}>
+                      {Object.keys(row).map(
+                        (key, colIndex) =>
+                          (key === "quiz_question_text" ||
+                            key === "choice_text" ||
+                            key === "is_correct") &&
+                          row["is_correct"] !== undefined && (
+                            <TableCell
+                              align="center"
+                              className={styles.tasklist__hover}
+                              key={`${rowIndex}+${colIndex}`}
+                              onClick={() => {
+                                dispatch(selectAnswerChoice(row));
+                              }}
+                            >
+                              <span
+                                className={
+                                  row[key]?.toString() === "true"
+                                    ? styles.correct_char
+                                    : row[key]?.toString() === "false"
+                                    ? styles.incorrect_char
+                                    : ""
+                                }
+                              >
+                                {row[key]?.toString() === "true" ||
+                                row[key]?.toString() === "false"
+                                  ? dictionaryRowArray.find((pair) => {
+                                      return (
+                                        pair.source === row[key]?.toString()
+                                      );
+                                    })!.replacement
+                                  : row[key]?.toString()}
+                              </span>
+                            </TableCell>
+                          )
+                      )}
+                      {row["is_correct"] !== undefined ? (
+                        <TableCell align="center">
+                          <button
+                            className={styles.tasklist__icon}
+                            onClick={() => {
+                              dispatch(selectAnswerChoice(row));
+                            }}
+                          >
+                            <ContentPasteSearchRoundedIcon />
+                          </button>
                         </TableCell>
-                      )
-                  )}
-                  <TableCell align="center">
-                    <button
-                      className={styles.tasklist__icon}
-                      onClick={() => {
-                        dispatch(selectAnswerChoice(row));
-                      }}
-                    >
-                      <ContentPasteSearchRoundedIcon />
-                    </button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+                      ) : (
+                        ""
+                      )}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Grid>
+            <Grid item xs={5}>
+              テスト
+            </Grid>
+          </Grid>
         </Box>
       </Modal>
     </>

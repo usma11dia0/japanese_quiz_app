@@ -1,15 +1,33 @@
 @use "../../../scss/variables" as var;
 
 .table {
-  table-layout: "fixed";
+  table-layout: fixed;
 }
 
 .button {
   margin: 24px;
 }
 
-.small {
-  margin: auto;
-  width: 24px;
-  height: 24px;
+.tasklist__icon {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  margin-top: 10px;
+  color: dimgray;
+}
+
+.tasklist__hover {
+  cursor: pointer;
+}
+
+.correct_char {
+  font-weight: bold;
+  color: var.$cJPRed;
+}
+
+.incorrect_char {
+  font-weight: bold;
+  color: var.$cJPBlue;
 }
