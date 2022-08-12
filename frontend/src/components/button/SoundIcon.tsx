@@ -6,7 +6,7 @@ import { BUTTON_PROPS } from "../../types/components";
 import styles from "./SoundIcon.module.css";
 
 export const SoundIcon: FC<BUTTON_PROPS> = (props) => {
-  const { onClick } = props;
+  const { onClick, customSx } = props;
   return (
     <IconButton
       aria-label="play volume"
@@ -15,9 +15,9 @@ export const SoundIcon: FC<BUTTON_PROPS> = (props) => {
       className="sound-icon"
     >
       <VolumeUpIcon
-        color="primary"
+        color="secondary"
         className={styles.volumeUpIcon}
-        sx={{ marginTop: "2", fontSize: "40px" }}
+        sx={customSx}
       />
     </IconButton>
   );

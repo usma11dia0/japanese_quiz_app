@@ -1,5 +1,5 @@
 import { createTheme, responsiveFontSizes } from "@mui/material";
-import { brown } from "@mui/material/colors";
+import { brown, grey } from "@mui/material/colors";
 
 let theme = createTheme({
   spacing: 8,
@@ -31,6 +31,9 @@ let theme = createTheme({
     primary: {
       main: brown["A400"],
       // contrastText: grey[800],
+    },
+    secondary: {
+      main: grey[50],
     },
   },
 });

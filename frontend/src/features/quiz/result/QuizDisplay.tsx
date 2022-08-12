@@ -38,6 +38,11 @@ export const QuizDisplay = () => {
                     onClick={() => {
                       playAudio(row.data, 1.0);
                     }}
+                    customSx={{
+                      top: "-5px",
+                      fontSize: "2.5rem",
+                      backgroundColor: "#8d6e63",
+                    }}
                   />
                 ) : row.item === "画像" ? (
                   <img

@@ -106,7 +106,7 @@ export const quizSlice = createSlice({
       state.choices.map((choice: READ_CHOICE) =>
         choice.choice_alphabet === choice_alphabet
           ? (choice.is_correct = true)
-          : (choice.is_correct = choice.is_correct)
+          : choice.is_correct
       );
     },
     addIsInCorrect(state, action: PayloadAction<READ_CHOICE>) {
@@ -114,7 +114,7 @@ export const quizSlice = createSlice({
       state.choices.map((choice: READ_CHOICE) =>
         choice.choice_alphabet === choice_alphabet
           ? (choice.is_correct = false)
-          : (choice.is_correct = choice.is_correct)
+          : choice.is_correct
       );
     },
     incrementScore(state) {

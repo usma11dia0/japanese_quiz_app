@@ -1,7 +1,5 @@
 import { FC } from "react";
 import { Typography } from "@mui/material";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import MenuIcon from "@mui/icons-material/Menu";
 
 import { PrimaryButton } from "../../../components/button/PrimaryButton";
 import { useNavigate } from "react-router-dom";

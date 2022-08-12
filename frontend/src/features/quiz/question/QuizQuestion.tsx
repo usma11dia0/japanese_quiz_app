@@ -161,7 +161,14 @@ export const QuizQuestion = () => {
         {selectedAnswerChoice ? selectedAnswerChoice.quiz_question_text : ""}
         を選択してください。
       </Typography>
-      <SoundIcon onClick={handleClickAudio} />
+      <SoundIcon
+        onClick={handleClickAudio}
+        customSx={{
+          marginTop: "2",
+          fontSize: "3.0rem",
+          backgroundColor: "#8d6e63",
+        }}
+      />
       <Grid container spacing={15}>
         <Grid item xs={6}>
           <ChoiceCard
