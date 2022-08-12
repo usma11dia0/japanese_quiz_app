@@ -26,7 +26,7 @@ export const QuizMenu: FC = () => {
       </PrimaryButton>
 
       <PrimaryButton
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/quizzes/pronunciation")}
         customSx={{ marginTop: "50px" }}
       >
         発声練習

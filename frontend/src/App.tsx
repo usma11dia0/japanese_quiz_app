@@ -1,21 +1,19 @@
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Box } from "@mui/system";
-import { Grid, styled, useMediaQuery, useTheme } from "@mui/material";
+import { Grid } from "@mui/material";
 
 import ErrorBoundary from "./components/ErrorBoundary";
-// import { Questions } from "./pages/Questions";
-// import { Settings } from "./pages/Settings";
-import { QuizMenu } from "./features/quiz/menu/QuizMenu";
-import { QuizQuestion } from "./features/quiz/question/QuizQuestion";
-// import { QuizResult } from "./features/quiz/result/QuizResult";
 import { Auth } from "./features/auth/Auth";
 import { Appbar } from "./components/appbar/Appbar";
+import { QuizMenu } from "./features/quiz/menu/QuizMenu";
+import { QuizQuestion } from "./features/quiz/question/QuizQuestion";
+import { QuizPronunciation } from "./features/quiz/pronunciation/QuizPronunciation";
 import { QuizResult } from "./features/quiz/result/QuizResult";
 
 const App: FC = () => {
   const jwt = localStorage.getItem("localJWT");
-  const theme = useTheme();
+  // const theme = useTheme();
   // const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
@@ -42,6 +40,10 @@ const App: FC = () => {
                 element={jwt ? <QuizQuestion /> : <Auth />}
               />
               <Route path="/result" element={jwt ? <QuizResult /> : <Auth />} />
+              <Route
+                path="/pronunciation"
+                element={jwt ? <QuizPronunciation /> : <Auth />}
+              />
             </Routes>
           </Box>
         </Grid>
