@@ -23,6 +23,10 @@ export interface SCOREBOARD_PROPS {
   onClick?: () => void;
 }
 
+export interface PROGBAR_PROPS {
+  customSx: STYLE_PROPATY;
+}
+
 export interface STYLE_PROPATY {
   [propaty: string]: string | number;
 }

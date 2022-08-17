@@ -1,5 +1,5 @@
 .progBar {
-  width: 400px;
+  width: 300px;
   height: 30px;
   margin-bottom: 10px;
   background-color: #ececec;
@@ -11,9 +11,9 @@
   position: absolute;
   margin: 0;
   height: 100%;
-  background-color: #ffca28;
-  -webkit-animation: progress 3s normal;
-          animation: progress 3s normal;
+  background-color: #E2BD6A;
+  -webkit-animation: progress 3s linear normal;
+          animation: progress 3s linear normal;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
 }

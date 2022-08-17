@@ -16,7 +16,6 @@ export const QuizPronunciation = () => {
   const [timer, setTimer] = useState<NodeJS.Timeout>();
   const { status, startRecording, stopRecording, mediaBlobUrl, clearBlobUrl } =
     useReactMediaRecorder({ video: false, audio: true });
-  const clickTimer = null;
 
   // 外部APIよりChoiceデータ読込(初回のみ)
   useLayoutEffect(() => {
@@ -50,26 +49,32 @@ export const QuizPronunciation = () => {
         問. {choices[0].choice_text}と正しく発音してください。
       </Typography>
       <Typography variant="h6" mt={2.0} mb={1.0}>
-        ～ボタンをクリックして録音を開始します～
+        {status !== "recording"
+          ? "～ボタンをクリックして録音を開始します～"
+          : "※３秒以内に録音してください"}
       </Typography>
-      <VoiceIcon
-        onClick={status !== "recording" ? startRecording : stopRecording}
-        status={status}
-        customSx={{
-          fontSize: "3.0rem",
-          backgroundColor: status !== "recording" ? "#8d6e63" : "#ba2636",
-        }}
-      />
-      {status === "recording" ? <ProgBar /> : ""}
-      {/* <Grid container spacing={15}>
-        <Grid item xs={6}> */}
-      {status === "stopped" ? (
-        <div>
-          <audio src={mediaBlobUrl} autoPlay controls />
-        </div>
-      ) : (
-        ""
-      )}
+      <Grid container sx={{ width: "auto" }}>
+        <VoiceIcon
+          onClick={status !== "recording" ? startRecording : stopRecording}
+          status={status}
+          customSx={{
+            fontSize: "3.0rem",
+            backgroundColor: status !== "recording" ? "#8d6e63" : "#ba2636",
+          }}
+        />
+        {status === "recording" ? (
+          <ProgBar customSx={{ marginTop: "18px" }} />
+        ) : (
+          ""
+        )}
+        {status === "stopped" ? (
+          <div style={{ marginTop: "6px" }}>
+            <audio src={mediaBlobUrl} controls />
+          </div>
+        ) : (
+          ""
+        )}
+      </Grid>
       <Grid container sx={{ width: "auto" }}>
         <ChoiceCard
           customSx={{ mt: 2, width: "20rem", alignItems: "center" }}
@@ -79,8 +84,6 @@ export const QuizPronunciation = () => {
           {choices[0].quiz !== "" ? choices[0].choice_text : ""}
         </ChoiceCard>
       </Grid>
-      {/* </Grid>
-      </Grid> */}
     </>
   );
 };
