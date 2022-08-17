@@ -7,7 +7,10 @@ import styles from "./ScoreBoard.module.css";
 export const ScoreBoard: FC<SCOREBOARD_PROPS> = memo((props) => {
   const { children } = props;
   return (
-    <Container maxWidth="sm" sx={{ display: "flex", justifyContent: "center" }}>
+    <Container
+      maxWidth="sm"
+      sx={{ display: "flex", justifyContent: "center", marginTop: "16px" }}
+    >
       <div className={styles.wrapper}>
         <div className={styles.scorebox}>
           <Typography

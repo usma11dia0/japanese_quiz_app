@@ -1,0 +1,26 @@
+.progBar {
+  width: 400px;
+  height: 30px;
+  margin-bottom: 10px;
+  background-color: #ececec;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+
+  & .bar {
+    position: absolute;
+    margin: 0;
+    height: 100%;
+    background-color: #ffca28;
+    animation: progress 3s normal;
+    animation-fill-mode: forwards;
+  }
+}
+@keyframes progress {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
