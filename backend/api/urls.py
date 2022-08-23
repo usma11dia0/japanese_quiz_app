@@ -6,8 +6,8 @@ from .views import (
     ProfileViewSet,
     QuizzesViewSet,
     ChoicesViewSet,
+    ResultPronunciationView,
 )
-
 
 router = routers.DefaultRouter()
 router.register("profile", ProfileViewSet)
@@ -17,5 +17,6 @@ router.register("choices", ChoicesViewSet)
 urlpatterns = [
     path("create/", CreateUserView.as_view(), name="create"),
     path("loginuser/", LoginUserView.as_view(), name="loginuser"),
+    path("result/", ResultPronunciationView.as_view(), name="result"),
     path("", include(router.urls)),
 ]

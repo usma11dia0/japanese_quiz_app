@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import status, permissions, generics, viewsets
+from rest_framework import status, permissions, generics, viewsets, views
 from .serializers import (
     UserSerializer,
     ProfileSerializer,
@@ -72,3 +72,11 @@ class ChoicesViewSet(viewsets.ModelViewSet):
     def partial_update(self, request, *args, **kwargs):
         response = {"message": "PATCH method is not allowed"}
         return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+
+# ResultPronunciation: POST  japanese_classificationの結果表示 DB連携無し
+class ResultPronunciationView(views.APIView):
+    def post(self, request, format=None):
+        target_img_url = request.data
+        print(target_img_url)
+        return Response(target_img_url)

@@ -60,8 +60,17 @@ export interface QUIZ_STATE {
   selectedCard: SELECT_CARD;
   isloading: boolean;
   score: number;
+  resultPronunciation: RESULT_PRONUNCIATION;
 }
 export interface SELECT_CARD {
   right?: boolean;
   left?: boolean;
+}
+export interface POST_AUDIO_URL {
+  record_url: string | undefined;
+}
+export interface RESULT_PRONUNCIATION {
+  record_url: string;
+  result: string;
+  proba: string;
 }

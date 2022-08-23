@@ -7,6 +7,8 @@ import {
   READ_QUIZ,
   QUIZ_STATE,
   SELECT_CARD,
+  RESULT_PRONUNCIATION,
+  POST_AUDIO_URL,
 } from "../../types/features";
 
 export const fetchAsyncGetQuizzes = createAsyncThunk(
@@ -31,6 +33,28 @@ export const fetchAsyncGetChoices = createAsyncThunk(
       `${process.env.REACT_APP_API_URL}/api/choices/`,
       {
         headers: {
+          Authorization: `JWT ${localStorage.localJWT}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
+export const fetchAsyncPostAudio = createAsyncThunk(
+  "quiz/postAudio",
+  async (audio: POST_AUDIO_URL) => {
+    // 直接音声ファイルをバックエンドへ送る場合
+    // const uploadData = new FormData();
+    // audio.url && uploadData.append();
+
+    // 音声URLをそのまま送る場合
+    const res = await axios.post<RESULT_PRONUNCIATION>(
+      `${process.env.REACT_APP_API_URL}/api/result/`,
+      audio,
+      {
+        headers: {
+          "Content-Type": "application/json",
           Authorization: `JWT ${localStorage.localJWT}`,
         },
       }
@@ -86,6 +110,11 @@ export const initialState: QUIZ_STATE = {
   },
   isloading: true,
   score: 0,
+  resultPronunciation: {
+    record_url: "",
+    result: "",
+    proba: "",
+  },
 };
 
 export const quizSlice = createSlice({
@@ -155,6 +184,16 @@ export const quizSlice = createSlice({
     builder.addCase(fetchAsyncGetChoices.rejected, () => {
       window.location.href = "/";
     });
+    builder.addCase(
+      fetchAsyncPostAudio.fulfilled,
+      (state, action: PayloadAction<RESULT_PRONUNCIATION>) => {
+        return {
+          ...state,
+          resultPronunciation: action.payload,
+          isloading: false,
+        };
+      }
+    );
   },
 });
 

@@ -7,7 +7,12 @@ import { VoiceIcon } from "../../../components/button/VoiceIcon";
 import { ProgBar } from "../../../components/progbar/ProgBar";
 import { ChoiceCard } from "../../../components/card/ChoiceCard";
 import { AppDispatch } from "../../../app/store";
-import { fetchAsyncGetChoices, resetState, selectChoices } from "../quizSlice";
+import {
+  fetchAsyncGetChoices,
+  resetState,
+  selectChoices,
+  fetchAsyncPostAudio,
+} from "../quizSlice";
 import { READ_CHOICE } from "../../../types/features";
 
 export const QuizPronunciation = () => {
@@ -37,6 +42,11 @@ export const QuizPronunciation = () => {
     }
     if (status === "stopped") {
       clearTimeout(timer);
+      dispatch(
+        fetchAsyncPostAudio({
+          record_url: mediaBlobUrl,
+        })
+      );
     }
   }, [status]);
 
