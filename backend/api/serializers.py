@@ -53,8 +53,8 @@ class ChoicesSerializer(serializers.ModelSerializer):
             "updated_at",
         ]
 
-#もしかしたら要らないかも
-# class ResultPronunciationSerializer(serializers.Serializer):
-#     target_img_url = serializers.CharField(allow_blank=False)
-#     result = serializers.CharField(allow_blank=True)
-#     proba = serializers.CharField(allow_blank=True)
+
+class ResultPronunciationSerializer(serializers.Serializer):
+    file = serializers.FileField()
+    result = serializers.CharField(allow_blank=True)
+    proba = serializers.CharField(allow_blank=True)

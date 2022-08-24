@@ -20,7 +20,14 @@ export const QuizPronunciation = () => {
   const choices: READ_CHOICE[] = useSelector(selectChoices);
   const [timer, setTimer] = useState<NodeJS.Timeout>();
   const { status, startRecording, stopRecording, mediaBlobUrl, clearBlobUrl } =
-    useReactMediaRecorder({ video: false, audio: true });
+    useReactMediaRecorder({
+      video: false,
+      audio: true,
+      onStop: (blobUrl, blob) => {
+        console.log(blob);
+        dispatch(fetchAsyncPostAudio(blob));
+      },
+    });
 
   // 外部APIよりChoiceデータ読込(初回のみ)
   useLayoutEffect(() => {
@@ -31,6 +38,7 @@ export const QuizPronunciation = () => {
     fetchBootLoader();
   }, []);
 
+  //onStartを用いたより上手い書き方がありそう
   useEffect(() => {
     if (status === "recording") {
       setTimer(
@@ -42,11 +50,6 @@ export const QuizPronunciation = () => {
     }
     if (status === "stopped") {
       clearTimeout(timer);
-      dispatch(
-        fetchAsyncPostAudio({
-          record_url: mediaBlobUrl,
-        })
-      );
     }
   }, [status]);
 

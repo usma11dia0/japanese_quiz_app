@@ -5,8 +5,7 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 import librosa
-import librosa.display
-
+# import librosa.display //図示用
 # import IPython.display as ipd 　//音源再生用
 # import matplotlib.pyplot as plt //図示用
 # import seaborn as sns  //図示用

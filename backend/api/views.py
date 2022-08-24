@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import status, permissions, generics, viewsets, views
 from .serializers import (
+    ResultPronunciationSerializer,
     UserSerializer,
     ProfileSerializer,
     QuizzesSerializer,
@@ -9,6 +10,8 @@ from .serializers import (
 from rest_framework.response import Response
 from .models import Profile, Quizzes, Choices
 from django.contrib.auth.models import User
+from model.predict import classify, transform_audiofile
+import pydub
 
 
 # CreateUserView: POSTのみ　新規ユーザー作成(username + password)
@@ -76,7 +79,16 @@ class ChoicesViewSet(viewsets.ModelViewSet):
 
 # ResultPronunciation: POST  japanese_classificationの結果表示 DB連携無し
 class ResultPronunciationView(views.APIView):
+    serializer_class = ResultPronunciationSerializer
+
     def post(self, request, format=None):
-        target_img_url = request.data
-        print(target_img_url)
-        return Response(target_img_url)
+        # if request.method == "POST"
+        audio_file = request.FILES.get("file")
+        sound = pydub.AudioSegment.from_wav("audio_file")
+        audio_file_mp3 = sound.export("audio_file.mp3", format="mp3")
+        print(audio_file)
+        print(audio_file_mp3)
+
+        # print(request)
+        # print(request.FILES)
+        return Response("")
