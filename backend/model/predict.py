@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 import librosa
+
 # import librosa.display //図示用
 # import IPython.display as ipd 　//音源再生用
 # import matplotlib.pyplot as plt //図示用
@@ -38,7 +39,7 @@ def transform_audiofile(data_path):
     feature_melspec = librosa.feature.melspectrogram(y=waveform, sr=sample_rate)
     # デジタルスケール変換後のメルスペクトログラムを取得
     feature_melspec_db = librosa.power_to_db(feature_melspec, ref=np.max)
-    return feature_melspec_db
+    return feature_melspec_db, sample_rate
 
 
 # 推論に使用するモデル
@@ -104,16 +105,13 @@ class Net(pl.LightningModule):
 
 
 # 推論を実行する関数
-def classify(img_url):
-
-    # 音声データ→メルスペクトログラムへ変換
-    target_img_melspec_db = transform_audiofile(img_url)
+def classify(mel_img_url):
 
     # 推論前の前処理
     weights = ResNet18_Weights.DEFAULT
     preprocess = weights.transforms()
-    transform = transform.Compose([preprocess])
-    target_img = transform(Image.open(target_img_melspec_db).convert("RGB"))
+    transform = transforms.Compose([preprocess])
+    target_img = transform(Image.open(mel_img_url).convert("RGB"))
     # 配列サイズ変換 (3,224,224)　→　(1,3,224,224)
     target_img = target_img.unsqueeze(0)
 
@@ -126,12 +124,12 @@ def classify(img_url):
     )
     # 予測値の導出
     with torch.no_grad():
-        result = net(target_img).float()
+        y = net(target_img).float()
 
     # 結果表示用の変換
     # 推論結果(ラベル)
-    result = torch.argmax(F.softmax(result, dim=1)).item()
+    result = torch.argmax(F.softmax(y, dim=1)).item()
     # 推論結果(確率)
-    proba = (torch.max(F.softmax(result, dim=1)).item())*100
+    proba = (torch.max(F.softmax(y, dim=1)).item()) * 100
 
     return result, proba
