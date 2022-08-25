@@ -50,8 +50,6 @@ export const fetchAsyncPostAudio = createAsyncThunk(
     });
     const uploadData = new FormData();
     audioFile && uploadData.append("file", audioFile);
-    uploadData.append("result", "");
-    uploadData.append("proba", "");
     const res = await axios.post<RESULT_PRONUNCIATION>(
       `${process.env.REACT_APP_API_URL}/api/result/`,
       uploadData,
@@ -62,17 +60,7 @@ export const fetchAsyncPostAudio = createAsyncThunk(
         },
       }
     );
-    // 音声URLをそのまま送る場合
-    // const res = await axios.post<RESULT_PRONUNCIATION>(
-    //   `${process.env.REACT_APP_API_URL}/api/result/`,
-    //   audio,
-    //   {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `JWT ${localStorage.localJWT}`,
-    //     },
-    //   }
-    // );
+    console.log(res);
     return res.data;
   }
 );
@@ -125,9 +113,8 @@ export const initialState: QUIZ_STATE = {
   isloading: true,
   score: 0,
   resultPronunciation: {
-    file: undefined,
-    result: "",
-    proba: "",
+    result: 0,
+    proba: 0,
   },
 };
 

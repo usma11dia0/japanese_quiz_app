@@ -52,9 +52,3 @@ class ChoicesSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
-
-
-class ResultPronunciationSerializer(serializers.Serializer):
-    file = serializers.FileField()
-    result = serializers.CharField(allow_blank=True)
-    proba = serializers.CharField(allow_blank=True)

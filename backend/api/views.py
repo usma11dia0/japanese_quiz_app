@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from rest_framework import status, permissions, generics, viewsets, views
 from .serializers import (
-    ResultPronunciationSerializer,
     UserSerializer,
     ProfileSerializer,
     QuizzesSerializer,
@@ -18,8 +17,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 import os
 
-#バックエンドを指定
-matplotlib.use('Agg')
+# バックエンドを指定
+matplotlib.use("Agg")
 
 # CreateUserView: POSTのみ　新規ユーザー作成(username + password)
 class CreateUserView(generics.CreateAPIView):
@@ -84,35 +83,32 @@ class ChoicesViewSet(viewsets.ModelViewSet):
         return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
 
-# ResultPronunciation: POST  japanese_classificationの結果表示 DB連携無し
+# ResultPronunciation: POST  推論の結果表示 DB連携無し
 class ResultPronunciationView(views.APIView):
-    serializer_class = ResultPronunciationSerializer
+    # serializer_class = ResultPronunciationSerializer
 
     def post(self, request, format=None):
-        # if request.method == "POST"
-        # requestからwavファイル取得
-        audio_file_wav = request.FILES["file"]
+        if request.method == "POST":
+            # requestからwavファイル取得
+            audio_file_wav = request.FILES["file"]
 
-        # 一時保管ディレクトリ
-        with tempfile.TemporaryDirectory() as tmpdirname:
-            # wavファイル→mp3ファイルへ変換してTemporaryDirectoryへ一時保存
-            audio_pydub = pydub.AudioSegment.from_file(audio_file_wav)
-            target_audio_path = f"{tmpdirname}/target_audio_file.mp3"
-            audio_pydub.export(target_audio_path, format="mp3")
+            # 一時保管ディレクトリ
+            with tempfile.TemporaryDirectory() as tmpdirname:
+                # wavファイル→mp3ファイルへ変換してTemporaryDirectoryへ一時保存
+                audio_pydub = pydub.AudioSegment.from_file(audio_file_wav)
+                target_audio_path = f"{tmpdirname}/target_audio_file.mp3"
+                audio_pydub.export(target_audio_path, format="mp3")
 
-            # mp3ファイル→メルスペクトログラム変換
-            feature_melspec_db, sample_rate = transform_audiofile(target_audio_path)
+                # mp3ファイル→メルスペクトログラム変換
+                feature_melspec_db, sample_rate = transform_audiofile(target_audio_path)
 
-            # メルスペクトログラム画像を生成しTemporaryDirectoryへ一時保存
-            librosa.display.specshow(feature_melspec_db, sr=sample_rate)
-            plt.subplots_adjust(left=0, right=1, bottom=0, top=1)  # 余白を調整
-            target_spec_path = f"{tmpdirname}/target_spec_img.png"
-            plt.savefig(target_spec_path)
-            plt.close()
+                # メルスペクトログラム画像を生成しTemporaryDirectoryへ一時保存
+                librosa.display.specshow(feature_melspec_db, sr=sample_rate)
+                plt.subplots_adjust(left=0, right=1, bottom=0, top=1)  # 余白を調整
+                target_spec_path = f"{tmpdirname}/target_spec_img.png"
+                plt.savefig(target_spec_path)
+                plt.close()
 
-            # 推論実行
-            # print(os.listdir(tmpdirname))
-            y, y_proba = classify(target_spec_path)
-            print(y)
-            print(y_proba)
-        return Response("")
+                # 推論実行
+                y, y_proba = classify(target_spec_path)
+                return Response({"result": y, "proba": y_proba})
