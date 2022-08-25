@@ -2,8 +2,8 @@
   display: flex;
   padding: 1rem;
   margin: 1rem;
-  background-color: #E2BD6A;
-  box-shadow: 0 5px 0 #d6a12a;
+  background-color: #f5edde;
+  box-shadow: 0 5px 0 #e3cda3;
   border-radius: 3px;
   text-align: center;
   justify-content: center;
@@ -13,14 +13,14 @@
 .scorebox {
   position: relative;
   padding: 0.5em 1.5em;
-  border-top: solid 2px #3f312b;
-  border-bottom: solid 2px #3f312b;
+  border-top: solid 1.5px #3f312b;
+  border-bottom: solid 1.5px #3f312b;
 }
 .scorebox:before, .scorebox:after {
   content: "";
   position: absolute;
   top: -9px;
-  width: 2px;
+  width: 1.5px;
   height: calc(100% + 20px);
   background-color: #3f312b;
 }

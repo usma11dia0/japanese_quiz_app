@@ -24,7 +24,7 @@ import {
 import { AppDispatch } from "../../../app/store";
 import { useAudio } from "../../../hooks/useAudio";
 import { usePrepareQuiz } from "../../../hooks/usePrepareQuiz";
-import { READ_CHOICE } from "../../../types/features";
+import { READ_CHOICE, SELECT_CARD } from "../../../types/features";
 import { useNavigate } from "react-router-dom";
 import { ScoreBoard } from "../../../components/scoreboard/ScoreBoard";
 import { SoundIcon } from "../../../components/button/SoundIcon";
@@ -33,11 +33,15 @@ export const QuizQuestion = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const choices: READ_CHOICE[] = useSelector(selectChoices);
-  const selectedQuestionChoices = useSelector(selectSelectedQuestionChoices);
-  const selectedAnswerChoice = useSelector(selectSelectedAnswerChoice);
-  const selectedCard = useSelector(selectSelectedCard);
+  const selectedQuestionChoices: READ_CHOICE[] = useSelector(
+    selectSelectedQuestionChoices
+  );
+  const selectedAnswerChoice: READ_CHOICE = useSelector(
+    selectSelectedAnswerChoice
+  );
+  const selectedCard: SELECT_CARD = useSelector(selectSelectedCard);
   const isloading = useSelector(selectIsLoading);
-  const score = useSelector(selectScore);
+  const score: number = useSelector(selectScore);
   const [choiceIndex, setChoiceIndex] = useState<number>(0);
   const [isCorrect, setIsCorrect] = useState<boolean | undefined>(undefined);
   const { playAudio } = useAudio();
@@ -45,7 +49,7 @@ export const QuizQuestion = () => {
 
   const NumberOfQuestion = 5;
 
-  // 外部APIよりChoiceデータ読込(初回のみ)
+  // 外部APIよりChoicesデータ読込(初回のみ)
   useLayoutEffect(() => {
     dispatch(resetState());
     const fetchBootLoader = async () => {
@@ -56,8 +60,11 @@ export const QuizQuestion = () => {
 
   // 読み込んだChoicesデータを一つずつ抽出(choiceIndexのstate変更時に都度実行)
   useLayoutEffect(() => {
+    //stateの初期化
     dispatch(selectCard(initialState.selectedCard));
     setIsCorrect(undefined);
+    //choiceIndexのchoice(正解の選択肢)に対して、対となるchoice(不正解の選択肢)を抽出
+    //正解+不正解の選択肢をまとめたtargetChoicesの順番(右左)をランダムに並び替え
     prepareQuiz(choices, choiceIndex);
     dispatch(
       selectQuestionChoices(
@@ -165,7 +172,7 @@ export const QuizQuestion = () => {
         onClick={handleClickAudio}
         customSx={{
           marginTop: "2",
-          fontSize: "3.0rem",
+          fontSize: "2.8rem",
           backgroundColor: "#8d6e63",
         }}
       />

@@ -113,8 +113,9 @@ export const initialState: QUIZ_STATE = {
   isloading: true,
   score: 0,
   resultPronunciation: {
-    result: 0,
+    result: "",
     proba: 0,
+    isJudging: false,
   },
 };
 
@@ -150,7 +151,17 @@ export const quizSlice = createSlice({
     incrementScore(state) {
       state.score += 1;
     },
+    isJudging(state) {
+      state.resultPronunciation.isJudging = true;
+    },
     resetState: () => initialState,
+    resetResultPronunciation(state) {
+      state.resultPronunciation = {
+        result: "",
+        proba: 0,
+        isJudging: false,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -205,7 +216,9 @@ export const {
   addIsCorrect,
   addIsInCorrect,
   incrementScore,
+  isJudging,
   resetState,
+  resetResultPronunciation,
 } = quizSlice.actions;
 export const selectChoices = (state: RootState) => state.quiz.choices;
 export const selectSelectedQuestionChoices = (state: RootState) =>
@@ -215,5 +228,7 @@ export const selectSelectedAnswerChoice = (state: RootState) =>
 export const selectSelectedCard = (state: RootState) => state.quiz.selectedCard;
 export const selectIsLoading = (state: RootState) => state.quiz.isloading;
 export const selectScore = (state: RootState) => state.quiz.score;
+export const selectResultPronunciation = (state: RootState) =>
+  state.quiz.resultPronunciation;
 
 export default quizSlice.reducer;

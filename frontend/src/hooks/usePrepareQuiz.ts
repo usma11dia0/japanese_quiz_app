@@ -8,7 +8,6 @@ export const usePrepareQuiz = () => {
   const prepareQuiz = (candidateChoices: READ_CHOICE[], stateIndex: number) => {
     if (candidateChoices[0].quiz !== "") {
       const tmpAnswerChoice = candidateChoices[stateIndex];
-      // const answerChoice = choices[choiceIndex];
       let tmpTargetChoices: READ_CHOICE[] = [tmpAnswerChoice];
 
       //answerChoiceと同じ発音の同音異義語をchoicesより抽出
@@ -21,6 +20,7 @@ export const usePrepareQuiz = () => {
           tmpTargetChoices.push(choice);
 
           //tmpTargetChoices内をシャッフル
+          //(常に右側(indexが低い側)が答えの選択となってしまうのを防ぐため)
           for (let i = tmpTargetChoices.length - 1; 0 < i; i--) {
             let r = Math.floor(Math.random() * (i + 1));
             var tmp = tmpTargetChoices[i];

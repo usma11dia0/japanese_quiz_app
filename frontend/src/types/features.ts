@@ -67,6 +67,7 @@ export interface SELECT_CARD {
   left?: boolean;
 }
 export interface RESULT_PRONUNCIATION {
-  result: number;
+  result: string;
   proba: number;
+  isJudging: boolean;
 }

@@ -111,4 +111,11 @@ class ResultPronunciationView(views.APIView):
 
                 # 推論実行
                 y, y_proba = classify(target_spec_path)
-                return Response({"result": y, "proba": y_proba})
+
+                # ラベル → 選択肢文字列へ変換
+                if y == 0:
+                    y = "ダイゴさん(人名)"
+                elif y == 1:
+                    y = "大誤算"
+
+                return Response({"result": y, "proba": y_proba, "isJudging": False})

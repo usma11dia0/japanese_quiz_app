@@ -4,8 +4,8 @@
   display: flex;
   padding: 1rem;
   margin: 1rem;
-  background-color: var.$cJPYellow;
-  box-shadow: 0 5px 0 darken(var.$cJPYellow, 15%);
+  background-color: var.$cJPScoreYellow;
+  box-shadow: 0 5px 0 darken(var.$cJPScoreYellow, 15%);
   border-radius: 3px;
   text-align: center;
   justify-content: center;
@@ -15,15 +15,15 @@
 .scorebox {
   position: relative;
   padding: 0.5em 1.5em;
-  border-top: solid 2px var.$cJPBlack;
-  border-bottom: solid 2px var.$cJPBlack;
+  border-top: solid 1.5px var.$cJPBlack;
+  border-bottom: solid 1.5px var.$cJPBlack;
 
   &:before,
   &:after {
     content: "";
     position: absolute;
     top: -9px;
-    width: 2px;
+    width: 1.5px;
     height: -webkit-calc(100% + 20px);
     height: calc(100% + 20px);
     background-color: var.$cJPBlack;
