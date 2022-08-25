@@ -7,6 +7,7 @@ import { VoiceIcon } from "../../../components/button/VoiceIcon";
 import { ProgBar } from "../../../components/progbar/ProgBar";
 import { ChoiceCard } from "../../../components/card/ChoiceCard";
 import { AppDispatch } from "../../../app/store";
+import { useAudio } from "../../../hooks/useAudio";
 import {
   fetchAsyncGetChoices,
   fetchAsyncPostAudio,
@@ -30,11 +31,16 @@ export const QuizPronunciation = () => {
   );
   const isloading = useSelector(selectIsLoading);
   const [timer, setTimer] = useState<NodeJS.Timeout>();
+  const [isCorrect, setIsCorrect] = useState<boolean | undefined>(undefined);
+  const { playAudio } = useAudio();
   const { status, startRecording, stopRecording, mediaBlobUrl, clearBlobUrl } =
     useReactMediaRecorder({
       video: false,
       audio: true,
       onStart: () => {
+        //stateの初期化
+        // isCorrect = undefined;
+        setIsCorrect(undefined);
         dispatch(resetResultPronunciation());
       },
       onStop: (blobUrl, blob) => {
@@ -53,9 +59,11 @@ export const QuizPronunciation = () => {
   }, []);
 
   // 対象Choice選択 (if文は再レンダリング対策)
-  if (!isloading && answerChoice.choice_text == "") {
-    dispatch(selectAnswerChoice(choices[0]));
-  }
+  useEffect(() => {
+    if (!isloading && answerChoice.choice_text === "") {
+      dispatch(selectAnswerChoice(choices[0]));
+    }
+  }, [isloading]);
 
   //onStart&onStopで上手く動作しなかったため代用
   useEffect(() => {
@@ -72,8 +80,18 @@ export const QuizPronunciation = () => {
     }
   }, [status]);
 
-  // clearBlobUrl();
-  // status: idle, recording, stopped
+  //正誤判定
+  useEffect(() => {
+    if (resultPronunciation.result !== "") {
+      if (resultPronunciation.result === answerChoice.choice_text) {
+        setIsCorrect(true);
+        playAudio("../../../../assets/audio/seikai_1.mp3", 0.1);
+      } else {
+        setIsCorrect(false);
+        playAudio("../../../../assets/audio/huseikai_2.mp3", 0.1);
+      }
+    }
+  }, [resultPronunciation.result]);
 
   return (
     <>
@@ -117,6 +135,9 @@ export const QuizPronunciation = () => {
           <Typography variant="h6">
             {resultPronunciation.result}
             {resultPronunciation.proba}
+            {resultPronunciation.result == answerChoice.choice_text
+              ? "正解！"
+              : "不正解"}
           </Typography>
         ) : resultPronunciation.isJudging ? (
           <Box mt={1.2} mb={1.2}>
@@ -130,7 +151,8 @@ export const QuizPronunciation = () => {
         <ChoiceCard
           customSx={{ mt: 2, width: "20rem", alignItems: "center" }}
           imgSrc={answerChoice.quiz !== "" ? answerChoice.image_choice_src : ""}
-          // isCorrect={isCorrect}
+          isCorrect={isCorrect}
+          isClicked={resultPronunciation.result !== "" ? true : undefined}
         >
           {answerChoice.quiz !== "" ? answerChoice.choice_text : ""}
         </ChoiceCard>

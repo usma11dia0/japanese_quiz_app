@@ -93,6 +93,7 @@ export const QuizQuestion = () => {
     );
   };
 
+  //正誤判定
   const handleClickAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e.target instanceof HTMLElement) {
       switch (e.target.innerText) {
