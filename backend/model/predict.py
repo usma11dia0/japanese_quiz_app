@@ -51,8 +51,8 @@ class Net(pl.LightningModule):
         self.feature = resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
         # #最初の畳み込みのチャネル3をチャネル1に変更する
         # self.conv1 = nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
-        # 最後の層の次元を今回のカテゴリ数に変更する
-        self.fc = nn.Linear(1000, 2)
+        # 最後の層の次元を出力カテゴリ数に変更する
+        self.fc = nn.Linear(1000, 7)
 
         # #EfficientNetV2の場合
         # #特徴抽出機を指定

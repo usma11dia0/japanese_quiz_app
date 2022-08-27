@@ -116,6 +116,16 @@ class ResultPronunciationView(views.APIView):
                 if y == 0:
                     y = "ダイゴさん(人名)"
                 elif y == 1:
+                    y = "五日"
+                elif y == 2:
+                    y = "帰省中"
+                elif y == 3:
                     y = "大誤算"
+                elif y == 4:
+                    y = "寄生虫"
+                elif y == 5:
+                    y = "上手く聞き取れませんでした"
+                elif y == 6:
+                    y = "何時か"    
 
                 return Response({"result": y, "proba": y_proba, "isJudging": False})
