@@ -1,4 +1,5 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { Grid, Typography, CircularProgress, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +23,6 @@ import {
   incrementScore,
 } from "../quizSlice";
 import { READ_CHOICE, RESULT_PRONUNCIATION } from "../../../types/features";
-import { useNavigate } from "react-router-dom";
 import { QuizPronunciationDisplay } from "./QuizPronunciationDisplay";
 
 export const QuizPronunciation = () => {
@@ -33,12 +33,11 @@ export const QuizPronunciation = () => {
     selectResultPronunciation
   );
   const isloading = useSelector(selectIsLoading);
-  const navigate = useNavigate();
   const [timer, setTimer] = useState<NodeJS.Timeout>();
   const [isCorrect, setIsCorrect] = useState<boolean | undefined>(undefined);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { playAudio } = useAudio();
-  const { status, startRecording, stopRecording, mediaBlobUrl, clearBlobUrl } =
+  const { status, startRecording, stopRecording, mediaBlobUrl } =
     useReactMediaRecorder({
       video: false,
       audio: true,
@@ -98,9 +97,9 @@ export const QuizPronunciation = () => {
         playAudio("../../../../assets/audio/huseikai_2.mp3", 0.1);
       }
       setTimeout(() => {
-        // navigate("/quizzes/pronunciation-result");
         setIsOpen(true);
-      }, 3000);
+        playAudio("../../../../assets/audio/bamenntennkann-2.mp3", 0.1);
+      }, 2500);
     }
   }, [resultPronunciation.result]);
 
@@ -112,7 +111,7 @@ export const QuizPronunciation = () => {
       <Typography variant="h6" mt={2.0} mb={1.0}>
         {resultPronunciation.isJudging
           ? "判定中"
-          : status == "recording"
+          : status === "recording"
           ? "※３秒以内に録音してください"
           : "～ボタンをクリックして録音を開始します～"}
       </Typography>
@@ -143,13 +142,14 @@ export const QuizPronunciation = () => {
           ""
         )}
         {!resultPronunciation.isJudging && resultPronunciation.result !== "" ? (
-          <Typography variant="h6">
-            {resultPronunciation.result}
-            {resultPronunciation.proba}
-            {resultPronunciation.result == answerChoice.choice_text
-              ? "正解！"
-              : "不正解"}
-          </Typography>
+          // <Typography variant="h6">
+          //   {resultPronunciation.result}
+          //   {resultPronunciation.proba}
+          //   {resultPronunciation.result == answerChoice.choice_text
+          //     ? "正解！"
+          //     : "不正解"}
+          // </Typography>
+          <></>
         ) : resultPronunciation.isJudging ? (
           <Box mt={1.2} mb={1.2}>
             <CircularProgress />
@@ -168,7 +168,11 @@ export const QuizPronunciation = () => {
           {answerChoice.quiz !== "" ? answerChoice.choice_text : ""}
         </ChoiceCard>
       </Grid>
-      <QuizPronunciationDisplay isOpen={isOpen} />
+      <QuizPronunciationDisplay
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        mediaBlobUrl={mediaBlobUrl}
+      />
     </>
   );
 };

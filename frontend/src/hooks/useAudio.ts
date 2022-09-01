@@ -7,6 +7,7 @@ export const useAudio = () => {
   const playAudio = (audioSrc: string, volume?: number) => {
     const sound = new Howl({
       src: [audioSrc],
+      format: ["mp3", "wav"],
     });
     setSound(sound);
     sound.volume(volume ? volume : 0.5);
