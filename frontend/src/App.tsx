@@ -10,6 +10,7 @@ import { QuizMenu } from "./features/quiz/menu/QuizMenu";
 import { QuizQuestion } from "./features/quiz/question/QuizQuestion";
 import { QuizPronunciation } from "./features/quiz/pronunciation/QuizPronunciation";
 import { QuizResult } from "./features/quiz/result/QuizResult";
+import { QuizPronunciationResult } from "./features/quiz/pronunciation_result/QuizPronunciationResult";
 
 const App: FC = () => {
   const jwt = localStorage.getItem("localJWT");
@@ -43,6 +44,10 @@ const App: FC = () => {
               <Route
                 path="/pronunciation"
                 element={jwt ? <QuizPronunciation /> : <Auth />}
+              />
+              <Route
+                path="/pronunciation-result"
+                element={jwt ? <QuizPronunciationResult /> : <Auth />}
               />
             </Routes>
           </Box>

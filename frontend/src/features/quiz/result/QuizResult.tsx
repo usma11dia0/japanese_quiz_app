@@ -134,7 +134,7 @@ export const QuizResult = () => {
                   // store内のRedux stateをリセット
                   window.location.reload();
                 }}
-                sx={{ ml: 7 }}
+                sx={{ ml: 7, top: -6 }}
               >
                 戻る
               </Button>

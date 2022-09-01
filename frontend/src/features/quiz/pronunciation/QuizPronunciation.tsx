@@ -19,8 +19,11 @@ import {
   selectSelectedAnswerChoice,
   selectResultPronunciation,
   selectIsLoading,
+  incrementScore,
 } from "../quizSlice";
 import { READ_CHOICE, RESULT_PRONUNCIATION } from "../../../types/features";
+import { useNavigate } from "react-router-dom";
+import { QuizPronunciationDisplay } from "./QuizPronunciationDisplay";
 
 export const QuizPronunciation = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -30,8 +33,10 @@ export const QuizPronunciation = () => {
     selectResultPronunciation
   );
   const isloading = useSelector(selectIsLoading);
+  const navigate = useNavigate();
   const [timer, setTimer] = useState<NodeJS.Timeout>();
   const [isCorrect, setIsCorrect] = useState<boolean | undefined>(undefined);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { playAudio } = useAudio();
   const { status, startRecording, stopRecording, mediaBlobUrl, clearBlobUrl } =
     useReactMediaRecorder({
@@ -51,6 +56,7 @@ export const QuizPronunciation = () => {
 
   // 外部APIよりChoiceデータ読込(初回のみ)
   useLayoutEffect(() => {
+    // Stateの初期化
     dispatch(resetState());
     const fetchBootLoader = async () => {
       await dispatch(fetchAsyncGetChoices());
@@ -85,11 +91,16 @@ export const QuizPronunciation = () => {
     if (resultPronunciation.result !== "") {
       if (resultPronunciation.result === answerChoice.choice_text) {
         setIsCorrect(true);
+        dispatch(incrementScore());
         playAudio("../../../../assets/audio/seikai_1.mp3", 0.1);
       } else {
         setIsCorrect(false);
         playAudio("../../../../assets/audio/huseikai_2.mp3", 0.1);
       }
+      setTimeout(() => {
+        // navigate("/quizzes/pronunciation-result");
+        setIsOpen(true);
+      }, 3000);
     }
   }, [resultPronunciation.result]);
 
@@ -157,6 +168,7 @@ export const QuizPronunciation = () => {
           {answerChoice.quiz !== "" ? answerChoice.choice_text : ""}
         </ChoiceCard>
       </Grid>
+      <QuizPronunciationDisplay isOpen={isOpen} />
     </>
   );
 };
