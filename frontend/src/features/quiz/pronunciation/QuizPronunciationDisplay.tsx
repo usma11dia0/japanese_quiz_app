@@ -40,7 +40,6 @@ export const QuizPronunciationDisplay = (props: Props) => {
   const { playAudio } = useAudio();
   const rows = [
     { item: "設問", data: selectedChoice.choice_text },
-    // { item: "正答", data: selectedChoice.choice_text },
     { item: "音声", data: selectedChoice.audio_choice_src },
     { item: "画像", data: selectedChoice.image_choice_src },
     { item: "解説", data: selectedChoice.answer_explanation },
@@ -140,7 +139,7 @@ export const QuizPronunciationDisplay = (props: Props) => {
                         direction="row"
                         justifyContent="space-evenly"
                       >
-                        <Grid direction="column">
+                        <Grid item>
                           <Typography variant="subtitle2">回答</Typography>
                           <SoundIcon
                             onClick={() => {
@@ -153,11 +152,11 @@ export const QuizPronunciationDisplay = (props: Props) => {
                             }}
                           />
                         </Grid>
-                        <Grid direction="column">
+                        <Grid item>
                           <Typography variant="subtitle2">正答例</Typography>
                           <SoundIcon
                             onClick={() => {
-                              playAudio(mediaBlobUrl ? mediaBlobUrl : "", 1.0);
+                              playAudio(row.data, 1.0);
                             }}
                             customSx={{
                               top: "-5px",
@@ -167,13 +166,7 @@ export const QuizPronunciationDisplay = (props: Props) => {
                           />
                         </Grid>
                       </Grid>
-                    ) : // <>
-                    //   ・録音
-                    //   <audio src={row.data} controls />
-                    //   ・解答
-                    //   <audio src={mediaBlobUrl} controls />
-                    // </>
-                    row.item === "画像" ? (
+                    ) : row.item === "画像" ? (
                       <img
                         src={`${row.data}`}
                         alt="音階画像データ"

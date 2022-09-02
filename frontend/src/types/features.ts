@@ -71,3 +71,7 @@ export interface RESULT_PRONUNCIATION {
   proba: number;
   isJudging: boolean;
 }
+export interface UPLOAD_DATA {
+  audioBlob: BlobPart;
+  choiceText: string;
+}

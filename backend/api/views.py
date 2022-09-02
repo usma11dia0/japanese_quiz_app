@@ -89,6 +89,7 @@ class ResultPronunciationView(views.APIView):
 
     def post(self, request, format=None):
         if request.method == "POST":
+
             # requestからwavファイル取得
             audio_file_wav = request.FILES["file"]
 
@@ -112,6 +113,27 @@ class ResultPronunciationView(views.APIView):
                 # 推論実行
                 y, y_proba = classify(target_spec_path)
 
+                # ラベル → 対象確率を選択
+                # 正解選択肢の文字列をフロントから取得
+                target_choice_text = request.POST["choice"]
+
+                if target_choice_text == "ダイゴさん(人名)":
+                    target_index = 0
+                elif target_choice_text == "五日":
+                    target_index = 1
+                elif target_choice_text == "帰省中":
+                    target_index = 2
+                elif target_choice_text == "大誤算":
+                    target_index = 3
+                elif target_choice_text == "寄生虫":
+                    target_index = 4
+                elif target_choice_text == "上手く聞き取れませんでした":
+                    target_index = 5
+                elif target_choice_text == "何時か":
+                    target_index = 6
+
+                proba = y_proba[0][target_index] * 100
+
                 # ラベル → 選択肢文字列へ変換
                 if y == 0:
                     y = "ダイゴさん(人名)"
@@ -126,6 +148,6 @@ class ResultPronunciationView(views.APIView):
                 elif y == 5:
                     y = "上手く聞き取れませんでした"
                 elif y == 6:
-                    y = "何時か"    
+                    y = "何時か"
 
-                return Response({"result": y, "proba": y_proba, "isJudging": False})
+                return Response({"result": y, "proba": proba, "isJudging": False})

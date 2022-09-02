@@ -48,7 +48,12 @@ export const QuizPronunciation = () => {
         dispatch(resetResultPronunciation());
       },
       onStop: (blobUrl, blob) => {
-        dispatch(fetchAsyncPostAudio(blob));
+        dispatch(
+          fetchAsyncPostAudio({
+            audioBlob: blob,
+            choiceText: answerChoice.choice_text,
+          })
+        );
         dispatch(isJudging());
       },
     });

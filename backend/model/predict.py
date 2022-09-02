@@ -130,6 +130,7 @@ def classify(mel_img_url):
     # 推論結果(ラベル)
     result = torch.argmax(F.softmax(y, dim=1)).item()
     # 推論結果(確率)
-    proba = (torch.max(F.softmax(y, dim=1)).item()) * 100
+    proba = F.softmax(y, dim=1).tolist()
+
 
     return result, proba

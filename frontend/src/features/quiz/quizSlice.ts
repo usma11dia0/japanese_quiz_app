@@ -8,6 +8,7 @@ import {
   QUIZ_STATE,
   SELECT_CARD,
   RESULT_PRONUNCIATION,
+  UPLOAD_DATA,
 } from "../../types/features";
 
 export const fetchAsyncGetQuizzes = createAsyncThunk(
@@ -42,17 +43,18 @@ export const fetchAsyncGetChoices = createAsyncThunk(
 
 export const fetchAsyncPostAudio = createAsyncThunk(
   "quiz/postAudio",
-  async (audioBlob: BlobPart) => {
+  async (upLoadData: UPLOAD_DATA) => {
     // 直接音声ファイルをバックエンドへ送る場合;
     //　Blob→Audioファイルへの変換
-    const audioFile = new File([audioBlob], "audiofile.wav", {
+    const audioFile = new File([upLoadData.audioBlob], "audiofile.wav", {
       type: "audio/wav",
     });
-    const uploadData = new FormData();
-    audioFile && uploadData.append("file", audioFile);
+    const upLoadFormData = new FormData();
+    audioFile && upLoadFormData.append("file", audioFile);
+    upLoadFormData.append("choice", upLoadData.choiceText);
     const res = await axios.post<RESULT_PRONUNCIATION>(
       `${process.env.REACT_APP_API_URL}/api/result/`,
-      uploadData,
+      upLoadFormData,
       {
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +62,6 @@ export const fetchAsyncPostAudio = createAsyncThunk(
         },
       }
     );
-    console.log(res);
     return res.data;
   }
 );
