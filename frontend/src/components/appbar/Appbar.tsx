@@ -1,9 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AppBar, Box, Button, IconButton, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import LogoutIcon from "@mui/icons-material/Logout";
+
+import styles from "./Appbar.module.css";
 
 export const Appbar = () => {
   const navigate = useNavigate();
@@ -29,12 +31,19 @@ export const Appbar = () => {
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2 }}
+              sx={{ mr: 0, top: "4px" }}
+              disableRipple={true}
             >
-              <MenuIcon />
+              <Link to="/quizzes/" style={{ textDecoration: "none" }}>
+                <img
+                  src="../../../assets/icon/favicon.jpg"
+                  alt="favicon"
+                  className={styles.topbarImg}
+                />
+              </Link>
             </IconButton>
             <Typography
-              variant="h6"
+              variant="h5"
               component="div"
               sx={{ flexGrow: 1, cursor: "pointer" }}
               mt={-0.2}
@@ -59,7 +68,7 @@ export const Appbar = () => {
                 color="inherit"
                 sx={{ paddingLeft: "3px", justifyContent: "flex-start" }}
               >
-                <Typography variant="h6" component="div" mt={-0.2}>
+                <Typography variant="h5" component="div" mt={-0.5}>
                   退出
                 </Typography>
               </Button>

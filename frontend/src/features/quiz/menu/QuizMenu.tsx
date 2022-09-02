@@ -9,7 +9,7 @@ export const QuizMenu: FC = () => {
 
   return (
     <>
-      <Typography variant="h2" mt={0}>
+      <Typography variant="h2" mt={1}>
         日本語
       </Typography>
       <Typography variant="h2" mt={2}>

@@ -69,14 +69,14 @@ export const QuizPronunciation = () => {
   }, []);
 
   // 対象Choice選択 (if文は再レンダリング対策)
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isloading && answerChoice.choice_text === "") {
       dispatch(selectAnswerChoice(choices[0]));
     }
   }, [isloading]);
 
   //onStart&onStopで上手く動作しなかったため代用
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (status === "recording") {
       setTimer(
         setTimeout(() => {
@@ -91,7 +91,7 @@ export const QuizPronunciation = () => {
   }, [status]);
 
   //正誤判定
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (resultPronunciation.result !== "") {
       if (resultPronunciation.result === answerChoice.choice_text) {
         setIsCorrect(true);
@@ -110,7 +110,7 @@ export const QuizPronunciation = () => {
 
   return (
     <>
-      <Typography variant="h5" fontWeight="bold" mt={-2.0}>
+      <Typography variant="h5" fontWeight="bold" mt={0.5}>
         問. {answerChoice.choice_text}と正しく発音してください。
       </Typography>
       <Typography variant="h6" mt={2.0} mb={1.0}>

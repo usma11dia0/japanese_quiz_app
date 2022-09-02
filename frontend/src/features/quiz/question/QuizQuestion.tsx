@@ -164,7 +164,7 @@ export const QuizQuestion = () => {
 
   return (
     <>
-      <Typography variant="h5" fontWeight="bold" mt={-2.0}>
+      <Typography variant="h5" fontWeight="bold" mt={0.5}>
         問.{choiceIndex + 1} 正しい
         {selectedAnswerChoice ? selectedAnswerChoice.quiz_question_text : ""}
         を選択してください。
