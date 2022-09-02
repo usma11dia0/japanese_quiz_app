@@ -1,7 +1,5 @@
-import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AppBar, Box, Button, IconButton, Toolbar } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import LogoutIcon from "@mui/icons-material/Logout";
 
@@ -31,26 +29,26 @@ export const Appbar = () => {
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 0, top: "4px" }}
+              sx={{ mr: 0, top: "1px" }}
               disableRipple={true}
+              onClick={handleClickToMenu}
             >
-              <Link to="/quizzes/" style={{ textDecoration: "none" }}>
-                <img
-                  src="../../../assets/icon/favicon.jpg"
-                  alt="favicon"
-                  className={styles.topbarImg}
-                />
-              </Link>
+              <img
+                src="../../../assets/icon/favicon.jpg"
+                alt="favicon"
+                className={styles.topbarImg}
+              />
             </IconButton>
             <Typography
               variant="h5"
               component="div"
-              sx={{ flexGrow: 1, cursor: "pointer" }}
+              sx={{ cursor: "pointer" }}
               mt={-0.2}
               onClick={handleClickToMenu}
             >
               日本語同音異義語クイズ
             </Typography>
+            <Box sx={{ flexGrow: 1 }} />
             <Box
               onClick={handleClickLogout}
               sx={{
@@ -58,15 +56,18 @@ export const Appbar = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: "pointer",
-                "&:hover": {
-                  backgroundColor: "rgba(0, 0, 0, 0.04)",
-                },
               }}
             >
               <LogoutIcon />
               <Button
                 color="inherit"
-                sx={{ paddingLeft: "3px", justifyContent: "flex-start" }}
+                sx={{
+                  paddingLeft: "3px",
+                  justifyContent: "flex-start",
+                  "&.MuiButtonBase-root:hover": {
+                    bgcolor: "transparent",
+                  },
+                }}
               >
                 <Typography variant="h5" component="div" mt={-0.5}>
                   退出
@@ -76,10 +77,6 @@ export const Appbar = () => {
           </Toolbar>
         </AppBar>
       </Box>
-      {/* Navibar用 */}
-      {/* <a href="https://www.vecteezy.com/free-vector/nature">
-        Nature Vectors by Vecteezy
-      </a> */}
     </>
   );
 };
