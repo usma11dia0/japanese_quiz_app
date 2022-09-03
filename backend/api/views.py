@@ -1,14 +1,13 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 from rest_framework import status, permissions, generics, viewsets, views
 from .serializers import (
     UserSerializer,
-    ProfileSerializer,
     QuizzesSerializer,
     ChoicesSerializer,
 )
 from rest_framework.response import Response
-from .models import Profile, Quizzes, Choices
-from django.contrib.auth.models import User
+from .models import Quizzes, Choices
+# from django.contrib.auth.models import User
 from model.predict import classify, transform_audiofile
 import pydub
 import tempfile
@@ -34,23 +33,6 @@ class LoginUserView(generics.RetrieveUpdateAPIView):
 
     def update(self, request, *args, **kwargs):
         response = {"message": "PUT METHOD is not allowed"}
-        return Response(response, status=status.HTTP_400_BAD_REQUEST)
-
-
-# ProfileView: GET/POST/PUT　プロフィール取得 (作成 + 更新)
-class ProfileViewSet(viewsets.ModelViewSet):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(user_profile=self.request.user)
-
-    def destroy(self, request, *args, **kwargs):
-        response = {"message": "DELETE method is not allowed"}
-        return Response(response, status=status.HTTP_400_BAD_REQUEST)
-
-    def partial_update(self, request, *args, **kwargs):
-        response = {"message": "PATCH method is not allowed"}
         return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
 

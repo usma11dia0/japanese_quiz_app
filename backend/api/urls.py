@@ -3,14 +3,12 @@ from rest_framework import routers
 from .views import (
     CreateUserView,
     LoginUserView,
-    ProfileViewSet,
     QuizzesViewSet,
     ChoicesViewSet,
     ResultPronunciationView,
 )
 
 router = routers.DefaultRouter()
-router.register("profile", ProfileViewSet)
 router.register("quizzes", QuizzesViewSet)
 router.register("choices", ChoicesViewSet)
 

@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Quizzes, Profile, Choices
+from .models import Quizzes, Choices
 
 admin.site.register(Quizzes)
-admin.site.register(Profile)
 admin.site.register(Choices)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, Quizzes, Choices
+from .models import Quizzes, Choices
 from django.contrib.auth.models import User
 
 
@@ -12,16 +12,6 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         return user
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = ["id", "user_profile"]
-        extra_kwargs = {
-            "user_profile": {"read_only": True}
-        }  # Userモデルと一対一関係で自動作成されるため、user_profileはread_only指定
-
 
 class QuizzesSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M", read_only=True)

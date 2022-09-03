@@ -33,16 +33,6 @@ class Updated(models.Model):
         abstract = True
 
 
-# 自作アプリ要件対象外
-class Profile(models.Model):
-    user_profile = models.OneToOneField(
-        User, related_name="user_profile", on_delete=models.CASCADE
-    )
-
-    def __str__(self):
-        return self.user_profile.username
-
-
 class Quizzes(Updated):
     question_id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     question_text = models.CharField(max_length=100)  # 問題文表記用
