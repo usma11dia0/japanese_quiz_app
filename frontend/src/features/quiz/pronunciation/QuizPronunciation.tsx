@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { Grid, Typography, CircularProgress, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,7 +43,6 @@ export const QuizPronunciation = () => {
       audio: true,
       onStart: () => {
         //stateの初期化
-        // isCorrect = undefined;
         setIsCorrect(undefined);
         dispatch(resetResultPronunciation());
       },
@@ -138,24 +137,7 @@ export const QuizPronunciation = () => {
         ) : (
           ""
         )}
-        {status === "stopped" ? (
-          // <div style={{ marginTop: "6px" }}>
-          //   <audio src={mediaBlobUrl} controls />
-          // </div>
-          <></>
-        ) : (
-          ""
-        )}
-        {!resultPronunciation.isJudging && resultPronunciation.result !== "" ? (
-          // <Typography variant="h6">
-          //   {resultPronunciation.result}
-          //   {resultPronunciation.proba}
-          //   {resultPronunciation.result == answerChoice.choice_text
-          //     ? "正解！"
-          //     : "不正解"}
-          // </Typography>
-          <></>
-        ) : resultPronunciation.isJudging ? (
+        {resultPronunciation.isJudging ? (
           <Box mt={1.2} mb={1.2}>
             <CircularProgress />
           </Box>

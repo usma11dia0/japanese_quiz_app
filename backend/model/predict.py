@@ -46,27 +46,14 @@ def transform_audiofile(data_path):
 class Net(pl.LightningModule):
     def __init__(self):
         super().__init__()
-        # #Resnetの場合
         # 特徴抽出機を指定
         self.feature = resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
-        # #最初の畳み込みのチャネル3をチャネル1に変更する
-        # self.conv1 = nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
         # 最後の層の次元を出力カテゴリ数に変更する
         self.fc = nn.Linear(1000, 7)
 
-        # #EfficientNetV2の場合
-        # #特徴抽出機を指定
-        # self.feature = efficientnet_v2_s(weights = EfficientNet_V2_S_Weights.IMAGENET1K_V1)
-        # # 最後の層の次元を今回のカテゴリ数に変更する
-        # self.classifier = nn.Linear(1000,2)
-
     def forward(self, x):
-        # Resnetの場合
         h = self.feature(x)
         h = self.fc(h)
-        # #EfficientNetV2の場合
-        # h = self.feature(x)
-        # h = self.classifier(h)
         return h
 
     def training_step(self, batch, batch_idx):
@@ -131,6 +118,5 @@ def classify(mel_img_url):
     result = torch.argmax(F.softmax(y, dim=1)).item()
     # 推論結果(確率)
     proba = F.softmax(y, dim=1).tolist()
-
 
     return result, proba

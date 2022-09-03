@@ -169,7 +169,7 @@ export const QuizPronunciationDisplay = (props: Props) => {
                     ) : row.item === "画像" ? (
                       <img
                         src={`${row.data}`}
-                        alt="音階画像データ"
+                        alt="選択肢画像データ"
                         className={styles.img}
                       />
                     ) : (

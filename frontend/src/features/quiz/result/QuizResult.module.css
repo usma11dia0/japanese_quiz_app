@@ -6,7 +6,7 @@
   margin: 24px;
 }
 
-.tasklist__icon {
+.resultlist__icon {
   cursor: pointer;
   background-color: transparent;
   border: none;
@@ -16,7 +16,7 @@
   color: dimgray;
 }
 
-.tasklist__hover {
+.resultlist__hover {
   cursor: pointer;
 }
 

@@ -111,7 +111,6 @@ export const authSlice = createSlice({
 });
 
 export const { toggleMode } = authSlice.actions;
-
 export const selectIsLoginView = (state: RootState) => state.auth.isLoginView;
 export const selectLoginUser = (state: RootState) => state.auth.loginUser;
 export const selectError = (state: RootState) => state.auth.error;

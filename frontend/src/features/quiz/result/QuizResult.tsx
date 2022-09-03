@@ -26,6 +26,7 @@ import { useAudio } from "../../../hooks/useAudio";
 import { AppDispatch } from "../../../app/store";
 import styles from "./QuizResult.module.css";
 import { QuizDisplay } from "./QuizDisplay";
+import { READ_CHOICE } from "../../../types/features";
 
 export const QuizResult = () => {
   const [open, setOpen] = useState(false);
@@ -138,13 +139,11 @@ export const QuizResult = () => {
               >
                 戻る
               </Button>
-              {/* <Grid container spacing={2}>
-              <Grid item xs={7}> */}
               <Table size="medium" className={styles.table} sx={{ mt: 6 }}>
                 <TableHead>
                   <TableRow>
                     {columns.map(
-                      (column, colIndex) =>
+                      (column: string, colIndex: number) =>
                         (column === "quiz_question_text" ||
                           column === "choice_text" ||
                           column === "is_correct") && (
@@ -165,7 +164,7 @@ export const QuizResult = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {resultChoices.map((row, rowIndex) => (
+                  {resultChoices.map((row: READ_CHOICE, rowIndex: number) => (
                     <TableRow hover key={rowIndex}>
                       {Object.keys(row).map(
                         (key, colIndex) =>
@@ -175,7 +174,7 @@ export const QuizResult = () => {
                           row["is_correct"] !== undefined && (
                             <TableCell
                               align="center"
-                              className={styles.tasklist__hover}
+                              className={styles.resultlist__hover}
                               key={`${rowIndex}+${colIndex}`}
                               onClick={() => {
                                 dispatch(selectAnswerChoice(row));
@@ -205,7 +204,7 @@ export const QuizResult = () => {
                       {row["is_correct"] !== undefined ? (
                         <TableCell align="center">
                           <button
-                            className={styles.tasklist__icon}
+                            className={styles.resultlist__icon}
                             onClick={() => {
                               dispatch(selectAnswerChoice(row));
                             }}
@@ -221,12 +220,10 @@ export const QuizResult = () => {
                 </TableBody>
               </Table>
             </Grid>
-            {/* </Grid> */}
             <Grid item xs={4} mt={2.3} ml={3}>
               <QuizDisplay />
             </Grid>
           </Grid>
-          {/* </Grid> */}
         </Box>
       </Modal>
     </>

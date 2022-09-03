@@ -15,7 +15,6 @@ import tempfile
 import librosa.display
 import matplotlib
 import matplotlib.pyplot as plt
-import os
 
 # バックエンドを指定
 matplotlib.use("Agg")

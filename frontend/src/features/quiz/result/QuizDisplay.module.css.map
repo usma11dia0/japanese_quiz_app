@@ -1,1 +1,1 @@
-{"version":3,"sources":["QuizDisplay.module.scss","QuizDisplay.module.css"],"names":[],"mappings":"AAAA;EACE,mBAAA;EACA,WAAA;ACCF;;ADGA;EACE,uBAAA;MAAA,yBAAA;EACA,UAAA;ACAF;;ADGA;EACE,WAAA;EACA,YAAA;ACAF","file":"QuizDisplay.module.css"}
+{"version":3,"sources":["QuizDisplay.module.scss","QuizDisplay.module.css"],"names":[],"mappings":"AAAA;EACE,mBAAA;EACA,WAAA;ACCF;;ADEA;EACE,uBAAA;MAAA,yBAAA;EACA,UAAA;ACCF;;ADEA;EACE,WAAA;EACA,YAAA;ACCF","file":"QuizDisplay.module.css"}

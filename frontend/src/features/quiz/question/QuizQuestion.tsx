@@ -98,21 +98,18 @@ export const QuizQuestion = () => {
     if (e.target instanceof HTMLElement) {
       switch (e.target.innerText) {
         case "":
+          //クリックの対象がChoiceCardの画像だった場合
           if (e.target instanceof HTMLImageElement) {
             if (
               e.target.currentSrc === selectedAnswerChoice?.image_choice_src
             ) {
-              // alert("正解です");
-              // console.log(e.target.currentSrc);
-              // console.log(selectedAnswerChoice?.image_choice_src);
+              // "正解"の場合
               setIsCorrect(true);
               dispatch(incrementScore());
               dispatch(addIsCorrect(selectedAnswerChoice));
               playAudio("../../../../assets/audio/seikai_1.mp3", 0.1);
             } else {
-              // alert("不正解です");
-              // console.log(e.target.currentSrc);
-              // console.log(selectedAnswerChoice?.image_choice_src);
+              // "不正解"の場合
               setIsCorrect(false);
               dispatch(addIsInCorrect(selectedAnswerChoice));
               playAudio("../../../../assets/audio/huseikai_2.mp3", 0.1);
@@ -120,21 +117,18 @@ export const QuizQuestion = () => {
           }
           break;
         default:
+          //クリックの対象がChoiceCardの文字列だった場合
           if (
             e.target.innerText.toUpperCase() ===
             selectedAnswerChoice?.choice_text.toUpperCase()
           ) {
-            // alert("正解です");
-            // console.log(e.target.innerText);
-            // console.log(selectedAnswerChoice?.choice_text);
+            // "正解"の場合
             setIsCorrect(true);
             dispatch(incrementScore());
             dispatch(addIsCorrect(selectedAnswerChoice));
             playAudio("../../../../assets/audio/seikai_1.mp3", 0.1);
           } else {
-            // alert("不正解です");
-            // console.log(e.target.innerText);
-            // console.log(selectedAnswerChoice?.choice_text);
+            // "不正解"の場合
             setIsCorrect(false);
             dispatch(addIsInCorrect(selectedAnswerChoice));
             playAudio("../../../../assets/audio/huseikai_2.mp3", 0.1);

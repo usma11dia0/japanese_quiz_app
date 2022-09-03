@@ -45,7 +45,6 @@ export const Auth: FC = () => {
             progress: undefined,
           }
         );
-
         //AxiosErrorのメッセージを直接取得する場合
         // if (resultAction.payload) {
         //   setErrorMessage(`${resultAction.payload.detail}`);

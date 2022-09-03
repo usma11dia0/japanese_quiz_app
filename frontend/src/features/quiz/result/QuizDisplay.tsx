@@ -12,7 +12,6 @@ export const QuizDisplay = () => {
   const rows = [
     { item: "設問", data: selectedChoice.quiz_question_text },
     { item: "正答", data: selectedChoice.choice_text },
-    // { item: "結果", data: selectedChoice.is_correct },
     { item: "音声", data: selectedChoice.audio_choice_src },
     { item: "画像", data: selectedChoice.image_choice_src },
     { item: "解説", data: selectedChoice.answer_explanation },
