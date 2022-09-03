@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -15,13 +16,14 @@ import {
 import { useAudio } from "../../../hooks/useAudio";
 import { RESULT_PRONUNCIATION } from "../../../types/features";
 import {
+  resetState,
   selectResultPronunciation,
   selectScore,
   selectSelectedAnswerChoice,
 } from "../quizSlice";
 import { SoundIcon } from "../../../components/button/SoundIcon";
 import styles from "./QuizPronunciationDisplay.module.css";
-import { useNavigate } from "react-router-dom";
+import { AppDispatch } from "../../../app/store";
 
 export type Props = {
   isOpen: boolean;
@@ -33,6 +35,7 @@ export const QuizPronunciationDisplay = (props: Props) => {
   const { isOpen, setIsOpen, mediaBlobUrl } = props;
   const score = useSelector(selectScore);
   const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
   const resultPronunciation: RESULT_PRONUNCIATION = useSelector(
     selectResultPronunciation
   );
@@ -199,7 +202,7 @@ export const QuizPronunciationDisplay = (props: Props) => {
               onClick={() => {
                 navigate("/quizzes/");
                 // store内のRedux stateをリセット
-                window.location.reload();
+                dispatch(resetState());
               }}
               sx={{ top: "1.5rem" }}
             >

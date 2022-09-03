@@ -10,15 +10,6 @@ import {
   ValidationErrors,
 } from "../../types/features";
 
-const initialState: AUTH_STATE = {
-  isLoginView: true,
-  loginUser: {
-    id: 0,
-    username: "",
-  },
-  error: null,
-};
-
 export const fetchAsyncLogin = createAsyncThunk<
   JWT,
   CRED,
@@ -74,6 +65,15 @@ export const fetchAsyncGetMyProf = createAsyncThunk(
     return res.data;
   }
 );
+
+const initialState: AUTH_STATE = {
+  isLoginView: true,
+  loginUser: {
+    id: 0,
+    username: "",
+  },
+  error: null,
+};
 
 export const authSlice = createSlice({
   name: "auth",

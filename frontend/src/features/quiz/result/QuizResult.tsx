@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
+  resetState,
   initialState,
   selectChoices,
   selectAnswerChoice,
@@ -133,7 +134,7 @@ export const QuizResult = () => {
                 onClick={() => {
                   navigate("/quizzes/");
                   // store内のRedux stateをリセット
-                  window.location.reload();
+                  dispatch(resetState());
                 }}
                 sx={{ ml: 7, top: -6 }}
               >

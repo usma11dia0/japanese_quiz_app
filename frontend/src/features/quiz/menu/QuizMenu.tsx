@@ -1,8 +1,8 @@
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 
 import { PrimaryButton } from "../../../components/button/PrimaryButton";
-import { useNavigate } from "react-router-dom";
 
 export const QuizMenu: FC = () => {
   const navigate = useNavigate();

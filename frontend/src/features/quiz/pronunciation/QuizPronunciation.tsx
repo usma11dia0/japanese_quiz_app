@@ -107,6 +107,14 @@ export const QuizPronunciation = () => {
     }
   }, [resultPronunciation.result]);
 
+  if (isloading) {
+    return (
+      <Box mt={20}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <>
       <Typography variant="h5" fontWeight="bold" mt={0.5}>

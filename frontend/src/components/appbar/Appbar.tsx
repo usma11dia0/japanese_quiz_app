@@ -1,12 +1,16 @@
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AppBar, Box, Button, IconButton, Toolbar } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import LogoutIcon from "@mui/icons-material/Logout";
 
+import { AppDispatch } from "../../app/store";
+import { useDispatch } from "react-redux";
+import { resetState } from "../../features/quiz/quizSlice";
 import styles from "./Appbar.module.css";
 
 export const Appbar = () => {
   const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
 
   const handleClickLogout = () => {
     localStorage.removeItem("localJWT");
@@ -16,7 +20,7 @@ export const Appbar = () => {
   const handleClickToMenu = () => {
     navigate("/quizzes");
     // store内のRedux stateをリセット
-    window.location.reload();
+    dispatch(resetState());
   };
 
   return (
