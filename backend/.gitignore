@@ -1,4 +1,5 @@
 japanesequizvenv
+.env
 *.pyc
 *~
 __pycache__
