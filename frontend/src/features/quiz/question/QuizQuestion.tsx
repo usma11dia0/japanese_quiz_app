@@ -100,8 +100,15 @@ export const QuizQuestion = () => {
         case "":
           //クリックの対象がChoiceCardの画像だった場合
           if (e.target instanceof HTMLImageElement) {
+            // SSL対策 デプロイ時にhttp→https変換されるため//以降を取得
+            const targetIndex = e.target.currentSrc.indexOf("//");
+            const answerChoiceIndex =
+              selectedAnswerChoice?.image_choice_src.indexOf("//");
             if (
-              e.target.currentSrc === selectedAnswerChoice?.image_choice_src
+              e.target.currentSrc.substring(targetIndex) ===
+              selectedAnswerChoice?.image_choice_src.substring(
+                answerChoiceIndex
+              )
             ) {
               // "正解"の場合
               setIsCorrect(true);
@@ -158,7 +165,7 @@ export const QuizQuestion = () => {
 
   return (
     <>
-      <Typography variant="h5" fontWeight="bold" mt={0.5}>
+      <Typography variant="h5" fontWeight="bold" mt={-1.2}>
         問.{choiceIndex + 1} 正しい
         {selectedAnswerChoice ? selectedAnswerChoice.quiz_question_text : ""}
         を選択してください。
