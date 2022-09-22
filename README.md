@@ -7,11 +7,13 @@ URL: https://japanese-quiz-app.site
 
 ※推奨ブラウザ：Google Chrome
 
-## クラウドアーキテクチャ
+## アーキテクチャ図
 ![image](https://user-images.githubusercontent.com/30208963/191673281-c1bc36a0-1703-411a-9deb-e6c649ab057c.png)
 
 
 ## 機械学習(音声分類)フロー
+![image](https://user-images.githubusercontent.com/30208963/191854105-169a5265-7f75-4ef8-ab18-418d90068410.png)
+
 
 
 ## 技術スタック一覧
