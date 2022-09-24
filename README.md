@@ -12,8 +12,7 @@ URL: https://japanese-quiz-app.site
 
 
 ## 機械学習(音声分類)フロー
-![image](https://user-images.githubusercontent.com/30208963/191854105-169a5265-7f75-4ef8-ab18-418d90068410.png)
-
+![image](https://user-images.githubusercontent.com/30208963/192074880-716fb273-d6ba-4f17-9329-729bfdac1bf3.png)
 
 
 ## 技術スタック一覧
