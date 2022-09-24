@@ -1,7 +1,7 @@
 # 日本語同音異義語クイズアプリ:japan:
-同音異義語(日本語)の”聞き取り”や"発声”が練習出来る無料ブラウザアプリです。:warning: スマホ未対応
+同音異義語(日本語)の”聞き取り”や"発声”が練習出来るブラウザアプリです。:warning: スマホ未対応
 
-![japanese_quiz_app_banner](https://user-images.githubusercontent.com/30208963/191635289-239c9bf2-452c-4b09-b5a8-c1143e56a8b4.png)
+![image](https://user-images.githubusercontent.com/30208963/192075555-5fbde9f1-1e59-4fd5-a793-bf3d42d372d4.png)
 
 URL: https://japanese-quiz-app.site
 
