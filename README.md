@@ -14,6 +14,9 @@ URL: https://japanese-quiz-app.site
 ## 機械学習(音声分類)フロー
 ![image](https://user-images.githubusercontent.com/30208963/192074880-716fb273-d6ba-4f17-9329-729bfdac1bf3.png)
 
+### ※モデルの学習結果
+![image](https://user-images.githubusercontent.com/30208963/192075323-7c7ade9c-a1e9-4c04-b4f1-2c1b256d6262.png)
+
 
 ## 技術スタック一覧
 - **Backend:** Django REST Framework + Nginx + gunicorn
