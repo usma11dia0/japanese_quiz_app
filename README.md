@@ -8,7 +8,7 @@ URL: https://japanese-quiz-app.site
 ※推奨ブラウザ：Google Chrome
 
 ## デモ動画
-![demo_japanese_quiz_app](https://user-images.githubusercontent.com/30208963/192712641-d73989f1-fb5f-4120-9fb0-e8f4bbc81620.gif)
+![demo_japanese_quiz_app](https://user-images.githubusercontent.com/30208963/192776306-37bb3e9f-31af-4a4e-bb04-457e62ca2ebf.gif)
 
 ## アーキテクチャ図
 ![image](https://user-images.githubusercontent.com/30208963/191673281-c1bc36a0-1703-411a-9deb-e6c649ab057c.png)
