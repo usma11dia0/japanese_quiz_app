@@ -33,7 +33,7 @@ URL: https://japanese-quiz-app.site
 #### :white_check_mark: 主要ライブラリ/モジュール
 - ``djangorestframework-simplejwt``: JSON Web Token認証のプラグイン
 - ``django-cors-headers``: CORS用の情報をHTTPレスポンスヘッダへ付加
-- ``djoser``: ユーザ認証・登録をサポートするサード―パーティ製パッケージ
+- ``djoser``: ユーザ認証・登録をサポートするサードパーティ製パッケージ
 - ``Black``：PEP8に準拠するPythonのコードフォーマッター
 
 
