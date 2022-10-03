@@ -88,7 +88,9 @@ export const QuizQuestion = () => {
 
   const handleClickAudio = () => {
     playAudio(
-      selectedAnswerChoice ? selectedAnswerChoice.audio_choice_src : "",
+      selectedAnswerChoice
+        ? selectedAnswerChoice.audio_choice_src.replace("http", "https")
+        : "",
       1.0
     );
   };
@@ -162,6 +164,9 @@ export const QuizQuestion = () => {
       </Box>
     );
   }
+  console.log(
+    selectedQuestionChoices[0].image_choice_src.replace("http", "https")
+  );
 
   return (
     <>
@@ -184,7 +189,10 @@ export const QuizQuestion = () => {
             customSx={{ mt: 2 }}
             imgSrc={
               selectedQuestionChoices[0].quiz !== ""
-                ? selectedQuestionChoices[0].image_choice_src
+                ? selectedQuestionChoices[0].image_choice_src.replace(
+                    "http",
+                    "https"
+                  )
                 : ""
             }
             isCorrect={isCorrect}
@@ -204,7 +212,10 @@ export const QuizQuestion = () => {
             customSx={{ mt: 2 }}
             imgSrc={
               selectedQuestionChoices[0].quiz !== ""
-                ? selectedQuestionChoices[1].image_choice_src
+                ? selectedQuestionChoices[1].image_choice_src.replace(
+                    "http",
+                    "https"
+                  )
                 : ""
             }
             isCorrect={isCorrect}
