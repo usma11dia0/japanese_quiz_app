@@ -164,9 +164,6 @@ export const QuizQuestion = () => {
       </Box>
     );
   }
-  console.log(
-    selectedQuestionChoices[0].image_choice_src.replace("http", "https")
-  );
 
   return (
     <>
