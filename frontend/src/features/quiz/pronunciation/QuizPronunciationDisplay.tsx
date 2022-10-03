@@ -43,8 +43,14 @@ export const QuizPronunciationDisplay = (props: Props) => {
   const { playAudio } = useAudio();
   const rows = [
     { item: "設問", data: selectedChoice.choice_text },
-    { item: "音声", data: selectedChoice.audio_choice_src },
-    { item: "画像", data: selectedChoice.image_choice_src },
+    {
+      item: "音声",
+      data: selectedChoice.audio_choice_src.replace("http", "https"),
+    },
+    {
+      item: "画像",
+      data: selectedChoice.image_choice_src.replace("http", "https"),
+    },
     { item: "解説", data: selectedChoice.answer_explanation },
   ];
 

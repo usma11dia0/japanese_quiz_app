@@ -156,7 +156,11 @@ export const QuizPronunciation = () => {
       <Grid container sx={{ width: "auto" }}>
         <ChoiceCard
           customSx={{ mt: "2vh", width: "20rem", alignItems: "center" }}
-          imgSrc={answerChoice.quiz !== "" ? answerChoice.image_choice_src : ""}
+          imgSrc={
+            answerChoice.quiz !== ""
+              ? answerChoice.image_choice_src.replace("http", "https")
+              : ""
+          }
           isCorrect={isCorrect}
           isClicked={resultPronunciation.result !== "" ? true : undefined}
         >
