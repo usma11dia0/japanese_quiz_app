@@ -31,6 +31,13 @@ URL: https://japanese-quiz-app.site
 - **Infra:** AWS (EC2 / RDS / ALB / Route53 / ACM ), Firebase
 
 
+## 技術スタック選定理由
+- **Backend:** 機械学習モデル構築にpythonを用いるため、pythonのWebアプリフレームワークであるDjango REST Frameworkを採用。
+- **Frontend:** 現在フロントエンド界隈で人気のあるTypeScriptを学んでみたいと思い、TypeScriptの利用を決定。それに伴いTypeScriptと相性が良く、TypeScriptとの連携手法が書かれた参考記事・動画が多いReactを採用。
+- **machine learning**: 事前学習されたResNetが利用可能で、ファインチューニングの実施が容易なPytorch Lightningを採用。
+- **Infra:** :　実務レベルのインフラ構築経験のため、個人開発アプリではあるがロードバランサーを介したWebサーバー×2/DBサーバー×2構成を採用。DBについても実務レベルを想定してPostgreSQLを採用。CDNについては採用企業が近年増えてきており、参考資料も豊富なFirebase Hostingを採用。
+         
+
 ## 技術スタック詳細
 ### *Backend : Django REST Framework + Nginx + gunicorn*
 #### :white_check_mark: 主要ライブラリ/モジュール
