@@ -10,6 +10,9 @@ URL: https://japanese-quiz-app.site
 ## デモ動画
 ![demo_japanese_quiz_app](https://user-images.githubusercontent.com/30208963/192776306-37bb3e9f-31af-4a4e-bb04-457e62ca2ebf.gif)
 
+## 作成に至った背景
+![background_japanese_quiz_app](https://user-images.githubusercontent.com/30208963/194481603-0b096094-f815-4a01-80b9-775e2007dfaf.png)
+
 ## アーキテクチャ図
 ![image](https://user-images.githubusercontent.com/30208963/191673281-c1bc36a0-1703-411a-9deb-e6c649ab057c.png)
 
