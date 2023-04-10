@@ -1,5 +1,5 @@
 # 日本語同音異義語クイズアプリ:japan:
-同音異義語(日本語)の”聞き取り”や"発声”が練習出来るブラウザアプリです。:warning: スマホ未対応
+同音異義語(日本語)の”聞き取り”や"発声”が練習出来るブラウザアプリです。:warning: スマホ未対応 :warning: 現在停止中 
 
 ![image](https://user-images.githubusercontent.com/30208963/192075555-5fbde9f1-1e59-4fd5-a793-bf3d42d372d4.png)
 
