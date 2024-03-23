@@ -45,11 +45,11 @@ export const QuizPronunciationDisplay = (props: Props) => {
     { item: "設問", data: selectedChoice.choice_text },
     {
       item: "音声",
-      data: selectedChoice.audio_choice_src.replace("http", "https"),
+      data: selectedChoice.audio_choice_src.replace("http", process.env.REACT_APP_API_PROTOCOL || "https" ),
     },
     {
       item: "画像",
-      data: selectedChoice.image_choice_src.replace("http", "https"),
+      data: selectedChoice.image_choice_src.replace("http", process.env.REACT_APP_API_PROTOCOL || "https" ),
     },
     { item: "解説", data: selectedChoice.answer_explanation },
   ];

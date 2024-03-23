@@ -89,7 +89,7 @@ export const QuizQuestion = () => {
   const handleClickAudio = () => {
     playAudio(
       selectedAnswerChoice
-        ? selectedAnswerChoice.audio_choice_src.replace("http", "https")
+        ? selectedAnswerChoice.audio_choice_src.replace("http", process.env.REACT_APP_API_PROTOCOL || "https" )
         : "",
       1.0
     );
@@ -188,7 +188,7 @@ export const QuizQuestion = () => {
               selectedQuestionChoices[0].quiz !== ""
                 ? selectedQuestionChoices[0].image_choice_src.replace(
                     "http",
-                    "https"
+                    process.env.REACT_APP_API_PROTOCOL || "https" 
                   )
                 : ""
             }
@@ -211,7 +211,7 @@ export const QuizQuestion = () => {
               selectedQuestionChoices[0].quiz !== ""
                 ? selectedQuestionChoices[1].image_choice_src.replace(
                     "http",
-                    "https"
+                    process.env.REACT_APP_API_PROTOCOL || "https" 
                   )
                 : ""
             }

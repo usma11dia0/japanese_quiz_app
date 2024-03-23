@@ -158,7 +158,7 @@ export const QuizPronunciation = () => {
           customSx={{ mt: "2vh", width: "20rem", alignItems: "center" }}
           imgSrc={
             answerChoice.quiz !== ""
-              ? answerChoice.image_choice_src.replace("http", "https")
+              ? answerChoice.image_choice_src.replace("http", process.env.REACT_APP_API_PROTOCOL || "https" )
               : ""
           }
           isCorrect={isCorrect}
